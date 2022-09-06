@@ -34,7 +34,8 @@
                 android:layout_marginEnd="100dp"
                 android:backgroundTint="@color/gray"
                 android:gravity="center"
-                android:hint="@string/button1"
+                android:text="@string/button1"
+                android:textAllCaps="false"
                 android:padding="15dp"
                 android:textColorHint="@color/black" />
 
@@ -46,7 +47,8 @@
                 android:layout_marginEnd="100dp"
                 android:backgroundTint="@color/gray"
                 android:gravity="center"
-                android:hint="@string/button2"
+                android:text="@string/button2"
+                android:textAllCaps="false"
                 android:padding="15dp"
                 android:textColorHint="@color/black" />
 
@@ -58,7 +60,8 @@
                 android:layout_marginEnd="100dp"
                 android:backgroundTint="@color/gray"
                 android:gravity="center"
-                android:hint="@string/button3"
+                android:text="@string/button3"
+                android:textAllCaps="false"
                 android:padding="15dp"
                 android:textColorHint="@color/black" />
 
@@ -70,7 +73,8 @@
                 android:layout_marginEnd="100dp"
                 android:backgroundTint="@color/gray"
                 android:gravity="center"
-                android:hint="@string/button4"
+                android:text="@string/button4"
+                android:textAllCaps="false"
                 android:padding="15dp"
                 android:textColorHint="@color/black" />
 
@@ -82,7 +86,8 @@
                 android:layout_marginEnd="100dp"
                 android:backgroundTint="@color/gray"
                 android:gravity="center"
-                android:hint="@string/button5"
+                android:text="@string/button5"
+                android:textAllCaps="false"
                 android:padding="15dp"
                 android:textColorHint="@color/black" />
 
@@ -94,7 +99,8 @@
                 android:layout_marginEnd="100dp"
                 android:backgroundTint="@color/gray"
                 android:gravity="center"
-                android:hint="@string/button6"
+                android:text="@string/button6"
+                android:textAllCaps="false"
                 android:padding="15dp"
                 android:textColorHint="@color/black" />
 
@@ -106,7 +112,8 @@
                 android:layout_marginEnd="100dp"
                 android:backgroundTint="@color/gray"
                 android:gravity="center"
-                android:hint="@string/button7"
+                android:text="@string/button7"
+                android:textAllCaps="false"
                 android:padding="15dp"
                 android:textColorHint="@color/black" />
 
@@ -118,7 +125,8 @@
                 android:layout_marginEnd="100dp"
                 android:backgroundTint="@color/gray"
                 android:gravity="center"
-                android:hint="@string/button8"
+                android:text="@string/button8"
+                android:textAllCaps="false"
                 android:padding="15dp"
                 android:textColorHint="@color/black" />
 
@@ -130,7 +138,8 @@
                 android:layout_marginEnd="100dp"
                 android:backgroundTint="@color/gray"
                 android:gravity="center"
-                android:hint="@string/button9"
+                android:text="@string/button9"
+                android:textAllCaps="false"
                 android:padding="15dp"
                 android:textColorHint="@color/black" />
 
@@ -142,7 +151,8 @@
                 android:layout_marginEnd="100dp"
                 android:backgroundTint="@color/gray"
                 android:gravity="center"
-                android:hint="@string/button10"
+                android:text="@string/button10"
+                android:textAllCaps="false"
                 android:padding="15dp"
                 android:textColorHint="@color/black" />
 
