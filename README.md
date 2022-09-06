@@ -1,2 +1,2 @@
-# 简介
-hello 分支
+# introduction
+hello branch
