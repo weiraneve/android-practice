@@ -1,2 +1,2 @@
-# 简介
-master 分支
+# introduction
+master branch
