@@ -10,12 +10,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val button = findViewById<Button>(R.id.button0)
-        button!!.setOnClickListener { openNewActivity() }
+        val constraintButton = findViewById<Button>(R.id.constraint)
+        constraintButton!!.setOnClickListener { openConstraintActivity() }
+
+        val loginButton = findViewById<Button>(R.id.login)
+        loginButton!!.setOnClickListener { openLoginActivity() }
 
     }
 
-    private fun openNewActivity() {
+    private fun openLoginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun openConstraintActivity() {
         val intent =  Intent(this, ConstraintActivity::class.java)
         startActivity(intent)
     }

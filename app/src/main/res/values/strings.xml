@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">android</string>
     <string name="button1">constraint_layout</string>
-    <string name="button2">按钮 2</string>
+    <string name="button2">login</string>
     <string name="button3">按钮 3</string>
     <string name="button4">按钮 4</string>
     <string name="button5">按钮 5</string>
