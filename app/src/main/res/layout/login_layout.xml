@@ -8,27 +8,25 @@
     tools:context=".LoginActivity">
 
     <ImageView
-        android:layout_width="148.9dp"
-        android:layout_height="30.3dp"
-        android:layout_marginLeft="113.1dp"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
         android:layout_marginTop="88dp"
-        android:layout_marginRight="113.1dp"
-        android:layout_marginBottom="548.7dp"
+        android:layout_marginStart="113.1dp"
+        android:layout_marginEnd="113.1dp"
         android:background="@drawable/fill_1"
         android:contentDescription="@string/aware"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="62.5dp"
+        android:layout_marginStart="62.5dp"
+        android:layout_marginEnd="62.5dp"
         android:layout_marginTop="196dp"
-        android:layout_marginRight="62.5dp"
-        android:layout_marginBottom="431dp"
-        android:autofillHints=""
         android:background="@drawable/shape"
         android:hint="@string/username"
         android:inputType="text"
@@ -36,24 +34,27 @@
         android:textColor="@color/font0"
         android:textColorHint="@color/font0"
         android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        android:autofillHints="" />
 
     <EditText
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="62.5dp"
-        android:layout_marginTop="246dp"
         android:layout_marginRight="62.5dp"
+        android:layout_marginTop="246dp"
         android:layout_marginBottom="391dp"
         android:autofillHints=""
         android:background="@drawable/shape"
         android:hint="@string/password"
         android:inputType="text"
         android:paddingStart="20dp"
+        android:textColor="@color/font0"
         android:textColorHint="@color/font0"
         android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -64,12 +65,12 @@
         android:layout_width="wrap_content"
         android:layout_height="22.5dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="304dp"
+        android:layout_marginTop="308dp"
         android:buttonTint="@color/font0"
         android:checked="false"
         android:text="@string/remember_me"
-        android:textColor="@color/font1"
 
+        android:textColor="@color/font1"
         android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -77,8 +78,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="22.5dp"
-        android:layout_marginStart="208dp"
-        android:layout_marginTop="304dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="308dp"
         android:padding="3dp"
         android:text="@string/forgot_password"
         android:textColor="@color/font1"
@@ -88,13 +89,13 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="260dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="364dp"
-        android:layout_marginEnd="88dp"
+        android:layout_width="286dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="368dp"
+        android:layout_marginEnd="64dp"
         android:background="@drawable/button_bg_rounded_corners"
-        android:text="@string/login"
         android:foreground="?selectableItemBackground"
+        android:text="@string/login"
         android:textAllCaps="false"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +115,7 @@
     <Button
         android:layout_width="120dp"
         android:layout_height="40dp"
-        android:layout_marginStart="200dp"
+        android:layout_marginStart="212dp"
         android:layout_marginTop="472dp"
         android:background="@drawable/tw"
         android:contentDescription="@string/twitter"
@@ -125,7 +126,7 @@
     <Button
         android:layout_width="120dp"
         android:layout_height="40dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="472dp"
         android:background="@drawable/fb"
         android:contentDescription="@string/facebook"
@@ -134,17 +135,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:layout_width="260dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="88dp"
-        android:layout_marginTop="582.5dp"
-        android:layout_marginBottom="44.5dp"
+        android:layout_width="286dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="580dp"
+        android:layout_marginEnd="64dp"
         android:background="@drawable/button_bg_rounded_corners_sign"
+        android:foreground="?selectableItemBackground"
         android:text="@string/sign_up"
         android:textAllCaps="false"
         android:textColor="#1f4ba5"
         android:textSize="12sp"
-        android:foreground="?selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
