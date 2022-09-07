@@ -20,4 +20,8 @@
     <string name="password" translatable="false">Password</string>
     <string name="remember_me" translatable="false">Remember me</string>
     <string name="forgot_password" translatable="false">Forgot password?</string>
+    <string name="or_connect_with" translatable="false">or connect with</string>
+    <string name="sign_up" translatable="false">Sign Up with E-mail</string>
+    <string name="twitter" translatable="false">twitter</string>
+    <string name="facebook" translatable="false">facebook</string>
 </resources>

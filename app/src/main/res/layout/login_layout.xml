@@ -1,78 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="21dp">
 
     <ImageView
         android:layout_width="148.9dp"
         android:layout_height="30.3dp"
         android:layout_marginLeft="113.1dp"
-        android:layout_marginRight="113.1dp"
         android:layout_marginTop="88dp"
+        android:layout_marginRight="113.1dp"
         android:layout_marginBottom="548.7dp"
         android:background="@drawable/fill_1"
+        android:contentDescription="@string/aware"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/aware" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="196dp"
-        android:layout_marginBottom="431dp"
-        android:layout_marginLeft="62.5dp"
-        android:layout_marginRight="62.5dp"
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:paddingStart="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="62.5dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginRight="62.5dp"
+        android:layout_marginBottom="431dp"
+        android:autofillHints=""
         android:background="@drawable/shape"
         android:hint="@string/username"
-        android:textColorHint="@color/gray"
+        android:inputType="text"
+        android:paddingStart="20dp"
+        android:textColor="@color/font0"
+        android:textColorHint="@color/font0"
+        android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry" />
 
     <EditText
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="246dp"
-        android:layout_marginBottom="391dp"
-        android:layout_marginLeft="62.5dp"
-        android:layout_marginRight="62.5dp"
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:paddingStart="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="62.5dp"
+        android:layout_marginTop="246dp"
+        android:layout_marginRight="62.5dp"
+        android:layout_marginBottom="391dp"
+        android:autofillHints=""
         android:background="@drawable/shape"
         android:hint="@string/password"
-        android:textColorHint="@color/gray"
+        android:inputType="text"
+        android:paddingStart="20dp"
+        android:textColorHint="@color/font0"
+        android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="115dp"
+    <CheckBox
+        android:layout_width="wrap_content"
         android:layout_height="22.5dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="304dp"
+        android:buttonTint="@color/font0"
+        android:checked="false"
         android:text="@string/remember_me"
-        android:textColor="@color/black"
+        android:textColor="@color/font1"
+
+        android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="115dp"
+        android:layout_width="wrap_content"
         android:layout_height="22.5dp"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginLeft="208dp"
+        android:layout_marginTop="304dp"
+        android:padding="3dp"
         android:text="@string/forgot_password"
-        android:textColor="@color/black"
+        android:textColor="@color/font1"
+        android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="260dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="364dp"
+        android:layout_marginEnd="88dp"
+        android:background="@drawable/button_bg_rounded_corners"
+        android:text="@string/login"
+        android:foreground="?selectableItemBackground"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="88dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="26.5dp"
+        android:text="@string/or_connect_with"
+        android:textColor="@color/font2"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="472dp"
+        android:background="@drawable/tw"
+        android:contentDescription="@string/twitter"
+        android:foreground="?selectableItemBackground"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="472dp"
+        android:background="@drawable/fb"
+        android:contentDescription="@string/facebook"
+        android:foreground="?selectableItemBackground"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:layout_width="260dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginTop="582.5dp"
+        android:layout_marginBottom="44.5dp"
+        android:background="@drawable/button_bg_rounded_corners_sign"
+        android:text="@string/sign_up"
+        android:textAllCaps="false"
+        android:textColor="#1f4ba5"
+        android:textSize="12sp"
+        android:foreground="?selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
