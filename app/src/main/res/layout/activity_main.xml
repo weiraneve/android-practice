@@ -37,7 +37,7 @@
                 android:text="@string/button1"
                 android:textAllCaps="false"
                 android:padding="15dp"
-                android:textColorHint="@color/black" />
+                android:textColor="@color/black" />
 
             <Button
                 android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 android:text="@string/button2"
                 android:textAllCaps="false"
                 android:padding="15dp"
-                android:textColorHint="@color/black" />
+                android:textColor="@color/black" />
 
             <Button
                 android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                 android:text="@string/button3"
                 android:textAllCaps="false"
                 android:padding="15dp"
-                android:textColorHint="@color/black" />
+                android:textColor="@color/black" />
 
             <Button
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                 android:text="@string/button4"
                 android:textAllCaps="false"
                 android:padding="15dp"
-                android:textColorHint="@color/black" />
+                android:textColor="@color/black" />
 
             <Button
                 android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                 android:text="@string/button5"
                 android:textAllCaps="false"
                 android:padding="15dp"
-                android:textColorHint="@color/black" />
+                android:textColor="@color/black" />
 
             <Button
                 android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                 android:text="@string/button6"
                 android:textAllCaps="false"
                 android:padding="15dp"
-                android:textColorHint="@color/black" />
+                android:textColor="@color/black" />
 
             <Button
                 android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                 android:text="@string/button7"
                 android:textAllCaps="false"
                 android:padding="15dp"
-                android:textColorHint="@color/black" />
+                android:textColor="@color/black" />
 
             <Button
                 android:layout_width="match_parent"
@@ -128,7 +128,7 @@
                 android:text="@string/button8"
                 android:textAllCaps="false"
                 android:padding="15dp"
-                android:textColorHint="@color/black" />
+                android:textColor="@color/black" />
 
             <Button
                 android:layout_width="match_parent"
@@ -141,7 +141,7 @@
                 android:text="@string/button9"
                 android:textAllCaps="false"
                 android:padding="15dp"
-                android:textColorHint="@color/black" />
+                android:textColor="@color/black" />
 
             <Button
                 android:layout_width="match_parent"
@@ -154,7 +154,7 @@
                 android:text="@string/button10"
                 android:textAllCaps="false"
                 android:padding="15dp"
-                android:textColorHint="@color/black" />
+                android:textColor="@color/black" />
 
         </LinearLayout>
     </ScrollView>
