@@ -20,7 +20,7 @@
     <ImageView
         android:layout_width="274dp"
         android:layout_height="246dp"
-        android:layout_marginLeft="68dp"
+        android:layout_marginStart="68dp"
         android:layout_marginTop="144dp"
         android:background="@drawable/github"
         android:contentDescription="@string/github"
@@ -31,7 +31,7 @@
     <Button
         android:layout_width="263dp"
         android:layout_height="80dp"
-        android:layout_marginLeft="72dp"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="412dp"
         android:backgroundTint="@color/gray"
         android:gravity="center"
@@ -47,7 +47,7 @@
         android:id="@+id/button"
         android:layout_width="263dp"
         android:layout_height="80dp"
-        android:layout_marginLeft="72dp"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="508dp"
         android:backgroundTint="@color/gray"
         android:gravity="center"
