@@ -15,4 +15,8 @@
     <string name="github" translatable="false">github</string>
     <string name="signup" translatable="false">Signup</string>
     <string name="login" translatable="false">Login</string>
+    <string name="aware" translatable="false">aware</string>
+    <string name="username" translatable="false">Username</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="remember_me" translatable="false">Remember me</string>
 </resources>

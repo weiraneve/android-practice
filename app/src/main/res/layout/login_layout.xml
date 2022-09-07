@@ -3,16 +3,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context=".LoginActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:text="@string/login"
-        android:gravity="center"
-        android:textSize="100sp"
-        android:textColor="@color/black"/>
+    <ImageView
+        android:layout_width="148.9dp"
+        android:layout_height="30.3dp"
+        android:layout_marginLeft="113.1dp"
+        android:layout_marginRight="113.1dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginBottom="548.7dp"
+        android:background="@drawable/fill_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/aware" />
+
+    <EditText
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="196dp"
+        android:layout_marginBottom="431dp"
+        android:layout_marginLeft="62.5dp"
+        android:layout_marginRight="62.5dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:paddingStart="20dp"
+        android:background="@drawable/shape"
+        android:hint="@string/username"
+        android:textColorHint="@color/gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="246dp"
+        android:layout_marginBottom="391dp"
+        android:layout_marginLeft="62.5dp"
+        android:layout_marginRight="62.5dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:paddingStart="20dp"
+        android:background="@drawable/shape"
+        android:hint="@string/password"
+        android:textColorHint="@color/gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
