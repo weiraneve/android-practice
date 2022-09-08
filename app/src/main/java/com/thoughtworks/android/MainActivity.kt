@@ -23,14 +23,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         Log.i(mainActivity, create + space)
 
-        val constraintButton = findViewById<Button>(R.id.constraint)
-        constraintButton!!.setOnClickListener { openConstraintActivity() }
-
-        val loginButton = findViewById<Button>(R.id.login)
-        loginButton!!.setOnClickListener { openLoginActivity() }
-
-        val contactButton = findViewById<Button>(R.id.contact)
-        contactButton!!.setOnClickListener { openContactActivity() }
+        openConstraintActivity()
+        openLoginActivity()
+        openContactActivity()
     }
 
     override fun onStart() {
@@ -59,18 +54,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openLoginActivity() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        val loginButton = findViewById<Button>(R.id.login)
+        loginButton!!.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun openConstraintActivity() {
-        val intent =  Intent(this, ConstraintActivity::class.java)
-        startActivity(intent)
+        val constraintButton = findViewById<Button>(R.id.constraint)
+        constraintButton!!.setOnClickListener {
+            val intent =  Intent(this, ConstraintActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun openContactActivity() {
-        val intent =  Intent("com.thoughtworks.android.action.0")
-        startActivity(intent)
+        val contactButton = findViewById<Button>(R.id.contact)
+        contactButton!!.setOnClickListener {
+            val intent =  Intent("com.thoughtworks.android.action.0")
+            startActivity(intent)
+        }
     }
 
 }
