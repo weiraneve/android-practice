@@ -8,19 +8,17 @@
     tools:context=".LoginActivity">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_width="148.9dp"
+        android:layout_height="30.3dp"
         android:layout_marginTop="88dp"
-        android:layout_marginStart="113.1dp"
-        android:layout_marginEnd="113.1dp"
         android:background="@drawable/fill_1"
         android:contentDescription="@string/aware"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -34,14 +32,14 @@
         android:textColor="@color/font0"
         android:textColorHint="@color/font0"
         android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry"
         android:autofillHints="" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -57,14 +55,16 @@
         android:textColor="@color/font0"
         android:textColorHint="@color/font0"
         android:textSize="12sp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry" />
 
     <CheckBox
+        android:id="@+id/remember_button"
         android:layout_width="wrap_content"
         android:layout_height="22.5dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="308dp"
         android:buttonTint="@color/font0"
         android:checked="false"
@@ -77,39 +77,42 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="22.5dp"
-        android:layout_marginStart="244dp"
+        android:layout_marginStart="37.5dp"
         android:layout_marginTop="308dp"
         android:padding="3dp"
         android:text="@string/forgot_password"
         android:textColor="@color/font1"
         android:textSize="12sp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/remember_button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="286dp"
-        android:layout_height="24dp"
+        android:id="@+id/button_login"
+        android:layout_width="271dp"
+        android:layout_height="26.5dp"
         android:layout_marginTop="368dp"
-        android:layout_marginEnd="64dp"
         android:background="@drawable/button_bg_rounded_corners"
         android:foreground="?selectableItemBackground"
         android:text="@string/login"
         android:textAllCaps="false"
         android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:layout_width="88dp"
         android:layout_height="20dp"
-        android:layout_marginStart="144dp"
+        android:layout_marginStart="80.5dp"
+        android:layout_marginEnd="80.5dp"
         android:layout_marginTop="26.5dp"
         android:text="@string/or_connect_with"
         android:textColor="@color/font2"
         android:textSize="12sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintStart_toStartOf="@+id/button_login"
+        app:layout_constraintTop_toBottomOf="@+id/button_login"
+        app:layout_constraintEnd_toEndOf="@+id/button_login" />
 
     <Button
         android:layout_width="120dp"
@@ -134,17 +137,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:layout_width="286dp"
-        android:layout_height="24dp"
+        android:layout_width="271dp"
+        android:layout_height="26.5dp"
         android:layout_marginTop="580dp"
-        android:layout_marginEnd="64dp"
         android:background="@drawable/button_bg_rounded_corners_sign"
         android:foreground="?selectableItemBackground"
         android:text="@string/sign_up"
         android:textAllCaps="false"
         android:textColor="#1f4ba5"
         android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
