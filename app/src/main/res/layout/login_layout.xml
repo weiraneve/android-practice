@@ -69,7 +69,6 @@
         android:buttonTint="@color/font0"
         android:checked="false"
         android:text="@string/remember_me"
-
         android:textColor="@color/font1"
         android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
