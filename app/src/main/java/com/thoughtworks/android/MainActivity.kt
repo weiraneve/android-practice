@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.thoughtworks.android.model.Data
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        private const val REQUEST_CODE = 201
         private const val mainActivity = "MainActivity"
         private const val create = "onCreate"
         private const val space = "========================================"
@@ -29,20 +29,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun openContactActivity() {
         val button = findViewById<Button>(R.id.contact)
+
+        val startActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode  == ContactActivity.RESULT_CODE && it.data!= null) {
+                val info = it.data?.getParcelableExtra<Data>(ContactActivity.SEND_MAIN)
+                Toast.makeText(this, "${info?.name} : ${info?.phone}", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this,"无法获取数据",Toast.LENGTH_SHORT).show()
+
+            }
+        }
         button.setOnClickListener {
             val intent =  Intent(this, ContactActivity::class.java).apply {
                 val data = Data("jack", "139000000000")
                 putExtra(ContactActivity.CONTACT, data)
             }
-            startActivityForResult(intent, REQUEST_CODE)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE && resultCode  == ContactActivity.RESULT_CODE && data!= null) {
-            val info = data.getParcelableExtra<Data>(ContactActivity.SEND_MAIN)
-            Toast.makeText(this, "${info?.name} : ${info?.phone}", Toast.LENGTH_SHORT).show()
+            startActivity.launch(intent)
         }
     }
 
