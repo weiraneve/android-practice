@@ -14,30 +14,21 @@
         android:theme="@style/Theme.Android"
         tools:targetApi="31">
         <activity
-            android:name=".ui.fragment.MyFragmentActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.ContactActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.thoughtworks.android.action.0" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.LoginActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".ui.ConstraintActivity"
-            android:exported="false" />
+        <activity android:name=".ui.fragment.MyFragmentActivity" />
+        <activity android:name=".ui.LoginActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".ui.ConstraintActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
