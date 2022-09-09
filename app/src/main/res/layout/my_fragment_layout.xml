@@ -10,7 +10,7 @@
         android:id="@+id/panel"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@color/blue"
+        android:background="@color/sky_blue"
         android:paddingStart="50dp"
         android:paddingEnd="50dp"
         android:orientation="vertical"
