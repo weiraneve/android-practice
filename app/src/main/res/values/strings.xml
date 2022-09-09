@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">android</string>
-    <string name="button1">constraint_layout</string>
-    <string name="button2">login</string>
-    <string name="button3">pick_contact</string>
-    <string name="button4">按钮 4</string>
+    <string name="app_name" translatable="false">android</string>
+    <string name="button1" translatable="false">constraint_layout</string>
+    <string name="button2" translatable="false">login</string>
+    <string name="button3" translatable="false">pick_contact</string>
+    <string name="button4" translatable="false">fragment</string>
     <string name="button5">按钮 5</string>
     <string name="button6">按钮 6</string>
     <string name="button7">按钮 7</string>

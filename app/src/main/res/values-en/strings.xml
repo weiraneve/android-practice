@@ -1,9 +1,4 @@
 <resources>
-    <string name="app_name">android</string>
-    <string name="button1">constraint_layout</string>
-    <string name="button2">login</string>
-    <string name="button3">pick_contact</string>
-    <string name="button4">button 4</string>
     <string name="button5">button 5</string>
     <string name="button6">button 6</string>
     <string name="button7">button 7</string>

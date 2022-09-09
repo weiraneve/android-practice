@@ -14,11 +14,15 @@
         android:theme="@style/Theme.Android"
         tools:targetApi="31">
         <activity
+            android:name=".MyFragmentActivity"
+            android:exported="false" />
+        <activity
             android:name=".ContactActivity"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.thoughtworks.android.action.0"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.thoughtworks.android.action.0" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -33,6 +37,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
