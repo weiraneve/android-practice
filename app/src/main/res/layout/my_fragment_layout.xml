@@ -23,7 +23,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/button_gray"
             android:text="@string/android"
             android:textAllCaps="false"
             android:textColor="@color/black" />
@@ -33,7 +33,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/button_gray"
             android:text="@string/java"
             android:textAllCaps="false"
             android:textColor="@color/black" />
