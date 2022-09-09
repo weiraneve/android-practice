@@ -1,9 +1,10 @@
-package com.thoughtworks.android
+package com.thoughtworks.android.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.thoughtworks.android.R
 import com.thoughtworks.android.model.Data
 
 class ContactActivity : AppCompatActivity() {

@@ -11,6 +11,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import com.thoughtworks.android.model.Data
+import com.thoughtworks.android.ui.ConstraintActivity
+import com.thoughtworks.android.ui.ContactActivity
+import com.thoughtworks.android.ui.LoginActivity
+import com.thoughtworks.android.ui.fragment.MyFragmentActivity
 
 class MainActivity : AppCompatActivity() {
 
