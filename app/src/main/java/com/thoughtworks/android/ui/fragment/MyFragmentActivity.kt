@@ -10,8 +10,6 @@ class MyFragmentActivity : AppCompatActivity() {
 
     private val buttonAndroid: Button by lazy { findViewById(R.id.button_android) }
     private val buttonJava: Button by lazy { findViewById(R.id.button_java) }
-    private val displayAndroidFragment = DisplayAndroidFragment()
-    private val displayJavaFragment = DisplayJavaFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,18 +30,18 @@ class MyFragmentActivity : AppCompatActivity() {
     }
 
     private fun displayAndroid() {
-        UiUtils.addOrShowFragmentAndHideOthers(
+        UiUtils.replaceFragmentAndAddToBackStack(
             supportFragmentManager,
-            displayAndroidFragment,
+            DisplayAndroidFragment(),
             R.id.content,
             null
         )
     }
 
     private fun displayJava() {
-        UiUtils.addOrShowFragmentAndHideOthers(
+        UiUtils.replaceFragmentAndAddToBackStack(
             supportFragmentManager,
-            displayJavaFragment,
+            DisplayJavaFragment(),
             R.id.content,
             null
         )

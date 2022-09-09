@@ -7,20 +7,15 @@ class UiUtils {
 
     companion object {
 
-        fun addOrShowFragmentAndHideOthers(fragmentManager: FragmentManager,
-                              fragment: Fragment, fragmentId: Int, tag: String?) {
-            val transaction = fragmentManager.beginTransaction()
-            for (otherFragment in fragmentManager.fragments) {
-                transaction.hide(otherFragment)
-            }
-            if (fragment.isAdded) {
-                transaction.show(fragment)
-            } else {
-                transaction.add(fragmentId, fragment, tag)
-                println(fragment)
-            }
-            transaction.commit()
+        fun replaceFragmentAndAddToBackStack(
+            fragmentManager: FragmentManager,
+            fragment: Fragment, fragmentId: Int, tag: String?
+        ) {
+            val beginTransaction = fragmentManager.beginTransaction()
+            beginTransaction.replace(fragmentId, fragment, tag)
+            beginTransaction.addToBackStack(tag)
+            beginTransaction.commitAllowingStateLoss()
         }
-
     }
+
 }
