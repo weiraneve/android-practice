@@ -14,11 +14,17 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.login_layout)
 
         hideStatusBar()
+        hideActionBar()
     }
 
     private fun hideStatusBar() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val windowInsetsCompat = WindowInsetsControllerCompat(window, window.decorView)
         windowInsetsCompat.hide(WindowInsetsCompat.Type.statusBars())
+    }
+
+    private fun hideActionBar() {
+        val supportActionBar = supportActionBar
+        supportActionBar?.hide()
     }
 }
