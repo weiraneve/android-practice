@@ -47,4 +47,8 @@ class MyFragmentActivity : AppCompatActivity() {
         )
     }
 
+    override fun onBackPressed() {
+        finish()
+    }
+
 }
