@@ -1,5 +1,6 @@
 package com.thoughtworks.android
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -18,16 +19,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun generateButtons() {
-        addButton(getString(R.string.button1))
-        addButton(getString(R.string.button2))
-        addButton(getString(R.string.button3))
-        addButton(getString(R.string.button4))
-        addButton(getString(R.string.button5))
-        addButton(getString(R.string.button6))
-        addButton(getString(R.string.button7))
-        addButton(getString(R.string.button8))
-        addButton(getString(R.string.button9))
-        addButton(getString(R.string.button10))
+        addButton(getString(R.string.constraint_layout)) {
+            startActivity(Intent(this, ConstraintActivity::class.java))
+        }
+        addButton(getString(R.string.button_2))
+        addButton(getString(R.string.button_3))
+        addButton(getString(R.string.button_4))
+        addButton(getString(R.string.button_5))
+        addButton(getString(R.string.button_6))
+        addButton(getString(R.string.button_7))
+        addButton(getString(R.string.button_8))
+        addButton(getString(R.string.button_9))
+        addButton(getString(R.string.button_10))
 
     }
 
