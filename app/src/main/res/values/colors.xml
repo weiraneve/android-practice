@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="gl_white_alpha_20">#33FFFFFF</color>
+    <color name="gl_blue_alpha_20">#331f4ba5</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="gray">#FFA0A0A0</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="font0">#e4e4e4</color>
-    <color name="font1">#222222</color>
-    <color name="font2">#b2b2b2</color>
+    <color name="gray">#FFA0A0A0</color>
+    <color name="hint_gray">#e4e4e4</color>
+    <color name="blue">#1f4ba5</color>
+    <color name="gray2">#b2b2b2</color>
 </resources>

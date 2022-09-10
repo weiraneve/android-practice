@@ -16,4 +16,10 @@
     <string name="github">github</string>
     <string name="sign_up">注册</string>
     <string name="login">登录</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="remember_me">记住我</string>
+    <string name="forgot_password">忘记密码?</string>
+    <string name="or_connect_with">或者通过以下方式登录</string>
+    <string name="sign_up_with_email">通过邮箱注册</string>
 </resources>
