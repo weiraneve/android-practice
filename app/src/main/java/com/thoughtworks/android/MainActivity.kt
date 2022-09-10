@@ -1,68 +1,59 @@
 package com.thoughtworks.android
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.IdRes
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.thoughtworks.android.model.Data
-import com.thoughtworks.android.ui.ConstraintActivity
-import com.thoughtworks.android.ui.ContactActivity
-import com.thoughtworks.android.ui.LoginActivity
-import com.thoughtworks.android.ui.fragment.MyFragmentActivity
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        private const val mainActivity = "MainActivity"
-        private const val create = "onCreate"
-        private const val space = "========================================"
-    }
+    private val buttonContainer: LinearLayout by lazy { findViewById(R.id.button_container) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.i(mainActivity, create + space)
-
-        openContactActivity()
-        addListener(R.id.fragment, MyFragmentActivity::class.java)
-        addListener(R.id.login, LoginActivity::class.java)
-        addListener(R.id.constraint, ConstraintActivity::class.java)
+        initUI()
     }
 
-    private fun <T : Activity> addListener(@IdRes id: Int, className: Class<T>) {
-        findViewById<View>(id).setOnClickListener {
-            val intent = Intent(this, className)
-            startActivity(intent)
+    private fun initUI() {
+        generateButtons()
+    }
+
+    private fun generateButtons() {
+        addButton(getString(R.string.constraint_layout)) {
+            startActivity(Intent(this, ConstraintActivity::class.java))
         }
-    }
-
-    private fun openContactActivity() {
-        val button = findViewById<Button>(R.id.contact)
-
-        val startActivity =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == ContactActivity.RESULT_CODE && it.data != null) {
-                    val info = it.data?.getParcelableExtra<Data>(ContactActivity.SEND_MAIN)
-                    Toast.makeText(this, "${info?.name} : ${info?.phone}", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    Toast.makeText(this, "无法获取数据", Toast.LENGTH_SHORT).show()
-
-                }
-         }
-        button.setOnClickListener {
-            val intent = Intent(this, ContactActivity::class.java).apply {
-                val data = Data("jack", "139000000000")
-                putExtra(ContactActivity.CONTACT, data)
-            }
-            startActivity.launch(intent)
+        addButton(getString(R.string.login)) {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
+        addButton(getString(R.string.button_3))
+        addButton(getString(R.string.button_4))
+        addButton(getString(R.string.button_5))
+        addButton(getString(R.string.button_6))
+        addButton(getString(R.string.button_7))
+        addButton(getString(R.string.button_8))
+        addButton(getString(R.string.button_9))
+        addButton(getString(R.string.button_10))
     }
 
+    private fun addButton(name: String, onClickListener: View.OnClickListener? = null) {
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        layoutParams.setMargins(0, resources.getDimensionPixelSize(R.dimen.dimen_24), 0, 0)
+
+        val button = Button(this)
+        button.layoutParams = layoutParams
+        button.text = name
+        button.isAllCaps = false
+
+        onClickListener?.let {
+            button.setOnClickListener(it)
+        }
+
+        buttonContainer.addView(button)
+    }
 }

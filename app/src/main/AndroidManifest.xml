@@ -10,24 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Android">
         <activity
-            android:name=".ui.ContactActivity"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.thoughtworks.android.action.0" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ui.fragment.MyFragmentActivity" />
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.ConstraintActivity" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ConstraintActivity" />
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>

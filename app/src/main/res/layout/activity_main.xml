@@ -2,164 +2,30 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:background="@android:color/white"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:text="@string/practice0"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_48"
+        android:layout_marginTop="@dimen/dimen_32"
+        android:text="@string/android_practice" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="140dp">
-
+        android:layout_marginTop="@dimen/dimen_64"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
         <LinearLayout
+            android:id="@+id/button_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context=".MainActivity"
-            tools:ignore="UselessParent">
-
-            <Button
-                android:id="@+id/constraint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="100dp"
-                android:backgroundTint="@color/gray"
-                android:gravity="center"
-                android:text="@string/button1"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="100dp"
-                android:backgroundTint="@color/gray"
-                android:gravity="center"
-                android:text="@string/button2"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/contact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="100dp"
-                android:backgroundTint="@color/gray"
-                android:gravity="center"
-                android:text="@string/button3"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/fragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="100dp"
-                android:backgroundTint="@color/gray"
-                android:gravity="center"
-                android:text="@string/button4"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="100dp"
-                android:backgroundTint="@color/gray"
-                android:gravity="center"
-                android:text="@string/button5"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="100dp"
-                android:backgroundTint="@color/gray"
-                android:gravity="center"
-                android:text="@string/button6"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="100dp"
-                android:backgroundTint="@color/gray"
-                android:gravity="center"
-                android:text="@string/button7"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="100dp"
-                android:backgroundTint="@color/gray"
-                android:gravity="center"
-                android:text="@string/button8"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="100dp"
-                android:backgroundTint="@color/gray"
-                android:gravity="center"
-                android:text="@string/button9"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="100dp"
-                android:backgroundTint="@color/gray"
-                android:gravity="center"
-                android:text="@string/button10"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textColor="@color/black" />
-
+            android:layout_marginStart="@dimen/dimen_48"
+            android:layout_marginEnd="@dimen/dimen_48"
+            android:orientation="vertical">
         </LinearLayout>
     </ScrollView>
 
