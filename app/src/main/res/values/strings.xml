@@ -1,27 +1,25 @@
 <resources>
     <string name="app_name">android</string>
-    <string name="button1">constraint_layout</string>
-    <string name="button2">login</string>
-    <string name="button3">按钮 3</string>
-    <string name="button4">按钮 4</string>
-    <string name="button5">按钮 5</string>
-    <string name="button6">按钮 6</string>
-    <string name="button7">按钮 7</string>
-    <string name="button8">按钮 8</string>
-    <string name="button9">按钮 9</string>
-    <string name="button10">按钮 10</string>
-    <string name="practice0">Android 练习</string>
-    <string name="practice1" translatable="false">Hello!</string>
-    <string name="github" translatable="false">github</string>
-    <string name="signup" translatable="false">Signup</string>
-    <string name="login" translatable="false">Login</string>
-    <string name="aware" translatable="false">aware</string>
-    <string name="username" translatable="false">Username</string>
-    <string name="password" translatable="false">Password</string>
-    <string name="remember_me" translatable="false">Remember me</string>
-    <string name="forgot_password" translatable="false">Forgot password?</string>
-    <string name="or_connect_with" translatable="false">or connect with</string>
-    <string name="sign_up" translatable="false">Sign Up with E-mail</string>
-    <string name="twitter" translatable="false">twitter</string>
-    <string name="facebook" translatable="false">facebook</string>
+    <string name="button_1">button 1</string>
+    <string name="button_2">button 2</string>
+    <string name="button_3">button 3</string>
+    <string name="button_4">button 4</string>
+    <string name="button_5">button 5</string>
+    <string name="button_6">button 6</string>
+    <string name="button_7">button 7</string>
+    <string name="button_8">button 8</string>
+    <string name="button_9">button 9</string>
+    <string name="button_10">button 10</string>
+    <string name="android_practice">Android practice</string>
+    <string name="constraint_layout">constraint_layout</string>
+    <string name="hello">Hello!</string>
+    <string name="github">github</string>
+    <string name="sign_up">Signup</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="or_connect_with">or connect with</string>
+    <string name="sign_up_with_email">Sign Up with E-mail</string>
 </resources>
