@@ -22,6 +22,4 @@
     <string name="forgot_password">忘记密码?</string>
     <string name="or_connect_with">或者通过以下方式登录</string>
     <string name="sign_up_with_email">通过邮箱注册</string>
-    <string name="pick_contact">选择联系人</string>
-    <string name="ok">OK</string>
 </resources>
