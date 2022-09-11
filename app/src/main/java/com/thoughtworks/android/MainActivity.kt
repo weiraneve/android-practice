@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.thoughtworks.android.ui.ConstraintActivity
 import com.thoughtworks.android.ui.LoginActivity
+import com.thoughtworks.android.ui.fragment.MyFragmentActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,6 +35,54 @@ class MainActivity : AppCompatActivity() {
     private fun initUI() {
         generateButtons()
         initContactRetriever()
+    }
+
+    private fun generateButtons() {
+        addButton(getString(R.string.constraint_layout)) {
+            startActivity(Intent(this, ConstraintActivity::class.java))
+        }
+
+        addButton(getString(R.string.login)) {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
+
+        addButton(getString(R.string.pick_contact)) {
+            if (canReadContact()) {
+                pickContactLauncher.launch(null)
+            } else {
+                permissionLauncher.launch(Manifest.permission.READ_CONTACTS)
+            }
+        }
+
+        addButton(getString(R.string.fragment)) {
+            startActivity(Intent(this, MyFragmentActivity::class.java))
+        }
+
+        addButton(getString(R.string.button_5))
+        addButton(getString(R.string.button_6))
+        addButton(getString(R.string.button_7))
+        addButton(getString(R.string.button_8))
+        addButton(getString(R.string.button_9))
+        addButton(getString(R.string.button_10))
+    }
+
+    private fun addButton(name: String, onClickListener: View.OnClickListener? = null) {
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        layoutParams.setMargins(0, resources.getDimensionPixelSize(R.dimen.dimen_24), 0, 0)
+
+        val button = Button(this)
+        button.layoutParams = layoutParams
+        button.text = name
+        button.isAllCaps = false
+
+        onClickListener?.let {
+            button.setOnClickListener(it)
+        }
+
+        buttonContainer.addView(button)
     }
 
     private fun initContactRetriever() {
@@ -113,48 +162,4 @@ class MainActivity : AppCompatActivity() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun generateButtons() {
-        addButton(getString(R.string.constraint_layout)) {
-            startActivity(Intent(this, ConstraintActivity::class.java))
-        }
-
-        addButton(getString(R.string.login)) {
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
-
-        addButton(getString(R.string.pick_contact)) {
-            if (canReadContact()) {
-                pickContactLauncher.launch(null)
-            } else {
-                permissionLauncher.launch(Manifest.permission.READ_CONTACTS)
-            }
-        }
-
-        addButton(getString(R.string.button_4))
-        addButton(getString(R.string.button_5))
-        addButton(getString(R.string.button_6))
-        addButton(getString(R.string.button_7))
-        addButton(getString(R.string.button_8))
-        addButton(getString(R.string.button_9))
-        addButton(getString(R.string.button_10))
-    }
-
-    private fun addButton(name: String, onClickListener: View.OnClickListener? = null) {
-        val layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        layoutParams.setMargins(0, resources.getDimensionPixelSize(R.dimen.dimen_24), 0, 0)
-
-        val button = Button(this)
-        button.layoutParams = layoutParams
-        button.text = name
-        button.isAllCaps = false
-
-        onClickListener?.let {
-            button.setOnClickListener(it)
-        }
-
-        buttonContainer.addView(button)
-    }
 }

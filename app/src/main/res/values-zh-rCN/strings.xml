@@ -24,4 +24,7 @@
     <string name="sign_up_with_email">通过邮箱注册</string>
     <string name="pick_contact">选择联系人</string>
     <string name="ok">OK</string>
+    <string name="fragment">片段</string>
+    <string name="java">Java</string>
+    <string name="android">Android</string>
 </resources>
