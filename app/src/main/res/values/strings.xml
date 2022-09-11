@@ -22,4 +22,6 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="or_connect_with">or connect with</string>
     <string name="sign_up_with_email">Sign Up with E-mail</string>
+    <string name="pick_contact">pick_contact</string>
+    <string name="ok">OK</string>
 </resources>
