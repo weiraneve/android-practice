@@ -2,6 +2,8 @@ package com.thoughtworks.android.ui.fragment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import com.thoughtworks.android.R
 import com.thoughtworks.android.utils.UiUtils
@@ -17,6 +19,27 @@ class MyFragmentActivity : AppCompatActivity() {
         initUI()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_fragment, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.action_android -> {
+                displayAndroid()
+                true
+            }
+            R.id.action_java -> {
+                displayJava()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
     private fun initUI() {
         buttonAndroid.setOnClickListener {
             displayAndroid()
@@ -30,7 +53,7 @@ class MyFragmentActivity : AppCompatActivity() {
     }
 
     private fun displayAndroid() {
-        UiUtils.replaceFragmentAndAddToBackStack(
+        UiUtils.addOrShowFragmentAndHideOthers(
             supportFragmentManager,
             DisplayAndroidFragment(),
             R.id.content,
@@ -39,7 +62,7 @@ class MyFragmentActivity : AppCompatActivity() {
     }
 
     private fun displayJava() {
-        UiUtils.replaceFragmentAndAddToBackStack(
+        UiUtils.addOrShowFragmentAndHideOthers(
             supportFragmentManager,
             DisplayJavaFragment(),
             R.id.content,
