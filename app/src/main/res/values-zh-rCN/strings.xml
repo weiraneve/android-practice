@@ -28,4 +28,5 @@
     <string name="java">Java</string>
     <string name="android">Android</string>
     <string name="recycler_view">列表视图</string>
+    <string name="to_the_bottom">到底了</string>
 </resources>
