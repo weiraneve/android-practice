@@ -1,4 +1,3 @@
 package com.thoughtworks.android.model
 
-class Tweet {
-}
+data class Tweet(val name : String, val content : String = "")
