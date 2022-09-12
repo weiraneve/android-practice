@@ -4,45 +4,54 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.thoughtworks.android.R
+import com.thoughtworks.android.common.Definitions
 import com.thoughtworks.android.model.Tweet
 
 class RecyclerViewActivity : AppCompatActivity() {
 
-    private lateinit var  tweetAdapter : TweetAdapter
+    private val swipeRefreshLayout: SwipeRefreshLayout by lazy { findViewById(R.id.swipeRefreshLayout) }
+    private lateinit var tweetAdapter: TweetAdapter
+    private val gson: Gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recycler_view_layout)
         initUI()
+        initData()
     }
 
     private fun initUI() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        tweetAdapter = TweetAdapter()
+        tweetAdapter = TweetAdapter(this)
         recyclerView.adapter = tweetAdapter
-        tweetAdapter.setTweets(createTweets())
+
+        swipeRefreshLayout.setOnRefreshListener {
+            tweetAdapter.setData(tweets.shuffled())
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 
-    private fun createTweets(): List<Tweet> {
-        val tweets = ArrayList<Tweet>()
-        tweets.add(Tweet("john", "沙发！"))
-        tweets.add(Tweet("Sum", "二楼！"))
-        tweets.add(Tweet("Tom"))
-        tweets.add(Tweet("Allen"))
-        tweets.add(Tweet("Jim"))
-        tweets.add(Tweet("Steve", "stay hungry, stay foolish."))
-        tweets.add(Tweet("kobe"))
-        tweets.add(Tweet("doubleLift"))
-        tweets.add(Tweet("aoLi"))
-        tweets.add(Tweet("jobs"))
-        tweets.add(Tweet("bryant"))
-        tweets.add(Tweet("yiLiang"))
-        tweets.add(Tweet("puD"))
-        tweets.add(Tweet("jojo"))
-
-        return tweets
+    private fun initData() {
+        tweetAdapter.setData(tweets)
     }
+
+    private val tweets: List<Tweet>
+        get() {
+            val tweets: List<Tweet> =
+                gson.fromJson(Definitions.TWEET, object : TypeToken<List<Tweet>>() {}.type)
+            val filteredTweets: MutableList<Tweet> = mutableListOf()
+            for (tweet in tweets) {
+                if (tweet.error != null || tweet.unknownError != null) {
+                    continue
+                }
+                filteredTweets.add(tweet)
+            }
+            return filteredTweets
+        }
 
 }

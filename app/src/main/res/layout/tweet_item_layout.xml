@@ -21,7 +21,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/recy_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -29,7 +29,7 @@
             tools:text="Cheng Yao" />
 
         <TextView
-            android:id="@+id/tv_content"
+            android:id="@+id/recy_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="test" />
