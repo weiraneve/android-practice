@@ -1,11 +1,12 @@
 package com.thoughtworks.android.ui.thread
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import com.thoughtworks.android.R
 import java.util.*
+import java.util.concurrent.Executors
 
 class ThreadActivity : AppCompatActivity() {
 
@@ -14,6 +15,7 @@ class ThreadActivity : AppCompatActivity() {
     }
 
     private val buttonCount: Button by lazy { findViewById(R.id.button_count) }
+    private val executor = Executors.newSingleThreadExecutor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,7 @@ class ThreadActivity : AppCompatActivity() {
     }
 
     private fun startCount() {
-        Thread {
+        executor.execute {
             var count = 0
             while (count < 10) {
                 SystemClock.sleep(SECOND_DURATION)
@@ -44,8 +46,7 @@ class ThreadActivity : AppCompatActivity() {
                 }
             }
             runOnUiThread { buttonCount.isEnabled = true }
-        }.start()
-
+        }
     }
 
 }
