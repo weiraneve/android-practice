@@ -19,6 +19,7 @@ import com.thoughtworks.android.ui.ConstraintActivity
 import com.thoughtworks.android.ui.LoginActivity
 import com.thoughtworks.android.ui.fragment.MyFragmentActivity
 import com.thoughtworks.android.ui.recyclerview.RecyclerViewActivity
+import com.thoughtworks.android.ui.thread.HandlerActivity
 import com.thoughtworks.android.ui.thread.ThreadActivity
 
 class MainActivity : AppCompatActivity() {
@@ -68,7 +69,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ThreadActivity::class.java))
         }
 
-        addButton(getString(R.string.button_7))
+        addButton(getString(R.string.handler)) {
+            startActivity(Intent(this, HandlerActivity::class.java))
+        }
+
         addButton(getString(R.string.button_8))
         addButton(getString(R.string.button_9))
         addButton(getString(R.string.button_10))
