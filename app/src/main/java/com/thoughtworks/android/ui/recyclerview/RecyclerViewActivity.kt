@@ -26,7 +26,8 @@ class RecyclerViewActivity : AppCompatActivity() {
     private fun initUI() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = TweetAdapter(this)
+        tweetAdapter = TweetAdapter(this)
+        recyclerView.adapter = tweetAdapter
 
         val swipeRefreshLayout: SwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         swipeRefreshLayout.setOnRefreshListener {
