@@ -5,8 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.thoughtworks.android.R
 import com.thoughtworks.android.model.Tweet
 
@@ -53,6 +55,9 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
                 tweetViewHolder.name.text = it.nick
             }
             tweetViewHolder.content.text = tweet.content
+
+            Glide.with(context).load(tweet.sender!!.avatar).centerCrop()
+                .placeholder(R.drawable.avatar).into(tweetViewHolder.avatar)
         }
     }
 
@@ -66,6 +71,7 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val avatar: ImageView = itemView.findViewById(R.id.avatar)
         val name: TextView = itemView.findViewById(R.id.recy_name)
         val content: TextView = itemView.findViewById(R.id.recy_content)
     }

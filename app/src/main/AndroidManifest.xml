@@ -3,6 +3,7 @@
     package="com.thoughtworks.android">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,8 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Android">
-        <activity android:name=".ui.thread.ThreadActivity" />
-        <activity android:name=".ui.recyclerview.RecyclerViewActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -25,6 +24,8 @@
         <activity android:name=".ui.ConstraintActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.fragment.MyFragmentActivity" />
+        <activity android:name=".ui.thread.ThreadActivity" />
+        <activity android:name=".ui.recyclerview.RecyclerViewActivity" />
     </application>
 
 </manifest>
