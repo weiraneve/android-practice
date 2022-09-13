@@ -13,9 +13,8 @@ import com.thoughtworks.android.model.Tweet
 
 class RecyclerViewActivity : AppCompatActivity() {
 
-    private val swipeRefreshLayout: SwipeRefreshLayout by lazy { findViewById(R.id.swipeRefreshLayout) }
-    private lateinit var tweetAdapter: TweetAdapter
     private val gson: Gson = Gson()
+    private lateinit var tweetAdapter: TweetAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +26,9 @@ class RecyclerViewActivity : AppCompatActivity() {
     private fun initUI() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        tweetAdapter = TweetAdapter(this)
-        recyclerView.adapter = tweetAdapter
+        recyclerView.adapter = TweetAdapter(this)
 
+        val swipeRefreshLayout: SwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         swipeRefreshLayout.setOnRefreshListener {
             tweetAdapter.setData(tweets.shuffled())
             swipeRefreshLayout.isRefreshing = false
