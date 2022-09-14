@@ -27,7 +27,7 @@
         <activity android:name=".ui.recyclerview.RecyclerViewActivity" />
         <activity android:name=".ui.thread.ThreadActivity" />
         <activity android:name=".ui.thread.HandlerActivity" />
-        <activity android:name=".RxJavaActivity" />
+        <activity android:name=".ui.RxJavaActivity" />
     </application>
 
 </manifest>

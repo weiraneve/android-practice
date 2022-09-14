@@ -1,10 +1,11 @@
-package com.thoughtworks.android
+package com.thoughtworks.android.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.widget.Button
 import android.widget.Toast
+import com.thoughtworks.android.R
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
@@ -42,6 +43,7 @@ class RxJavaActivity : AppCompatActivity() {
 
     private fun startCount() {
         countIncrease()
+            .concatWith(countDecrease())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<Int> {
@@ -72,4 +74,16 @@ class RxJavaActivity : AppCompatActivity() {
             emitter.onComplete()
         }
     }
+
+    private fun countDecrease(): Observable<Int> {
+        return Observable.create { emitter ->
+            var i = 10
+            while (i > 0) {
+                SystemClock.sleep(ONE_SECOND)
+                emitter.onNext(--i)
+            }
+            emitter.onComplete()
+        }
+    }
+
 }
