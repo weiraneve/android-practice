@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.thoughtworks.android.ui.ConstraintActivity
 import com.thoughtworks.android.ui.LoginActivity
-import com.thoughtworks.android.ui.RxJavaActivity
+import com.thoughtworks.android.ui.thread.RxJavaActivity
 import com.thoughtworks.android.ui.fragment.MyFragmentActivity
 import com.thoughtworks.android.ui.recyclerview.RecyclerViewActivity
 import com.thoughtworks.android.ui.thread.HandlerActivity
