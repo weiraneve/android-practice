@@ -73,7 +73,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, HandlerActivity::class.java))
         }
 
-        addButton(getString(R.string.button_8))
+        addButton(getString(R.string.rxjava)) {
+            startActivity(Intent(this, RxJavaActivity::class.java))
+        }
+
         addButton(getString(R.string.button_9))
         addButton(getString(R.string.button_10))
     }

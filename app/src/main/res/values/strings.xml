@@ -33,7 +33,9 @@
     <string name="to_the_bottom">to the bottom</string>
     <string name="thread">thread</string>
     <string name="zero" translatable="false">0</string>
+    <string name="zero_rx" translatable="false">the num is 0</string>
     <string name="handler">handler</string>
     <string name="msg1" translatable="false">msg1</string>
     <string name="msg2" translatable="false">msg2</string>
+    <string name="rxjava" translatable="false">rxjava</string>
 </resources>
