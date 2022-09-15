@@ -6,22 +6,24 @@ import androidx.lifecycle.viewModelScope
 import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.data.source.DataSource
 import com.thoughtworks.android.utils.schedulers.SchedulerProvider
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TweetsViewModel : ViewModel() {
 
-    private lateinit var dataSource: DataSource
-    private lateinit var schedulerProvider: SchedulerProvider
+@HiltViewModel
+class TweetsViewModel @Inject constructor(
+
+    private val dataSource: DataSource,
+    schedulerProvider: SchedulerProvider
+) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     var tweetList: MutableLiveData<List<Tweet>> = MutableLiveData<List<Tweet>>(mutableListOf())
 
-    fun setDependencies(dataSource: DataSource, schedulerProvider: SchedulerProvider) {
-        this.dataSource = dataSource
-        this.schedulerProvider = schedulerProvider
-
+    init {
         val subscribe: Disposable = dataSource
             .observeTweets()
             .subscribeOn(schedulerProvider.io())

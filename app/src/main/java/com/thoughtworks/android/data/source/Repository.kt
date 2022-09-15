@@ -5,16 +5,14 @@ import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.data.source.local.LocalStorage
 import com.thoughtworks.android.data.source.local.LocalStorageImpl
 import com.thoughtworks.android.data.source.remote.RemoteDataSourceImpl
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Flowable
+import javax.inject.Inject
 
-class Repository(context: Context?) : DataSource {
+class Repository @Inject constructor(@ApplicationContext context: Context) : DataSource {
 
     private val localStorage: LocalStorage
     private val remoteDataSource = RemoteDataSourceImpl()
-
-    init {
-        localStorage = LocalStorageImpl(context!!)
-    }
 
     override var isKnown: Boolean
         get() = localStorage.isKnown
@@ -39,4 +37,7 @@ class Repository(context: Context?) : DataSource {
         return localStorage.getTweets()
     }
 
+    init {
+        localStorage = LocalStorageImpl(context)
+    }
 }
