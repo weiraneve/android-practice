@@ -7,10 +7,8 @@ import com.thoughtworks.android.data.source.local.LocalStorageImpl
 import com.thoughtworks.android.data.source.remote.RemoteDataSourceImpl
 import io.reactivex.rxjava3.core.Flowable
 
-
-
 class Repository(context: Context?) : DataSource {
-    
+
     private val localStorage: LocalStorage
     private val remoteDataSource = RemoteDataSourceImpl()
 

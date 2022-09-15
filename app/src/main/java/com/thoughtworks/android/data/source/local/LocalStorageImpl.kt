@@ -20,6 +20,8 @@ import com.thoughtworks.android.utils.SharedPreferenceUtil
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.core.SingleEmitter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.function.Consumer
 
 class LocalStorageImpl(private val context: Context) : LocalStorage {
@@ -64,8 +66,8 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
         return filteredTweets
     }
 
-    override fun updateTweets(tweets: List<Tweet>): Single<Boolean> {
-        return Single.create { emitter: SingleEmitter<Boolean> ->
+    override suspend fun updateTweets(tweets: List<Tweet>) {
+        return withContext(Dispatchers.IO) {
             try {
                 appDatabase.clearAllTables()
                 appDatabase.runInTransaction {
@@ -102,10 +104,7 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
                     })
                 }
             } catch (t: Throwable) {
-                emitter.onError(t)
-                return@create
             }
-            emitter.onSuccess(true)
         }
     }
 

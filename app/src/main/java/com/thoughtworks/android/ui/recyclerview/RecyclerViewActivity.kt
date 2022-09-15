@@ -17,6 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
 class RecyclerViewActivity : AppCompatActivity() {
+
     private val swipeRefreshLayout: SwipeRefreshLayout by lazy { findViewById(R.id.swipeRefreshLayout) }
     private lateinit var tweetAdapter: TweetAdapter
     private lateinit var dependency: Dependency
@@ -73,5 +74,4 @@ class RecyclerViewActivity : AppCompatActivity() {
         compositeDisposable.clear()
         super.onDestroy()
     }
-
 }

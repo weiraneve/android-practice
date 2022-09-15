@@ -13,7 +13,8 @@ import com.thoughtworks.android.data.source.local.room.dao.TweetDao
 
 @Database(
     entities = [ImageEntity::class, SenderEntity::class, CommentEntity::class, TweetEntity::class],
-    version = 1
+    version = 1,
+    exportSchema=false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun imageDao(): ImageDao

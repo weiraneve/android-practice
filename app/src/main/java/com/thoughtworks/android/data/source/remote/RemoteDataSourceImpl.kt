@@ -11,13 +11,13 @@ import okhttp3.Request
 
 class RemoteDataSourceImpl : RemoteDataSource {
 
-    private val client = OkHttpClient()
-    private val gson = Gson()
-
     companion object {
         private const val TWEETS_URL =
             "https://thoughtworks-mobile-2018.herokuapp.com/user/jsmith/tweets"
     }
+
+    private val client = OkHttpClient()
+    private val gson = Gson()
 
     override suspend fun fetchTweets(): List<Tweet> {
         return withContext(Dispatchers.IO) {
