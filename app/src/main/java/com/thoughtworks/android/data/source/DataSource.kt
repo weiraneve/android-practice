@@ -5,6 +5,6 @@ import com.thoughtworks.android.data.model.Tweet
 
 interface DataSource {
     var isKnown: Boolean
-    fun fetchTweets()
+    suspend fun fetchTweets()
     fun observeTweets(): Flowable<List<Tweet>>
 }

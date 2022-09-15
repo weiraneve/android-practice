@@ -3,6 +3,7 @@ package com.thoughtworks.android.ui.recyclerview
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -13,10 +14,10 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.android.synthetic.main.recycler_view_layout.*
+import kotlinx.coroutines.launch
 
 class RecyclerViewActivity : AppCompatActivity() {
-
+    private val swipeRefreshLayout: SwipeRefreshLayout by lazy { findViewById(R.id.swipeRefreshLayout) }
     private lateinit var tweetAdapter: TweetAdapter
     private lateinit var dependency: Dependency
     private val compositeDisposable = CompositeDisposable()
@@ -27,19 +28,6 @@ class RecyclerViewActivity : AppCompatActivity() {
         setContentView(R.layout.recycler_view_layout)
         initUI()
         initData()
-    }
-
-    private fun initUI() {
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        tweetAdapter = TweetAdapter(this)
-        recyclerView.adapter = tweetAdapter
-
-        val swipeRefreshLayout: SwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
-        swipeRefreshLayout.setOnRefreshListener {
-            shuffled = true
-            dependency.dataSource.fetchTweets()
-        }
     }
 
     private fun initData() {
@@ -62,7 +50,23 @@ class RecyclerViewActivity : AppCompatActivity() {
             }
         compositeDisposable.add(subscribe)
 
-        dependency.dataSource.fetchTweets()
+        lifecycleScope.launch {
+            dependency.dataSource.fetchTweets()
+        }
+    }
+
+    private fun initUI() {
+        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        tweetAdapter = TweetAdapter(this)
+        recyclerView.adapter = tweetAdapter
+
+        swipeRefreshLayout.setOnRefreshListener {
+            shuffled = true
+            lifecycleScope.launch {
+                dependency.dataSource.fetchTweets()
+            }
+        }
     }
 
     override fun onDestroy() {
