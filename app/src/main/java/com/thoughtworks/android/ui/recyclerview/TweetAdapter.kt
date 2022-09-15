@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.thoughtworks.android.R
-import com.thoughtworks.android.model.Tweet
+import com.thoughtworks.android.data.model.Tweet
 
 class TweetAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

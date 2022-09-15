@@ -31,4 +31,8 @@
     <string name="to_the_bottom">到底了</string>
     <string name="thread">线程</string>
     <string name="handler">处理者</string>
+    <string name="sp">键值对</string>
+    <string name="sp_button">知道了</string>
+    <string name="welcome_back">欢迎您回来</string>
+    <string name="sp_tips">提示信息:\n点击\"知道了\"不再提示</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.thoughtworks.android.model
+package com.thoughtworks.android.data.model
 
 import com.google.gson.annotations.SerializedName
 

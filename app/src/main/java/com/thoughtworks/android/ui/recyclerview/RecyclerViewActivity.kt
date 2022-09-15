@@ -9,7 +9,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.thoughtworks.android.R
 import com.thoughtworks.android.common.Definitions
-import com.thoughtworks.android.model.Tweet
+import com.thoughtworks.android.data.model.Tweet
 
 class RecyclerViewActivity : AppCompatActivity() {
 

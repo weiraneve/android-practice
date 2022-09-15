@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.thoughtworks.android.ui.ConstraintActivity
 import com.thoughtworks.android.ui.LoginActivity
+import com.thoughtworks.android.ui.SpActivity
 import com.thoughtworks.android.ui.thread.RxJavaActivity
 import com.thoughtworks.android.ui.fragment.MyFragmentActivity
 import com.thoughtworks.android.ui.recyclerview.RecyclerViewActivity
@@ -78,7 +79,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, RxJavaActivity::class.java))
         }
 
-        addButton(getString(R.string.button_9))
+        addButton(getString(R.string.sp)) {
+            startActivity(Intent(this, SpActivity::class.java))
+        }
+
         addButton(getString(R.string.button_10))
     }
 

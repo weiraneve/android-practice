@@ -8,7 +8,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.thoughtworks.android.R
-import com.thoughtworks.android.utils.UiUtils
+import com.thoughtworks.android.utils.UiUtil
 
 class HandlerActivity : AppCompatActivity() {
 
@@ -61,7 +61,7 @@ class HandlerActivity : AppCompatActivity() {
 
     private fun showMsgBody(msg: Message) {
         val content = msg.obj as String
-        runOnUiThread { UiUtils.showSnackBar(this, content, R.drawable.fb, Snackbar.LENGTH_SHORT).show() }
+        runOnUiThread { UiUtil.showSnackBar(this, content, R.drawable.fb, Snackbar.LENGTH_SHORT).show() }
     }
 
 }

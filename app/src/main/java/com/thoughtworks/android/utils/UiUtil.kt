@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
 import com.thoughtworks.android.R
 
-class UiUtils {
+class UiUtil {
 
     companion object {
 

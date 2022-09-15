@@ -6,7 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import com.thoughtworks.android.R
-import com.thoughtworks.android.utils.UiUtils
+import com.thoughtworks.android.utils.UiUtil
 
 class MyFragmentActivity : AppCompatActivity() {
 
@@ -53,7 +53,7 @@ class MyFragmentActivity : AppCompatActivity() {
     }
 
     private fun displayAndroid() {
-        UiUtils.addOrShowFragmentAndHideOthers(
+        UiUtil.addOrShowFragmentAndHideOthers(
             supportFragmentManager,
             DisplayAndroidFragment(),
             R.id.content,
@@ -62,7 +62,7 @@ class MyFragmentActivity : AppCompatActivity() {
     }
 
     private fun displayJava() {
-        UiUtils.addOrShowFragmentAndHideOthers(
+        UiUtil.addOrShowFragmentAndHideOthers(
             supportFragmentManager,
             DisplayJavaFragment(),
             R.id.content,
