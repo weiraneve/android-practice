@@ -7,14 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.thoughtworks.android.PracticeApp
 import com.thoughtworks.android.R
-import com.thoughtworks.android.common.Definitions
 import com.thoughtworks.android.data.model.Tweet
+import com.thoughtworks.android.utils.Dependency
 
 class RecyclerViewActivity : AppCompatActivity() {
 
-    private val gson: Gson = Gson()
     private lateinit var tweetAdapter: TweetAdapter
+    private lateinit var dependency: Dependency
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,27 +32,14 @@ class RecyclerViewActivity : AppCompatActivity() {
 
         val swipeRefreshLayout: SwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         swipeRefreshLayout.setOnRefreshListener {
-            tweetAdapter.setData(tweets.shuffled())
+            tweetAdapter.setData(dependency.getLocalStorage().getTweets().shuffled())
             swipeRefreshLayout.isRefreshing = false
         }
     }
 
     private fun initData() {
-        tweetAdapter.setData(tweets)
+        dependency = (application as PracticeApp).getDependency()
+        tweetAdapter.setData(dependency.getLocalStorage().getTweets())
     }
-
-    private val tweets: List<Tweet>
-        get() {
-            val tweets: List<Tweet> =
-                gson.fromJson(Definitions.TWEET, object : TypeToken<List<Tweet>>() {}.type)
-            val filteredTweets: MutableList<Tweet> = mutableListOf()
-            for (tweet in tweets) {
-                if (tweet.error != null || tweet.unknownError != null) {
-                    continue
-                }
-                filteredTweets.add(tweet)
-            }
-            return filteredTweets
-        }
 
 }
