@@ -1,21 +1,26 @@
 package com.thoughtworks.android.ui.recyclerview
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.thoughtworks.android.PracticeApp
 import com.thoughtworks.android.R
-import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.utils.Dependency
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.android.synthetic.main.recycler_view_layout.*
 
 class RecyclerViewActivity : AppCompatActivity() {
 
     private lateinit var tweetAdapter: TweetAdapter
     private lateinit var dependency: Dependency
+    private val compositeDisposable = CompositeDisposable()
+    private var shuffled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,14 +37,37 @@ class RecyclerViewActivity : AppCompatActivity() {
 
         val swipeRefreshLayout: SwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         swipeRefreshLayout.setOnRefreshListener {
-            tweetAdapter.setData(dependency.getLocalStorage().getTweets().shuffled())
-            swipeRefreshLayout.isRefreshing = false
+            shuffled = true
+            dependency.dataSource.fetchTweets()
         }
     }
 
     private fun initData() {
         dependency = (application as PracticeApp).getDependency()
-        tweetAdapter.setData(dependency.getLocalStorage().getTweets())
+        val subscribe: Disposable = dependency.dataSource
+            .observeTweets()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ tweets ->
+                tweetAdapter.setData(if (shuffled) tweets.shuffled() else tweets)
+                swipeRefreshLayout.isRefreshing = false
+            }
+            ) { throwable ->
+                Toast.makeText(
+                    this@RecyclerViewActivity,
+                    throwable.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+                swipeRefreshLayout.isRefreshing = false
+            }
+        compositeDisposable.add(subscribe)
+
+        dependency.dataSource.fetchTweets()
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 
 }

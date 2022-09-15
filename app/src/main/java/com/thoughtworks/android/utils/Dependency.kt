@@ -2,19 +2,15 @@ package com.thoughtworks.android.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.thoughtworks.android.data.source.LocalStorage
-import com.thoughtworks.android.data.source.LocalStorageImpl
+import com.thoughtworks.android.data.source.DataSource
+import com.thoughtworks.android.data.source.Repository
 
 class Dependency private constructor(context: Context) {
 
-    private val localStorage: LocalStorage
+    val dataSource: DataSource
 
     init {
-        localStorage = LocalStorageImpl(context)
-    }
-
-    fun getLocalStorage(): LocalStorage {
-        return localStorage
+        dataSource = Repository(context)
     }
 
     companion object {
