@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_32"
         android:textColor="@color/black"
+        android:textSize="30sp"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
