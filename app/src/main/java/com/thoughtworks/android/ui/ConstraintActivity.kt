@@ -1,10 +1,11 @@
-package com.thoughtworks.android
+package com.thoughtworks.android.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.thoughtworks.android.R
 
 class ConstraintActivity : AppCompatActivity() {
 

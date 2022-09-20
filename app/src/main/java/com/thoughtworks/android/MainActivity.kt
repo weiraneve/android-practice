@@ -54,8 +54,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
                 cursor?.use {
-                    if (it.count > 0) {
-                        it.moveToFirst()
+                    if (it.moveToFirst()) {
                         val name = it.getString(0)
                         val hasPhoneNumber = it.getString(1)
                         val contactId = it.getString(2)
