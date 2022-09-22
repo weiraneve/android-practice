@@ -25,7 +25,7 @@
         <activity android:name=".ui.ConstraintActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.fragment.MyFragmentActivity" />
-        <activity android:name=".ui.recyclerview.RecyclerViewActivity" />
+        <activity android:name=".ui.recyclerview.TweetsActivity" />
         <activity android:name=".ui.thread.ThreadActivity" />
         <activity android:name=".ui.thread.HandlerActivity" />
         <activity android:name=".ui.thread.RxJavaActivity" />

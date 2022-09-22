@@ -11,14 +11,14 @@ import com.thoughtworks.android.R
 import com.thoughtworks.android.common.Definitions
 import com.thoughtworks.android.data.model.Tweet
 
-class RecyclerViewActivity : AppCompatActivity() {
+class TweetsActivity : AppCompatActivity() {
 
     private val gson: Gson = Gson()
     private lateinit var tweetAdapter: TweetAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.recycler_view_layout)
+        setContentView(R.layout.tweets_layout)
         initUI()
         initData()
     }
@@ -44,12 +44,8 @@ class RecyclerViewActivity : AppCompatActivity() {
         get() {
             val tweets: List<Tweet> =
                 gson.fromJson(Definitions.TWEET, object : TypeToken<List<Tweet>>() {}.type)
-            val filteredTweets: MutableList<Tweet> = mutableListOf()
-            for (tweet in tweets) {
-                if (tweet.error != null || tweet.unknownError != null) {
-                    continue
-                }
-                filteredTweets.add(tweet)
+            val filteredTweets: List<Tweet> = tweets.filter {
+                it.error == null && it.unknownError == null
             }
             return filteredTweets
         }

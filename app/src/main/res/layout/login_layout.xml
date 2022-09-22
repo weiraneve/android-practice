@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="44.5dp">
 
             <ImageView
                 android:id="@+id/logo"
@@ -26,7 +16,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/ed_username"
+                android:id="@+id/edit_username"
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="77.7dp"
@@ -42,7 +32,7 @@
                 app:layout_constraintTop_toBottomOf="@id/logo" />
 
             <EditText
-                android:id="@+id/ed_password"
+                android:id="@+id/edit_password"
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -55,17 +45,17 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ed_username" />
+                app:layout_constraintTop_toBottomOf="@id/edit_username" />
 
             <CheckBox
-                android:id="@+id/cb_remember_me"
+                android:id="@+id/checkbox_remember_me"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="22.5dp"
                 android:text="@string/remember_me"
-                app:layout_constraintStart_toStartOf="@id/ed_password"
-                app:layout_constraintTop_toBottomOf="@id/ed_password" />
+                app:layout_constraintStart_toStartOf="@id/edit_password"
+                app:layout_constraintTop_toBottomOf="@id/edit_password" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -73,9 +63,9 @@
                 android:layout_gravity="end"
                 android:text="@string/forgot_password"
                 android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@id/cb_remember_me"
-                app:layout_constraintEnd_toEndOf="@id/ed_password"
-                app:layout_constraintTop_toTopOf="@id/cb_remember_me" />
+                app:layout_constraintBottom_toBottomOf="@id/checkbox_remember_me"
+                app:layout_constraintEnd_toEndOf="@id/edit_password"
+                app:layout_constraintTop_toTopOf="@id/checkbox_remember_me" />
 
             <Button
                 android:id="@+id/login"
@@ -86,42 +76,38 @@
                 android:text="@string/login"
                 android:textAllCaps="false"
                 app:backgroundTint="@null"
-                app:layout_constraintEnd_toEndOf="@id/ed_password"
-                app:layout_constraintStart_toStartOf="@id/ed_password"
-                app:layout_constraintTop_toBottomOf="@id/cb_remember_me" />
+                app:layout_constraintEnd_toEndOf="@id/edit_password"
+                app:layout_constraintStart_toStartOf="@id/edit_password"
+                app:layout_constraintTop_toBottomOf="@id/checkbox_remember_me" />
 
             <TextView
-                android:id="@+id/tv_or_connect_with"
+                android:id="@+id/textview_or_connect_with"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26.5dp"
                 android:text="@string/or_connect_with"
                 android:textColor="@color/gray2"
-                app:layout_constraintEnd_toEndOf="@id/ed_password"
-                app:layout_constraintStart_toStartOf="@id/ed_password"
+                app:layout_constraintEnd_toEndOf="@id/edit_password"
+                app:layout_constraintStart_toStartOf="@id/edit_password"
                 app:layout_constraintTop_toBottomOf="@id/login" />
 
             <ImageView
-                android:id="@+id/im_fb"
+                android:id="@+id/image_fb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="29.5dp"
                 android:contentDescription="@null"
-                android:focusable="true"
-                android:clickable="true"
                 android:src="@drawable/fb_image_button"
                 app:layout_constraintStart_toStartOf="@id/login"
-                app:layout_constraintTop_toBottomOf="@id/tv_or_connect_with" />
+                app:layout_constraintTop_toBottomOf="@id/textview_or_connect_with" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
-                android:focusable="true"
-                android:clickable="true"
                 android:src="@drawable/twitter_image_button"
                 app:layout_constraintEnd_toEndOf="@id/login"
-                app:layout_constraintTop_toTopOf="@id/im_fb" />
+                app:layout_constraintTop_toTopOf="@id/image_fb" />
 
             <Button
                 android:id="@+id/btn_sign_up"
@@ -135,8 +121,6 @@
                 app:backgroundTint="@null"
                 app:layout_constraintEnd_toEndOf="@id/login"
                 app:layout_constraintStart_toStartOf="@id/login"
-                app:layout_constraintTop_toBottomOf="@id/im_fb" />
+                app:layout_constraintTop_toBottomOf="@id/image_fb" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
