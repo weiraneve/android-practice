@@ -1,16 +1,19 @@
 package com.thoughtworks.android
 
 import android.Manifest
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +25,6 @@ import com.thoughtworks.android.ui.recyclerview.RecyclerViewActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var pickContactLauncher: ActivityResultLauncher<Void?>
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private lateinit var dialog: Dialog
     private val buttonContainer: LinearLayout by lazy { findViewById(R.id.button_container) }
@@ -35,7 +37,63 @@ class MainActivity : AppCompatActivity() {
 
     private fun initUI() {
         generateButtons()
-        initContactRetriever()
+    }
+
+    private fun initContactUI() {
+        val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI).apply {
+            type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
+        }
+        resultLauncher.launch(intent)
+    }
+
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data
+                val uri: Uri? = data?.data
+                val contact = getPhoneContacts(uri)
+                if (contact != null) {
+                    val name = contact[0]
+                    val number = contact[1]
+                    showDialog("$name\n$number")
+                }
+            }
+        }
+
+    private fun getPhoneContacts(uri: Uri?): Array<String?>? {
+        val contact = arrayOfNulls<String>(2)
+        val contentResolver = contentResolver
+        val projection: Array<String> = arrayOf(
+            ContactsContract.Contacts.DISPLAY_NAME,
+            ContactsContract.CommonDataKinds.Phone.NUMBER
+        )
+        val cursor: Cursor? = uri?.let { contentResolver.query(it, projection, null, null, null) }
+        if (cursor != null && cursor.moveToFirst()) {
+            val columnIndex: Int =
+                cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+            contact[0] = cursor.getString(columnIndex)
+            contact[1] =
+                cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            cursor.close()
+        } else {
+            return null
+        }
+        return contact
+    }
+
+    private fun showDialog(msg: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(msg).setPositiveButton(R.string.ok) { _, _ -> dialog.cancel() }
+            .setCancelable(false)
+        dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun canReadContact(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CONTACTS
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun generateButtons() {
@@ -49,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
         addButton(getString(R.string.pick_contact)) {
             if (canReadContact()) {
-                pickContactLauncher.launch(null)
+                initContactUI()
             } else {
                 permissionLauncher.launch(Manifest.permission.READ_CONTACTS)
             }
@@ -88,82 +146,4 @@ class MainActivity : AppCompatActivity() {
 
         buttonContainer.addView(button)
     }
-
-    private fun initContactRetriever() {
-        pickContactLauncher =
-            registerForActivityResult(ActivityResultContracts.PickContact()) { uri ->
-                val projection = arrayOf(
-                    ContactsContract.Contacts.DISPLAY_NAME,
-                    ContactsContract.Contacts.HAS_PHONE_NUMBER,
-                    ContactsContract.Contacts._ID
-                )
-                val cursor = uri?.let {
-                    contentResolver.query(
-                        it,
-                        projection,
-                        null,
-                        null,
-                        null
-                    )
-                }
-                cursor?.use {
-                    if (it.count > 0) {
-                        it.moveToFirst()
-                        val name = it.getString(0)
-                        val hasPhoneNumber = it.getString(1)
-                        val contactId = it.getString(2)
-                        if (hasPhoneNumber.toInt() > 0) {
-                            getPhoneNumber(contactId)?.let { phoneNumber ->
-                                showDialog("$name\n$phoneNumber")
-                            }
-                        }
-                    }
-
-                    it.close()
-                }
-            }
-
-        permissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-                if (isGranted) {
-                    pickContactLauncher.launch(null)
-                }
-            }
-    }
-
-    private fun showDialog(msg: String) {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage(msg).setPositiveButton(R.string.ok) { _, _ -> dialog.cancel() }
-            .setCancelable(false)
-        dialog = builder.create()
-        dialog.show()
-    }
-
-    @SuppressLint("Range", "Recycle")
-    private fun getPhoneNumber(contactId: String): String? {
-        val cr = contentResolver
-        val phones = cr.query(
-            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-            null,
-            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId,
-            null,
-            null
-        )
-        phones?.apply {
-            use {
-                if (it.moveToNext()) {
-                    return phones.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                }
-            }
-        }
-        return null
-    }
-
-    private fun canReadContact(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.READ_CONTACTS
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
 }
