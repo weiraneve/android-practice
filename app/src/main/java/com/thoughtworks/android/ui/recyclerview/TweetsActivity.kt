@@ -11,14 +11,14 @@ import com.thoughtworks.android.R
 import com.thoughtworks.android.common.Definitions
 import com.thoughtworks.android.model.Tweet
 
-class RecyclerViewActivity : AppCompatActivity() {
+class TweetsActivity : AppCompatActivity() {
 
     private val gson: Gson = Gson()
     private lateinit var tweetAdapter: TweetAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.recycler_view_layout)
+        setContentView(R.layout.tweets_layout)
         initUI()
         initData()
     }

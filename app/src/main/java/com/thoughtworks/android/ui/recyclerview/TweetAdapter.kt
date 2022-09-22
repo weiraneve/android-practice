@@ -1,5 +1,6 @@
 package com.thoughtworks.android.ui.recyclerview
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
+import coil.size.PixelSize
+import coil.transform.CircleCropTransformation
 import com.thoughtworks.android.R
 import com.thoughtworks.android.model.Tweet
 
@@ -20,6 +23,7 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
         private const val VIEW_TYPE_BOTTOM = 1
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(tweets : List<Tweet>?) {
         this.tweets.clear()
         this.tweets.addAll(tweets!!)
@@ -53,12 +57,13 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
                 tweetViewHolder.name.text = it.nick
             }
             tweetViewHolder.content.text = tweet.content
-
-            Glide.with(context).load(tweet.sender!!.avatar).centerCrop()
-                .placeholder(R.drawable.avatar).into(tweetViewHolder.avatar)
+            tweetViewHolder.avatar.load(tweet.sender!!.avatar) {
+                placeholder(R.drawable.avatar)
+                transformations(CircleCropTransformation())
+                size(PixelSize(width = 200, height = 200))
+            }
         }
     }
-
 
     override fun getItemCount(): Int {
         return tweets.size + 1
