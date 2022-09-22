@@ -109,10 +109,7 @@ class MainActivity : AppCompatActivity() {
         generateButtonAndUI(R.string.recycler_view, TweetsActivity::class.java)
         generateButtonAndUI(R.string.thread, ThreadActivity::class.java)
         generateButtonAndUI(R.string.handler, HandlerActivity::class.java)
-
-        addButton(getString(R.string.rxjava)) {
-            startActivity(Intent(this, RxJavaActivity::class.java))
-        }
+        generateButtonAndUI(R.string.rxjava, RxJavaActivity::class.java)
 
         addButton(getString(R.string.button_9))
         addButton(getString(R.string.button_10))
