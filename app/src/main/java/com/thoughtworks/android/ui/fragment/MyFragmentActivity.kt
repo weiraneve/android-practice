@@ -56,8 +56,7 @@ class MyFragmentActivity : AppCompatActivity() {
         UiUtils.addOrShowFragmentAndHideOthers(
             supportFragmentManager,
             DisplayAndroidFragment(),
-            R.id.content,
-            null
+            R.id.content
         )
     }
 
@@ -65,8 +64,7 @@ class MyFragmentActivity : AppCompatActivity() {
         UiUtils.addOrShowFragmentAndHideOthers(
             supportFragmentManager,
             DisplayJavaFragment(),
-            R.id.content,
-            null
+            R.id.content
         )
     }
 

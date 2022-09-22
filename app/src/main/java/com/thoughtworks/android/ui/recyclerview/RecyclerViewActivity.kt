@@ -44,12 +44,8 @@ class RecyclerViewActivity : AppCompatActivity() {
         get() {
             val tweets: List<Tweet> =
                 gson.fromJson(Definitions.TWEET, object : TypeToken<List<Tweet>>() {}.type)
-            val filteredTweets: MutableList<Tweet> = mutableListOf()
-            for (tweet in tweets) {
-                if (tweet.error != null || tweet.unknownError != null) {
-                    continue
-                }
-                filteredTweets.add(tweet)
+            val filteredTweets: List<Tweet> = tweets.filter {
+                it.error == null && it.unknownError == null
             }
             return filteredTweets
         }
