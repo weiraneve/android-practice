@@ -4,7 +4,7 @@ import com.thoughtworks.android.data.model.Tweet
 
 interface LocalStorage {
 
-    var isKnown: Boolean
+    var isHintShown: Boolean
 
     fun getTweets(): List<Tweet>
 }

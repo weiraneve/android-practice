@@ -17,7 +17,7 @@ class LocalStorageImpl(private val context: Context): LocalStorage {
         private const val KEY_KNOWN = "known"
     }
 
-    override var isKnown: Boolean
+    override var isHintShown: Boolean
         get() = SharedPreferenceUtil.readBoolean(context, Constants.SHARED_PREFERENCE_FILE, KEY_KNOWN, false)
         set(value) {
             SharedPreferenceUtil.writeBoolean(context, Constants.SHARED_PREFERENCE_FILE, KEY_KNOWN, value)

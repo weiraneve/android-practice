@@ -1,25 +1,22 @@
 package com.thoughtworks.android.ui.recyclerview
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.thoughtworks.android.PracticeApp
 import com.thoughtworks.android.R
-import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.utils.Dependency
 
-class RecyclerViewActivity : AppCompatActivity() {
+class TweetsActivity : AppCompatActivity() {
 
     private lateinit var tweetAdapter: TweetAdapter
     private lateinit var dependency: Dependency
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.recycler_view_layout)
+        setContentView(R.layout.tweets_layout)
         initUI()
         initData()
     }
