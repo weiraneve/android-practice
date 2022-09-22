@@ -21,7 +21,7 @@ import androidx.core.content.ContextCompat
 import com.thoughtworks.android.ui.ConstraintActivity
 import com.thoughtworks.android.ui.LoginActivity
 import com.thoughtworks.android.ui.fragment.MyFragmentActivity
-import com.thoughtworks.android.ui.recyclerview.RecyclerViewActivity
+import com.thoughtworks.android.ui.recyclerview.TweetsActivity
 import com.thoughtworks.android.ui.thread.ThreadActivity
 
 class MainActivity : AppCompatActivity() {
@@ -102,11 +102,8 @@ class MainActivity : AppCompatActivity() {
         generateButtonAndUI(R.string.login, LoginActivity::class.java)
         generatePickButtonAndUI()
         generateButtonAndUI(R.string.fragment, MyFragmentActivity::class.java)
-        generateButtonAndUI(R.string.recycler_view, RecyclerViewActivity::class.java)
-
-        addButton(getString(R.string.thread)) {
-            startActivity(Intent(this, ThreadActivity::class.java))
-        }
+        generateButtonAndUI(R.string.recycler_view, TweetsActivity::class.java)
+        generateButtonAndUI(R.string.thread, ThreadActivity::class.java)
 
         addButton(getString(R.string.button_7))
         addButton(getString(R.string.button_8))
