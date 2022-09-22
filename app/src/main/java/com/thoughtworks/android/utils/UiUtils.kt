@@ -3,12 +3,10 @@ package com.thoughtworks.android.utils
 import android.app.Activity
 import android.graphics.Color
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -41,6 +39,25 @@ object UiUtils {
         if (!fragment.isAdded) {
             transaction.add(fragmentId, fragment)
         }
+    }
+
+    fun customToast(activity: Activity, text: String, @DrawableRes drawable: Int, duration: Int): Toast {
+        val inflater: LayoutInflater = activity.layoutInflater
+        val layout: View = inflater.inflate(
+            R.layout.handler_toast,
+            activity.findViewById(R.id.handler_toast_layout_root) as ViewGroup?
+        )
+
+        val image: ImageView = layout.findViewById(R.id.handler_toast_image) as ImageView
+        image.setImageResource(drawable)
+        (layout.findViewById(R.id.handler_toast_text) as TextView).text = text
+
+        val toast = Toast(activity.applicationContext)
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
+        toast.duration = duration
+        toast.view = layout
+
+        return toast
     }
 
     fun showSnackBar(

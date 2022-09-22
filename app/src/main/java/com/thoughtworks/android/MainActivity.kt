@@ -1,6 +1,7 @@
 package com.thoughtworks.android
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
@@ -22,7 +23,7 @@ import com.thoughtworks.android.ui.ConstraintActivity
 import com.thoughtworks.android.ui.LoginActivity
 import com.thoughtworks.android.ui.thread.RxJavaActivity
 import com.thoughtworks.android.ui.fragment.MyFragmentActivity
-import com.thoughtworks.android.ui.recyclerview.RecyclerViewActivity
+import com.thoughtworks.android.ui.recyclerview.TweetsActivity
 import com.thoughtworks.android.ui.thread.HandlerActivity
 import com.thoughtworks.android.ui.thread.ThreadActivity
 
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    @SuppressLint("Range")
     private fun getPhoneContacts(uri: Uri?): Array<String?>? {
         val contact = arrayOfNulls<String>(2)
         val contentResolver = contentResolver
@@ -104,15 +106,9 @@ class MainActivity : AppCompatActivity() {
         generateButtonAndUI(R.string.login, LoginActivity::class.java)
         generatePickButtonAndUI()
         generateButtonAndUI(R.string.fragment, MyFragmentActivity::class.java)
-        generateButtonAndUI(R.string.recycler_view, RecyclerViewActivity::class.java)
-
-        addButton(getString(R.string.thread)) {
-            startActivity(Intent(this, ThreadActivity::class.java))
-        }
-
-        addButton(getString(R.string.handler)) {
-            startActivity(Intent(this, HandlerActivity::class.java))
-        }
+        generateButtonAndUI(R.string.recycler_view, TweetsActivity::class.java)
+        generateButtonAndUI(R.string.thread, ThreadActivity::class.java)
+        generateButtonAndUI(R.string.handler, HandlerActivity::class.java)
 
         addButton(getString(R.string.rxjava)) {
             startActivity(Intent(this, RxJavaActivity::class.java))
