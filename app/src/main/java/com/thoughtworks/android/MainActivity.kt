@@ -97,14 +97,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun generateButtons() {
-        addButton(getString(R.string.constraint_layout)) {
-            startActivity(Intent(this, ConstraintActivity::class.java))
-        }
+        generateButtonAndUI(R.string.constraint_layout, ConstraintActivity::class.java)
+        generateButtonAndUI(R.string.login, LoginActivity::class.java)
+        generatePickButtonAndUI()
+        generateButtonAndUI(R.string.fragment, MyFragmentActivity::class.java)
+        generateButtonAndUI(R.string.recycler_view, RecyclerViewActivity::class.java)
 
-        addButton(getString(R.string.login)) {
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
+        addButton(getString(R.string.button_6))
+        addButton(getString(R.string.button_7))
+        addButton(getString(R.string.button_8))
+        addButton(getString(R.string.button_9))
+        addButton(getString(R.string.button_10))
+    }
 
+    private fun <T: AppCompatActivity> generateButtonAndUI(layoutInt: Int, java: Class<T>) {
+        addButton(getString(layoutInt)) {
+            startActivity(Intent(this, java))
+        }
+    }
+
+    private fun generatePickButtonAndUI() {
         addButton(getString(R.string.pick_contact)) {
             if (canReadContact()) {
                 initContactUI()
@@ -112,20 +124,6 @@ class MainActivity : AppCompatActivity() {
                 permissionLauncher.launch(Manifest.permission.READ_CONTACTS)
             }
         }
-
-        addButton(getString(R.string.fragment)) {
-            startActivity(Intent(this, MyFragmentActivity::class.java))
-        }
-
-        addButton(getString(R.string.recycler_view)) {
-            startActivity(Intent(this, RecyclerViewActivity::class.java))
-        }
-
-        addButton(getString(R.string.button_6))
-        addButton(getString(R.string.button_7))
-        addButton(getString(R.string.button_8))
-        addButton(getString(R.string.button_9))
-        addButton(getString(R.string.button_10))
     }
 
     private fun addButton(name: String, onClickListener: View.OnClickListener? = null) {
