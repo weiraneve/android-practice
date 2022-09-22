@@ -25,7 +25,7 @@ class SharedPreferenceActivity : AppCompatActivity() {
         val practiceApp = application as PracticeApp
         dependency =  practiceApp.getDependency()
         buttonSp.setOnClickListener {
-            dependency.getLocalStorage().isKnown = true
+            dependency.getLocalStorage().isHintShown = true
             refreshStatus()
         }
         refreshStatus()
@@ -33,8 +33,8 @@ class SharedPreferenceActivity : AppCompatActivity() {
 
     private fun refreshStatus() {
         spInfo.setText(
-            if (dependency.getLocalStorage().isKnown) R.string.welcome_back else R.string.sp_tips
+            if (dependency.getLocalStorage().isHintShown) R.string.welcome_back else R.string.sp_tips
         )
-        buttonSp.visibility = if (dependency.getLocalStorage().isKnown) View.GONE else View.VISIBLE
+        buttonSp.visibility = if (dependency.getLocalStorage().isHintShown) View.GONE else View.VISIBLE
     }
 }
