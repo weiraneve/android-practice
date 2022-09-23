@@ -60,7 +60,12 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
             tweetViewHolder.avatar.load(tweet.sender!!.avatar) {
                 placeholder(R.drawable.avatar)
                 transformations(CircleCropTransformation())
-                size(PixelSize(width = 200, height = 200))
+                size(
+                    PixelSize(
+                        width = context.resources.getDimensionPixelSize(R.dimen.avatar_width),
+                        height = context.resources.getDimensionPixelSize(R.dimen.avatar_height)
+                    )
+                )
             }
         }
     }
