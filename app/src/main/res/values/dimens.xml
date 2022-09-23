@@ -7,4 +7,6 @@
     <dimen name="dimen_48">48dp</dimen>
     <dimen name="dimen_64">64dp</dimen>
     <dimen name="dimen_128">128dp</dimen>
+    <dimen name="avatar_width">200</dimen>
+    <dimen name="avatar_height">200</dimen>
 </resources>
