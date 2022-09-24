@@ -64,7 +64,7 @@ class RxJavaActivity : AppCompatActivity() {
 
     private fun countIncrease(): Observable<Int> {
         return Observable.interval(0, 1, TimeUnit.SECONDS)
-            .take(11)
+            .take(10)
             .flatMap {
                 return@flatMap Observable.create { emitter ->
                     emitter.onNext(++count)
@@ -74,8 +74,8 @@ class RxJavaActivity : AppCompatActivity() {
     }
 
     private fun countDecrease(): Observable<Int> {
-        return Observable.interval(0, 1, TimeUnit.SECONDS)
-            .take(11)
+        return Observable.interval(1, 1, TimeUnit.SECONDS)
+            .take(10)
             .flatMap {
                 return@flatMap Observable.create { emitter ->
                     emitter.onNext(--count)
