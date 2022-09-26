@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.widget.Button
 import com.thoughtworks.android.R
+import kotlinx.coroutines.*
 import java.util.*
 import java.util.concurrent.Executors
 
@@ -26,11 +27,33 @@ class ThreadActivity : AppCompatActivity() {
     private fun initUI() {
         buttonCount.setOnClickListener {
             startCount()
-            buttonCount.isEnabled = false
         }
     }
 
     private fun startCount() {
+        useCoroutines()
+    }
+
+    private fun useCoroutines() {
+        CoroutineScope(Dispatchers.Main).launch {
+            buttonCount.isEnabled = false
+            var count = 0
+            while (count < 10) {
+                withContext(Dispatchers.IO) {
+                    delay(SECOND_DURATION)
+                    count++
+                }
+                buttonCount.text = String.format(
+                    Locale.getDefault(),
+                    "%d",
+                    count
+                )
+            }
+            buttonCount.isEnabled = true
+        }
+    }
+
+    private fun useExecutor() {
         executor.execute {
             var count = 0
             while (count < 10) {
