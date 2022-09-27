@@ -26,12 +26,12 @@ class SharedPreferenceActivity : AppCompatActivity() {
         dependency =  practiceApp.getDependency()
         buttonSp.setOnClickListener {
             dependency.getLocalStorage().isHintShown = true
-            refreshStatus()
+            initStatus()
         }
-        refreshStatus()
+        initStatus()
     }
 
-    private fun refreshStatus() {
+    private fun initStatus() {
         spInfo.setText(
             if (dependency.getLocalStorage().isHintShown) R.string.welcome_back else R.string.sp_tips
         )
