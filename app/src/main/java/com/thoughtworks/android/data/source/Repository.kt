@@ -15,10 +15,10 @@ class Repository(context: Context?) : DataSource {
         localStorage = LocalStorageImpl(context!!)
     }
 
-    override var isKnown: Boolean
-        get() = localStorage.isKnown
-        set(isKnown) {
-            localStorage.isKnown = isKnown
+    override var isHintShown: Boolean
+        get() = localStorage.isHintShown
+        set(isHintShown) {
+            localStorage.isHintShown = isHintShown
         }
 
     override fun fetchTweets() {

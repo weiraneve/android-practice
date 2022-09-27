@@ -32,19 +32,19 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
     private val appDatabase =
         Room.databaseBuilder(context, AppDatabase::class.java, "practice-db").build()
 
-    override var isKnown: Boolean
+    override var isHintShown: Boolean
         get() = SharedPreferenceUtil.readBoolean(
             context,
             Constants.SHARED_PREFERENCE_FILE,
             KEY_KNOWN,
             false
         )
-        set(isKnown) {
+        set(isHintShown) {
             SharedPreferenceUtil.writeBoolean(
                 context,
                 Constants.SHARED_PREFERENCE_FILE,
                 KEY_KNOWN,
-                isKnown
+                isHintShown
             )
         }
 

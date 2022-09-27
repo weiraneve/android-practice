@@ -13,9 +13,9 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.android.synthetic.main.recycler_view_layout.*
+import kotlinx.android.synthetic.main.tweets_layout.*
 
-class RecyclerViewActivity : AppCompatActivity() {
+class TweetsActivity : AppCompatActivity() {
 
     private lateinit var tweetAdapter: TweetAdapter
     private lateinit var dependency: Dependency
@@ -24,7 +24,7 @@ class RecyclerViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.recycler_view_layout)
+        setContentView(R.layout.tweets_layout)
         initUI()
         initData()
     }
@@ -54,7 +54,7 @@ class RecyclerViewActivity : AppCompatActivity() {
             }
             ) { throwable ->
                 Toast.makeText(
-                    this@RecyclerViewActivity,
+                    this@TweetsActivity,
                     throwable.message,
                     Toast.LENGTH_SHORT
                 ).show()

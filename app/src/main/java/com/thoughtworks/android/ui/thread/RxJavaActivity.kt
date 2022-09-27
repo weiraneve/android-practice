@@ -1,10 +1,9 @@
 package com.thoughtworks.android.ui.thread
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.SystemClock
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.thoughtworks.android.R
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -13,12 +12,11 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class RxJavaActivity : AppCompatActivity() {
 
-    companion object {
-        private const val ONE_SECOND = 1000L
-    }
+    private var count: Int = 0
 
     private val compositeDisposable = CompositeDisposable()
     private val buttonCount: Button by lazy { findViewById(R.id.button_rxjava) }
@@ -65,25 +63,25 @@ class RxJavaActivity : AppCompatActivity() {
     }
 
     private fun countIncrease(): Observable<Int> {
-        return Observable.create { emitter ->
-            var i = 0
-            while (i < 10) {
-                SystemClock.sleep(ONE_SECOND)
-                emitter.onNext(++i)
+        return Observable.interval(0, 1, TimeUnit.SECONDS)
+            .take(10)
+            .flatMap {
+                return@flatMap Observable.create { emitter ->
+                    emitter.onNext(++count)
+                    emitter.onComplete()
+                }
             }
-            emitter.onComplete()
-        }
     }
 
     private fun countDecrease(): Observable<Int> {
-        return Observable.create { emitter ->
-            var i = 10
-            while (i > 0) {
-                SystemClock.sleep(ONE_SECOND)
-                emitter.onNext(--i)
+        return Observable.interval(1, 1, TimeUnit.SECONDS)
+            .take(10)
+            .flatMap {
+                return@flatMap Observable.create { emitter ->
+                    emitter.onNext(--count)
+                    emitter.onComplete()
+                }
             }
-            emitter.onComplete()
-        }
     }
 
 }
