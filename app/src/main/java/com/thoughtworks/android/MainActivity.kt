@@ -1,6 +1,7 @@
 package com.thoughtworks.android
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    @SuppressLint("Range")
     private fun getPhoneContacts(uri: Uri?): Array<String?>? {
         val contact = arrayOfNulls<String>(2)
         val contentResolver = contentResolver

@@ -1,5 +1,6 @@
 package com.thoughtworks.android.ui.recyclerview
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<TweetAda
 
     private val tweets = ArrayList<Tweet>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(tweets : List<Tweet>?) {
         this.tweets.clear()
         this.tweets.addAll(tweets!!)
