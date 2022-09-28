@@ -1,12 +1,10 @@
 package com.thoughtworks.android
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -16,13 +14,11 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.thoughtworks.android.ui.ConstraintActivity
 import com.thoughtworks.android.ui.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private lateinit var pickContactLauncher: ActivityResultLauncher<Intent?>
     private lateinit var dialog: Dialog
     private val buttonContainer: LinearLayout by lazy { findViewById(R.id.button_container) }
@@ -52,11 +48,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-
-        permissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-                if (it) pickContactLauncher.launch(null)
-            }
     }
 
     @SuppressLint("Range")
@@ -67,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             ContactsContract.Contacts.DISPLAY_NAME,
             ContactsContract.CommonDataKinds.Phone.NUMBER
         )
-        val cursor = 
+        val cursor =
             uri?.let { contentResolver.query(it, projection, null, null, null) }
         if (cursor != null && cursor.moveToFirst()) {
             cursor.let {
@@ -92,13 +83,6 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun canReadContact(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.READ_CONTACTS
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
     private fun generateButtons() {
         addButton(getString(R.string.constraint_layout)) {
             startActivity(Intent(this, ConstraintActivity::class.java))
@@ -109,11 +93,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         addButton(getString(R.string.pick_contact)) {
-            if (canReadContact()) {
-                initContactUI()
-            } else {
-                permissionLauncher.launch(Manifest.permission.READ_CONTACTS)
-            }
+            initContactUI()
         }
 
         addButton(getString(R.string.button_4))
