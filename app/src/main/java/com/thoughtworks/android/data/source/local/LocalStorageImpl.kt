@@ -39,12 +39,12 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
             KEY_KNOWN,
             false
         )
-        set(isHintShown) {
+        set(isShown) {
             SharedPreferenceUtil.writeBoolean(
                 context,
                 Constants.SHARED_PREFERENCE_FILE,
                 KEY_KNOWN,
-                isHintShown
+                isShown
             )
         }
 
@@ -55,13 +55,20 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
             ), object : TypeToken<List<Tweet>>() {}.type
         )
         val filteredTweets: MutableList<Tweet> = mutableListOf()
+        filterTweets(tweets, filteredTweets)
+        return filteredTweets
+    }
+
+    private fun filterTweets(
+        tweets: List<Tweet>,
+        filteredTweets: MutableList<Tweet>
+    ) {
         for (tweet in tweets) {
             if (tweet.error != null || tweet.unknownError != null) {
                 continue
             }
             filteredTweets.add(tweet)
         }
-        return filteredTweets
     }
 
     override fun updateTweets(tweets: List<Tweet>): Single<Boolean> {
@@ -71,34 +78,9 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
                 appDatabase.runInTransaction {
                     tweets.forEach(Consumer { tweet: Tweet ->
                         val tweetEntity = toRoomTweet(tweet)
-                        tweet.sender?.let {
-                            tweetEntity.senderId = insertRoomSender(it)
-                        }
-                        val tweetId = appDatabase.tweetDao().insert(tweetEntity).blockingGet()
-
-                        tweet.images?.let { images ->
-                            images.forEach(Consumer { image: Image ->
-                                val imageEntity = toRoomImage(image, tweetId)
-                                appDatabase.imageDao().insert(imageEntity).blockingGet()
-                            })
-                        }
-
-                        tweet.comments?.let { comments ->
-                            comments.forEach(Consumer { comment: Comment ->
-                                var senderId = 0L
-                                comment.sender?.let {
-                                    senderId = insertRoomSender(it)
-                                }
-
-                                val commentEntity = toRoomComment(
-                                    comment,
-                                    tweetId,
-                                    senderId
-                                )
-
-                                appDatabase.commentDao().insert(commentEntity).blockingGet()
-                            })
-                        }
+                        val tweetId = getIdByEntityAndInsertSender(tweet, tweetEntity)
+                        insertImages(tweet, tweetId)
+                        insertComment(tweet, tweetId)
                     })
                 }
             } catch (t: Throwable) {
@@ -107,6 +89,42 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
             }
             emitter.onSuccess(true)
         }
+    }
+
+    private fun insertComment(tweet: Tweet, tweetId: Long) {
+        tweet.comments?.let { comments ->
+            comments.forEach(Consumer { comment: Comment ->
+                var senderId = 0L
+                comment.sender?.let {
+                    senderId = insertRoomSender(it)
+                }
+                val commentEntity = toRoomComment(
+                    comment,
+                    tweetId,
+                    senderId
+                )
+                appDatabase.commentDao().insert(commentEntity).blockingGet()
+            })
+        }
+    }
+
+    private fun insertImages(tweet: Tweet, tweetId: Long) {
+        tweet.images?.let { images ->
+            images.forEach(Consumer { image: Image ->
+                val imageEntity = toRoomImage(image, tweetId)
+                appDatabase.imageDao().insert(imageEntity).blockingGet()
+            })
+        }
+    }
+
+    private fun getIdByEntityAndInsertSender(
+        tweet: Tweet,
+        tweetEntity: TweetEntity
+    ): Long {
+        tweet.sender?.let {
+            tweetEntity.senderId = insertRoomSender(it)
+        }
+        return appDatabase.tweetDao().insert(tweetEntity).blockingGet()
     }
 
     override fun getTweets(): Flowable<List<Tweet>> {
@@ -121,30 +139,43 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
                     senderEntities.find { it.id == tweetEntity.senderId }?.let {
                         tweet.sender = toSender(it)
                     }
-
-                    tweet.images =
-                        imageEntities.filter { it.tweetId == tweetEntity.id }.map { Image(it.url) }
-
-                    tweet.comments = commentEntities.filter { it.tweetId == tweetEntity.id }
-                        .map { commentEntity ->
-                            val comment = Comment(
-                                content = commentEntity.content
-                            )
-
-                            val senderEntity =
-                                senderEntities.find { it.id == commentEntity.senderId }
-                            senderEntity?.let {
-                                comment.sender = toSender(it)
-                            }
-
-                            comment
-                        }
-
-                    tweets.add(tweet)
+                    filterImage(tweet, imageEntities, tweetEntity)
+                    filterComment(tweet, commentEntities, tweetEntity, senderEntities, tweets)
                 }
-
                 tweets
             }
+    }
+
+    private fun filterComment(
+        tweet: Tweet,
+        commentEntities: List<CommentEntity>,
+        tweetEntity: TweetEntity,
+        senderEntities: List<SenderEntity>,
+        tweets: MutableList<Tweet>
+    ) {
+        tweet.comments = commentEntities.filter { it.tweetId == tweetEntity.id }
+            .map { commentEntity ->
+                val comment = Comment(
+                    content = commentEntity.content
+                )
+                val senderEntity =
+                    senderEntities.find { it.id == commentEntity.senderId }
+                senderEntity?.let {
+                    comment.sender = toSender(it)
+                }
+
+                comment
+            }
+        tweets.add(tweet)
+    }
+
+    private fun filterImage(
+        tweet: Tweet,
+        imageEntities: List<ImageEntity>,
+        tweetEntity: TweetEntity
+    ) {
+        tweet.images =
+            imageEntities.filter { it.tweetId == tweetEntity.id }.map { Image(it.url) }
     }
 
     private fun toTweet(tweetEntity: TweetEntity): Tweet {
