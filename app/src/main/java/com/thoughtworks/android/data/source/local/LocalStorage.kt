@@ -5,7 +5,7 @@ import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 
 interface LocalStorage {
-    var isKnown: Boolean
+    var isHintShown: Boolean
     fun getTweetsFromRaw(): List<Tweet>
     suspend fun updateTweets(tweets: List<Tweet>)
     fun getTweets(): Flowable<List<Tweet>>

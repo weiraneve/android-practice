@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class RecyclerViewActivity : AppCompatActivity() {
+class TweetsActivity : AppCompatActivity() {
 
     private lateinit var tweetsViewModel: TweetsViewModel
     private val swipeRefreshLayout: SwipeRefreshLayout by lazy { findViewById(R.id.swipeRefreshLayout) }
@@ -21,7 +21,7 @@ class RecyclerViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.recycler_view_layout)
+        setContentView(R.layout.tweets_layout)
         initViewModel()
         initUI()
     }
@@ -55,7 +55,7 @@ class RecyclerViewActivity : AppCompatActivity() {
 
     private fun showError(throwable: Throwable) {
         Toast.makeText(
-            this@RecyclerViewActivity,
+            this@TweetsActivity,
             throwable.message,
             Toast.LENGTH_SHORT
         ).show()

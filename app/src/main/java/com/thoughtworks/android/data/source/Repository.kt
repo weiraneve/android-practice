@@ -14,10 +14,10 @@ class Repository @Inject constructor(@ApplicationContext context: Context) : Dat
     private val localStorage: LocalStorage
     private val remoteDataSource = RemoteDataSourceImpl()
 
-    override var isKnown: Boolean
-        get() = localStorage.isKnown
+    override var isHintShown: Boolean
+        get() = localStorage.isHintShown
         set(isKnown) {
-            localStorage.isKnown = isKnown
+            localStorage.isHintShown = isKnown
         }
 
     override suspend fun fetchTweets() {

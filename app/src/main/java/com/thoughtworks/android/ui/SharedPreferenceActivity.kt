@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SpActivity : AppCompatActivity() {
+class SharedPreferenceActivity : AppCompatActivity() {
     
     @Inject
     lateinit var dataSource: DataSource
@@ -27,7 +27,7 @@ class SpActivity : AppCompatActivity() {
 
     private fun initialize() {
         buttonSp.setOnClickListener {
-            dataSource.isKnown = true
+            dataSource.isHintShown = true
             refreshStatus()
         }
         refreshStatus()
@@ -35,8 +35,9 @@ class SpActivity : AppCompatActivity() {
 
     private fun refreshStatus() {
         spInfo.setText(
-            if (dataSource.isKnown) R.string.welcome_back else R.string.sp_tips
+            if (dataSource.isHintShown) R.string.welcome_back else R.string.sp_tips
         )
-        buttonSp.visibility = if (dataSource.isKnown) View.GONE else View.VISIBLE
+        buttonSp.visibility = if (dataSource.isHintShown) View.GONE else View.VISIBLE
     }
+
 }
