@@ -16,7 +16,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
-class RecyclerViewActivity : AppCompatActivity() {
+class TweetsActivity : AppCompatActivity() {
 
     private val swipeRefreshLayout: SwipeRefreshLayout by lazy { findViewById(R.id.swipeRefreshLayout) }
     private lateinit var tweetAdapter: TweetAdapter
@@ -26,9 +26,24 @@ class RecyclerViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.recycler_view_layout)
+        setContentView(R.layout.tweets_layout)
         initUI()
         initData()
+    }
+
+    private fun initUI() {
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        tweetAdapter = TweetAdapter(this)
+        recyclerView.adapter = tweetAdapter
+
+        swipeRefreshLayout.setOnRefreshListener {
+            shuffled = true
+            lifecycleScope.launch {
+                dependency.dataSource.fetchTweets()
+            }
+
+        }
     }
 
     private fun initData() {
@@ -43,35 +58,22 @@ class RecyclerViewActivity : AppCompatActivity() {
             }
             ) { throwable ->
                 Toast.makeText(
-                    this@RecyclerViewActivity,
+                    this@TweetsActivity,
                     throwable.message,
                     Toast.LENGTH_SHORT
                 ).show()
                 swipeRefreshLayout.isRefreshing = false
             }
         compositeDisposable.add(subscribe)
-
         lifecycleScope.launch {
             dependency.dataSource.fetchTweets()
         }
-    }
 
-    private fun initUI() {
-        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        tweetAdapter = TweetAdapter(this)
-        recyclerView.adapter = tweetAdapter
-
-        swipeRefreshLayout.setOnRefreshListener {
-            shuffled = true
-            lifecycleScope.launch {
-                dependency.dataSource.fetchTweets()
-            }
-        }
     }
 
     override fun onDestroy() {
         compositeDisposable.clear()
         super.onDestroy()
     }
+
 }

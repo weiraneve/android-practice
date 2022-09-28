@@ -4,7 +4,7 @@ import io.reactivex.rxjava3.core.Flowable
 import com.thoughtworks.android.data.model.Tweet
 
 interface DataSource {
-    var isKnown: Boolean
+    var isHintShown: Boolean
     suspend fun fetchTweets()
     fun observeTweets(): Flowable<List<Tweet>>
 }

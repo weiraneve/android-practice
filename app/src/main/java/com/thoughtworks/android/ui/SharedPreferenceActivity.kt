@@ -9,7 +9,7 @@ import com.thoughtworks.android.PracticeApp
 import com.thoughtworks.android.R
 import com.thoughtworks.android.utils.Dependency
 
-class SpActivity : AppCompatActivity() {
+class SharedPreferenceActivity : AppCompatActivity() {
 
     private val spInfo: TextView by lazy { findViewById(R.id.sp_info) }
     private val buttonSp: Button by lazy { findViewById(R.id.button_sp) }
@@ -25,16 +25,16 @@ class SpActivity : AppCompatActivity() {
         val practiceApp = application as PracticeApp
         dependency =  practiceApp.getDependency()
         buttonSp.setOnClickListener {
-            dependency.dataSource.isKnown = true
-            refreshStatus()
+            dependency.dataSource.isHintShown = true
+            initStatus()
         }
-        refreshStatus()
+        initStatus()
     }
 
-    private fun refreshStatus() {
+    private fun initStatus() {
         spInfo.setText(
-            if (dependency.dataSource.isKnown) R.string.welcome_back else R.string.sp_tips
+            if (dependency.dataSource.isHintShown) R.string.welcome_back else R.string.sp_tips
         )
-        buttonSp.visibility = if (dependency.dataSource.isKnown) View.GONE else View.VISIBLE
+        buttonSp.visibility = if (dependency.dataSource.isHintShown) View.GONE else View.VISIBLE
     }
 }

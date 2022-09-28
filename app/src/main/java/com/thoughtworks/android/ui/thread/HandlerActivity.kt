@@ -5,10 +5,11 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Message
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.thoughtworks.android.R
-import com.thoughtworks.android.utils.UiUtil
+import com.thoughtworks.android.utils.UiUtils
 
 class HandlerActivity : AppCompatActivity() {
 
@@ -61,7 +62,19 @@ class HandlerActivity : AppCompatActivity() {
 
     private fun showMsgBody(msg: Message) {
         val content = msg.obj as String
-        runOnUiThread { UiUtil.showSnackBar(this, content, R.drawable.fb, Snackbar.LENGTH_SHORT).show() }
+        getToast(content)
+    }
+
+    private fun getToast(content: String) {
+        runOnUiThread {
+            UiUtils.customToast(this, content, R.drawable.fb, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getSnackBar(content: String) {
+        runOnUiThread {
+            UiUtils.showSnackBar(this, content, R.drawable.fb, Snackbar.LENGTH_SHORT).show()
+        }
     }
 
 }
