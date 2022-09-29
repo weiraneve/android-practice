@@ -1,25 +1,26 @@
 package com.thoughtworks.android
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.thoughtworks.android.ui.ConstraintActivity
 import com.thoughtworks.android.ui.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var pickContactLauncher: ActivityResultLauncher<Intent?>
     private lateinit var dialog: Dialog
     private val buttonContainer: LinearLayout by lazy { findViewById(R.id.button_container) }
 
@@ -31,24 +32,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun initUI() {
         generateButtons()
-        initContactCallback()
     }
 
-    private fun initContactCallback() {
-        pickContactLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == Activity.RESULT_OK) {
-                    val data = it.data
-                    val uri: Uri? = data?.data
-                    val contact = getPhoneContacts(uri)
-                    if (contact != null) {
-                        val name = contact[0]
-                        val number = contact[1]
-                        showDialog("$name\n$number")
-                    }
+    private val pickContactLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val data = it.data
+                val uri: Uri? = data?.data
+                val contact = getPhoneContacts(uri)
+                if (contact != null) {
+                    val name = contact[0]
+                    val number = contact[1]
+                    showDialog("$name\n$number")
                 }
             }
-    }
+        }
+
+    private val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
     @SuppressLint("Range")
     private fun getPhoneContacts(uri: Uri?): Array<String?>? {
@@ -61,14 +62,12 @@ class MainActivity : AppCompatActivity() {
         val cursor =
             uri?.let { contentResolver.query(it, projection, null, null, null) }
         if (cursor != null && cursor.moveToFirst()) {
-            cursor.let {
-                val columnIndex: Int =
-                    it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
-                contact[0] = it.getString(columnIndex)
-                contact[1] =
-                    it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                it.close()
-            }
+            val columnIndex: Int =
+                cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+            contact[0] = cursor.getString(columnIndex)
+            contact[1] =
+                cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            cursor.close()
         } else {
             return null
         }
@@ -93,7 +92,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         addButton(getString(R.string.pick_contact)) {
-            initContactUI()
+            if (canReadContact()) {
+                initContactUI()
+            } else {
+                permissionLauncher.launch(Manifest.permission.READ_CONTACTS)
+            }
         }
 
         addButton(getString(R.string.button_4))
@@ -130,4 +133,12 @@ class MainActivity : AppCompatActivity() {
 
         buttonContainer.addView(button)
     }
+
+    private fun canReadContact(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CONTACTS
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
 }
