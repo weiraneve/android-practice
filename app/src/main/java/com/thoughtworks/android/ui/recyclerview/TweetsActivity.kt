@@ -42,7 +42,6 @@ class TweetsActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 dependency.dataSource.fetchTweets()
             }
-
         }
     }
 
@@ -57,18 +56,25 @@ class TweetsActivity : AppCompatActivity() {
                 swipeRefreshLayout.isRefreshing = false
             }
             ) { throwable ->
-                Toast.makeText(
-                    this@TweetsActivity,
-                    throwable.message,
-                    Toast.LENGTH_SHORT
-                ).show()
+                showErrorByToast(throwable)
                 swipeRefreshLayout.isRefreshing = false
             }
         compositeDisposable.add(subscribe)
         lifecycleScope.launch {
-            dependency.dataSource.fetchTweets()
+            try {
+                dependency.dataSource.fetchTweets()
+            } catch (e: Exception) {
+                showErrorByToast(e)
+            }
         }
+    }
 
+    private fun showErrorByToast(e: Throwable) {
+        Toast.makeText(
+            this@TweetsActivity,
+            e.message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onDestroy() {
