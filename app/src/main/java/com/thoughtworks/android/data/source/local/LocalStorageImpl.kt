@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.thoughtworks.android.R
+import com.thoughtworks.android.common.Constants
 import com.thoughtworks.android.data.model.Comment
 import com.thoughtworks.android.data.model.Image
 import com.thoughtworks.android.data.model.Sender
@@ -14,12 +15,9 @@ import com.thoughtworks.android.data.source.local.room.model.CommentEntity
 import com.thoughtworks.android.data.source.local.room.model.ImageEntity
 import com.thoughtworks.android.data.source.local.room.model.SenderEntity
 import com.thoughtworks.android.data.source.local.room.model.TweetEntity
-import com.thoughtworks.android.common.Constants
 import com.thoughtworks.android.utils.FileUtil
 import com.thoughtworks.android.utils.SharedPreferenceUtil
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.core.SingleEmitter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.function.Consumer
@@ -85,7 +83,7 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
                         insertComment(tweet, tweetId)
                     })
                 }
-            } catch (t: Throwable) {
+            } catch (_: Throwable) {
             }
         }
     }
