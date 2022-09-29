@@ -7,15 +7,12 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -28,7 +25,6 @@ import com.thoughtworks.android.ui.thread.ThreadActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private lateinit var dialog: Dialog
     private val buttonContainer: LinearLayout by lazy { findViewById(R.id.button_container) }
 
@@ -42,17 +38,10 @@ class MainActivity : AppCompatActivity() {
         generateButtons()
     }
 
-    private fun initContactUI() {
-        val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI).apply {
-            type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
-        }
-        resultLauncher.launch(intent)
-    }
-
-    private var resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data = result.data
+    private var pickContactLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val data = it.data
                 val uri: Uri? = data?.data
                 val contact = getPhoneContacts(uri)
                 if (contact != null) {
@@ -63,6 +52,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    private val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
+
     @SuppressLint("Range")
     private fun getPhoneContacts(uri: Uri?): Array<String?>? {
         val contact = arrayOfNulls<String>(2)
@@ -71,7 +63,8 @@ class MainActivity : AppCompatActivity() {
             ContactsContract.Contacts.DISPLAY_NAME,
             ContactsContract.CommonDataKinds.Phone.NUMBER
         )
-        val cursor: Cursor? = uri?.let { contentResolver.query(it, projection, null, null, null) }
+        val cursor =
+            uri?.let { contentResolver.query(it, projection, null, null, null) }
         if (cursor != null && cursor.moveToFirst()) {
             val columnIndex: Int =
                 cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
@@ -91,13 +84,6 @@ class MainActivity : AppCompatActivity() {
             .setCancelable(false)
         dialog = builder.create()
         dialog.show()
-    }
-
-    private fun canReadContact(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.READ_CONTACTS
-        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun generateButtons() {
@@ -130,6 +116,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun initContactUI() {
+        val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI).apply {
+            type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
+        }
+        pickContactLauncher.launch(intent)
+    }
+
     private fun addButton(name: String, onClickListener: View.OnClickListener? = null) {
         val layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -148,4 +141,12 @@ class MainActivity : AppCompatActivity() {
 
         buttonContainer.addView(button)
     }
+
+    private fun canReadContact(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_CONTACTS
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
 }
