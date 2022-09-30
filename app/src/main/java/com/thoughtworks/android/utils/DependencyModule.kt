@@ -15,12 +15,8 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class DependencyModule {
 
     @Binds
-    abstract fun bindDataSource(
-        dataSourceImpl: Repository
-    ): DataSource
+    abstract fun bindDataSource(dataSourceImpl: Repository): DataSource
 
     @Binds
-    abstract fun bindSchedulerProvider(
-        schedulerProviderImpl: AndroidSchedulerProvider
-    ): SchedulerProvider
+    abstract fun bindSchedulerProvider(schedulerProviderImpl: AndroidSchedulerProvider): SchedulerProvider
 }
