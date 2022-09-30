@@ -17,7 +17,7 @@ class TweetsActivity : AppCompatActivity() {
     private lateinit var tweetsViewModel: TweetsViewModel
     private val swipeRefreshLayout: SwipeRefreshLayout by lazy { findViewById(R.id.swipeRefreshLayout) }
     private lateinit var tweetAdapter: TweetAdapter
-    private var shuffled = false
+    private var shuffled = false //TODO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class TweetsActivity : AppCompatActivity() {
         tweetsViewModel = ViewModelProvider(this)[TweetsViewModel::class.java]
         tweetsViewModel.tweetList.observe(this) { tweets ->
             tweetAdapter.setData(if (shuffled) tweets.shuffled() else tweets)
-            swipeRefreshLayout.isRefreshing = false
+            swipeRefreshLayout.isRefreshing = false //TODO
         }
 
         tweetsViewModel.fetchTweets {
@@ -49,7 +49,7 @@ class TweetsActivity : AppCompatActivity() {
             tweetsViewModel.fetchTweets {
                 showError(it)
             }
-            swipeRefreshLayout.isRefreshing = false
+            swipeRefreshLayout.isRefreshing = false //TODO
         }
     }
 

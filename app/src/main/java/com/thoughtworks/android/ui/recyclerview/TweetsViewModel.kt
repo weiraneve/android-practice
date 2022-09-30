@@ -33,7 +33,7 @@ class TweetsViewModel @Inject constructor(
     }
 
     fun fetchTweets(errorHandler: ((Throwable) -> Unit)? = null) {
-        viewModelScope.launch {
+        viewModelScope.launch { //TODO
             try {
                 dataSource.fetchTweets()
             } catch (throwable: Throwable) {
