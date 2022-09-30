@@ -14,6 +14,10 @@ class Repository @Inject constructor(@ApplicationContext context: Context) : Dat
     private val localStorage: LocalStorage
     private val remoteDataSource = RemoteDataSourceImpl()
 
+    init {
+        localStorage = LocalStorageImpl(context)
+    }
+
     override var isHintShown: Boolean
         get() = localStorage.isHintShown
         set(isKnown) {
@@ -31,7 +35,4 @@ class Repository @Inject constructor(@ApplicationContext context: Context) : Dat
         return localStorage.getTweets()
     }
 
-    init {
-        localStorage = LocalStorageImpl(context)
-    }
 }
