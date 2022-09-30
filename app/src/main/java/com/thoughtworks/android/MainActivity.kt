@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -14,23 +15,21 @@ import android.provider.ContactsContract
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.thoughtworks.android.ui.ConstraintActivity
 import com.thoughtworks.android.ui.LoginActivity
 import com.thoughtworks.android.ui.SharedPreferenceActivity
-import com.thoughtworks.android.ui.thread.RxJavaActivity
 import com.thoughtworks.android.ui.fragment.MyFragmentActivity
 import com.thoughtworks.android.ui.recyclerview.TweetsActivity
 import com.thoughtworks.android.ui.thread.HandlerActivity
+import com.thoughtworks.android.ui.thread.RxJavaActivity
 import com.thoughtworks.android.ui.thread.ThreadActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private lateinit var dialog: Dialog
     private val buttonContainer: LinearLayout by lazy { findViewById(R.id.button_container) }
 
@@ -44,36 +43,29 @@ class MainActivity : AppCompatActivity() {
         generateButtons()
     }
 
-    private fun initContactUI() {
-        val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI).apply {
-            type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
-        }
-        resultLauncher.launch(intent)
-    }
-
-    private var resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data = result.data
-                val uri: Uri? = data?.data
-                val contact = getPhoneContacts(uri)
-                if (contact != null) {
-                    val name = contact[0]
-                    val number = contact[1]
-                    showDialog("$name\n$number")
-                }
+    private val pickContactLauncher =
+        registerForActivityResult(MyPickContactContact()) {
+            val uri: Uri? = it
+            val contact = getPhoneContacts(uri)
+            if (contact != null) {
+                val name = contact[0]
+                val number = contact[1]
+                showDialog("$name\n$number")
             }
         }
+
+    private val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
     @SuppressLint("Range")
     private fun getPhoneContacts(uri: Uri?): Array<String?>? {
         val contact = arrayOfNulls<String>(2)
-        val contentResolver = contentResolver
         val projection: Array<String> = arrayOf(
             ContactsContract.Contacts.DISPLAY_NAME,
             ContactsContract.CommonDataKinds.Phone.NUMBER
         )
-        val cursor: Cursor? = uri?.let { contentResolver.query(it, projection, null, null, null) }
+        val cursor: Cursor? =
+            uri?.let { contentResolver.query(it, projection, null, null, null) }
         if (cursor != null && cursor.moveToFirst()) {
             val columnIndex: Int =
                 cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
@@ -116,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         addButton(getString(R.string.button_10))
     }
 
-    private fun <T: AppCompatActivity> generateButtonAndUI(layoutInt: Int, java: Class<T>) {
+    private fun <T : AppCompatActivity> generateButtonAndUI(layoutInt: Int, java: Class<T>) {
         addButton(getString(layoutInt)) {
             startActivity(Intent(this, java))
         }
@@ -125,7 +117,7 @@ class MainActivity : AppCompatActivity() {
     private fun generatePickButtonAndUI() {
         addButton(getString(R.string.pick_contact)) {
             if (canReadContact()) {
-                initContactUI()
+                pickContactLauncher.launch(null)
             } else {
                 permissionLauncher.launch(Manifest.permission.READ_CONTACTS)
             }
@@ -150,4 +142,17 @@ class MainActivity : AppCompatActivity() {
 
         buttonContainer.addView(button)
     }
+
+    class MyPickContactContact : ActivityResultContract<Void?, Uri?>() {
+        override fun createIntent(context: Context, input: Void?): Intent {
+            return Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI).apply {
+                type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
+            }
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            return intent.takeIf { resultCode == Activity.RESULT_OK }?.data
+        }
+    }
+
 }

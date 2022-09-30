@@ -21,10 +21,11 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
     companion object {
         private const val VIEW_TYPE_TWEET = 0
         private const val VIEW_TYPE_BOTTOM = 1
+        private const val VIEW_TYPE_NETWORK_ERROR = 2
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(tweets : List<Tweet>?) {
+    fun setData(tweets: List<Tweet>?) {
         this.tweets.clear()
         this.tweets.addAll(tweets!!)
         notifyDataSetChanged()
@@ -34,11 +35,7 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
         val inflater: LayoutInflater = LayoutInflater.from(context)
         return when (viewType) {
             VIEW_TYPE_BOTTOM -> BottomViewHolder(
-                inflater.inflate(
-                    R.layout.tweet_bottom,
-                    parent,
-                    false
-                )
+                inflater.inflate(R.layout.tweet_bottom, parent, false)
             )
             else -> TweetViewHolder(inflater.inflate(R.layout.tweet_item_layout, parent, false))
         }
@@ -75,6 +72,7 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     override fun getItemViewType(position: Int): Int {
+        if (tweets.size == 0) return VIEW_TYPE_NETWORK_ERROR
         return if (position < tweets.size) VIEW_TYPE_TWEET else VIEW_TYPE_BOTTOM
     }
 

@@ -14,6 +14,10 @@ class Repository @Inject constructor(@ApplicationContext context: Context) : Dat
     private val localStorage: LocalStorage
     private val remoteDataSource = RemoteDataSourceImpl()
 
+    init {
+        localStorage = LocalStorageImpl(context)
+    }
+
     override var isHintShown: Boolean
         get() = localStorage.isHintShown
         set(isKnown) {
@@ -23,13 +27,7 @@ class Repository @Inject constructor(@ApplicationContext context: Context) : Dat
     override suspend fun fetchTweets() {
         val tweets = remoteDataSource.fetchTweets()
         val filteredTweets: MutableList<Tweet> = mutableListOf()
-        for (tweet in tweets) {
-            if (tweet.error != null || tweet.unknownError != null) {
-                continue
-            }
-            filteredTweets.add(tweet)
-        }
-
+        tweets.filterNot { it.error != null || it.unknownError != null }.forEach {filteredTweets.add(it)}
         localStorage.updateTweets(filteredTweets)
     }
 
@@ -37,7 +35,4 @@ class Repository @Inject constructor(@ApplicationContext context: Context) : Dat
         return localStorage.getTweets()
     }
 
-    init {
-        localStorage = LocalStorageImpl(context)
-    }
 }
