@@ -2,6 +2,7 @@ package com.thoughtworks.android
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
@@ -33,22 +34,22 @@ class MainActivity : AppCompatActivity() {
         generateButtons()
     }
 
-    private val permissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            val uri: Uri? = data?.data
-            val contact = getPhoneContacts(uri)
-            if (contact != null) {
-                val name = contact[0]
-                val number = contact[1]
-                showDialog("$name\n$number")
+    private val pickContactLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val data = it.data
+                val uri: Uri? = data?.data
+                val contact = getPhoneContacts(uri)
+                if (contact != null) {
+                    val name = contact[0]
+                    val number = contact[1]
+                    showDialog("$name\n$number")
+                }
             }
         }
-    }
+
+    private val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
     @SuppressLint("Range")
     private fun getPhoneContacts(uri: Uri?): Array<String?>? {
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity() {
                 it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
             it.close()
         } else return null
+
         return contact
     }
 
@@ -99,8 +101,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun <T : AppCompatActivity> generateBtn(layoutInt: Int, java: Class<T>) {
-        addButton(getString(layoutInt)) {
+    private fun <T : AppCompatActivity> generateBtn(logoutId: Int, java: Class<T>) {
+        addButton(getString(logoutId)) {
             startActivity(Intent(this, java))
         }
     }
@@ -109,7 +111,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI).apply {
             type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
         }
-        startActivityForResult(intent, REQUEST_CODE)
+        pickContactLauncher.launch(intent)
     }
 
     private fun addButton(name: String, onClickListener: View.OnClickListener? = null) {
@@ -138,10 +140,6 @@ class MainActivity : AppCompatActivity() {
             this,
             Manifest.permission.READ_CONTACTS
         ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    companion object {
-        const val REQUEST_CODE = 100
     }
 
 }
