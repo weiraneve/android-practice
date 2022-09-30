@@ -40,7 +40,8 @@ class TweetsActivity : AppCompatActivity() {
         swipeRefreshLayout.setOnRefreshListener {
             shuffled = true
             lifecycleScope.launch {
-                dependency.dataSource.fetchTweets()
+                tryFetchTweets()
+                swipeRefreshLayout.isRefreshing = false
             }
         }
     }
@@ -61,11 +62,15 @@ class TweetsActivity : AppCompatActivity() {
             }
         compositeDisposable.add(subscribe)
         lifecycleScope.launch {
-            try {
-                dependency.dataSource.fetchTweets()
-            } catch (e: Exception) {
-                showErrorByToast(e)
-            }
+            tryFetchTweets()
+        }
+    }
+
+    private suspend fun tryFetchTweets() {
+        try {
+            dependency.dataSource.fetchTweets()
+        } catch (e: Exception) {
+            showErrorByToast(e)
         }
     }
 
