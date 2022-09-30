@@ -48,8 +48,8 @@ class TweetsActivity : AppCompatActivity() {
             shuffled = true
             tweetsViewModel.fetchTweets {
                 showError(it)
-                swipeRefreshLayout.isRefreshing = false
             }
+            swipeRefreshLayout.isRefreshing = false
         }
     }
 
