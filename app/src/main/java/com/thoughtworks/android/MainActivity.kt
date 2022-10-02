@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import com.thoughtworks.android.ui.ConstraintActivity
 import com.thoughtworks.android.ui.LoginActivity
 import com.thoughtworks.android.ui.SharedPreferenceActivity
+import com.thoughtworks.android.ui.compose.ComposeActivity
 import com.thoughtworks.android.ui.fragment.MyFragmentActivity
 import com.thoughtworks.android.ui.recyclerview.TweetsActivity
 import com.thoughtworks.android.ui.thread.HandlerActivity
@@ -104,8 +105,7 @@ class MainActivity : AppCompatActivity() {
         generateButtonAndUI(R.string.handler, HandlerActivity::class.java)
         generateButtonAndUI(R.string.rxjava, RxJavaActivity::class.java)
         generateButtonAndUI(R.string.sp, SharedPreferenceActivity::class.java)
-
-        addButton(getString(R.string.button_10))
+        generateButtonAndUI(R.string.compose, ComposeActivity::class.java)
     }
 
     private fun <T : AppCompatActivity> generateButtonAndUI(layoutInt: Int, java: Class<T>) {
