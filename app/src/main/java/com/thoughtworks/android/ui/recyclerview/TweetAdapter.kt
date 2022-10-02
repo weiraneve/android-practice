@@ -25,9 +25,9 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(tweets: List<Tweet>?) {
+    fun setData(tweets: List<Tweet>) {
         this.tweets.clear()
-        this.tweets.addAll(tweets!!)
+        this.tweets.addAll(tweets)
         notifyDataSetChanged()
     }
 
