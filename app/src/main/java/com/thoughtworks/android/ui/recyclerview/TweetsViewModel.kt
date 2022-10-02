@@ -29,11 +29,15 @@ class TweetsViewModel @Inject constructor(
             .observeTweets()
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
-            .subscribe { tweets -> tweetList.postValue(tweets) }
+            .subscribe { tweets ->
+                if (isNeedRefresh) tweetList.postValue(tweets.shuffled())
+                else tweetList.postValue(tweets)
+
+            }
         compositeDisposable.add(subscribe)
     }
 
-    fun fetchTweets(errorHandler: ((Throwable) -> Unit)? = null) {
+    fun refreshTweets(errorHandler: ((Throwable) -> Unit)? = null) {
         viewModelScope.launch {
             try {
                 dataSource.fetchTweets()

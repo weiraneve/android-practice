@@ -28,11 +28,11 @@ class TweetsActivity : AppCompatActivity() {
     private fun initViewModel() {
         tweetsViewModel = ViewModelProvider(this)[TweetsViewModel::class.java]
         tweetsViewModel.tweetList.observe(this) { tweets ->
-            tweetAdapter.setData(if (tweetsViewModel.isNeedRefresh) tweets.shuffled() else tweets)
+            tweetAdapter.setData(tweets)
             swipeRefreshLayout.isRefreshing = false
         }
 
-        tweetsViewModel.fetchTweets {
+        tweetsViewModel.refreshTweets {
             showError(it)
         }
     }
@@ -44,7 +44,7 @@ class TweetsActivity : AppCompatActivity() {
         recyclerView.adapter = tweetAdapter
 
         swipeRefreshLayout.setOnRefreshListener {
-            tweetsViewModel.fetchTweets {
+            tweetsViewModel.refreshTweets {
                 showError(it)
             }
             tweetsViewModel.refresh()
