@@ -22,6 +22,7 @@ class TweetsViewModel @Inject constructor(
     private val compositeDisposable = CompositeDisposable()
 
     var tweetList: MutableLiveData<List<Tweet>> = MutableLiveData<List<Tweet>>(mutableListOf())
+    var isNeedRefresh = false
 
     init {
         val subscribe: Disposable = dataSource
@@ -33,7 +34,7 @@ class TweetsViewModel @Inject constructor(
     }
 
     fun fetchTweets(errorHandler: ((Throwable) -> Unit)? = null) {
-        viewModelScope.launch { //TODO
+        viewModelScope.launch {
             try {
                 dataSource.fetchTweets()
             } catch (throwable: Throwable) {
@@ -45,6 +46,10 @@ class TweetsViewModel @Inject constructor(
     override fun onCleared() {
         compositeDisposable.clear()
         super.onCleared()
+    }
+
+    fun refresh() {
+        isNeedRefresh = true
     }
 
 }
