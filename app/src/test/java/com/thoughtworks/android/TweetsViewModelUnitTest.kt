@@ -66,7 +66,7 @@ class TweetsViewModelUnitTest {
         }
 
         val tweetsViewModel = TweetsViewModel(dataSource, schedulerProvider)
-        tweetsViewModel.fetchTweets()
+        tweetsViewModel.refreshTweets()
 
         Assert.assertEquals(2, tweetsViewModel.tweetList.value!!.size)
     }
