@@ -9,19 +9,44 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import coil.compose.rememberAsyncImagePainter
 import com.thoughtworks.android.data.model.Sender
 import com.thoughtworks.android.data.model.Tweet
 
 @Composable
-fun TweetScreen(tweets: List<Tweet>) {
+fun TweetScreen(
+    tweets: List<Tweet>,
+    lifeCycleOwner: LifecycleOwner = LocalLifecycleOwner.current
+) {
+    DisposableEffect(lifeCycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_CREATE -> {}
+                Lifecycle.Event.ON_START -> {}
+                Lifecycle.Event.ON_STOP -> {}
+                Lifecycle.Event.ON_DESTROY -> {}
+                else -> {}
+            }
+        }
+        lifeCycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifeCycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         tweets.forEach {
             TweetItem(tweet = it)
