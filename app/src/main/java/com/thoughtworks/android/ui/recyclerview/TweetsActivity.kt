@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.thoughtworks.android.R
+import com.thoughtworks.android.viewmodel.TweetsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 

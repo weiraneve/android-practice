@@ -3,7 +3,7 @@ package com.thoughtworks.android
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.data.source.DataSource
-import com.thoughtworks.android.ui.recyclerview.TweetsViewModel
+import com.thoughtworks.android.viewmodel.TweetsViewModel
 import com.thoughtworks.android.utils.schedulers.SchedulerProvider
 import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.schedulers.Schedulers

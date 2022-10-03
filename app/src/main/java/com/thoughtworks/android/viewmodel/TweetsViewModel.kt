@@ -1,4 +1,4 @@
-package com.thoughtworks.android.ui.recyclerview
+package com.thoughtworks.android.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
