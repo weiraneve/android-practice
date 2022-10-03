@@ -1,9 +1,9 @@
 package com.thoughtworks.android.ui.compose
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -15,14 +15,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import com.thoughtworks.android.R
+import coil.compose.rememberAsyncImagePainter
+import com.thoughtworks.android.common.Constants
+import com.thoughtworks.android.data.model.Sender
 import com.thoughtworks.android.data.model.Tweet
-import com.thoughtworks.android.data.source.local.LocalStorageImpl
 
 
 class ComposeActivity : AppCompatActivity() {
@@ -38,8 +39,7 @@ class ComposeActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        val localStorage = LocalStorageImpl(this)
-        tweets = localStorage.getTweetsFromRaw()
+        tweets = Constants.TWEETS
     }
 
     @Composable
@@ -54,12 +54,7 @@ class ComposeActivity : AppCompatActivity() {
     @Composable
     private fun TweetItem(tweet: Tweet) {
         Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
-            AndroidView(
-                factory = {
-                    LayoutInflater.from(it).inflate(R.layout.avatar_view, null)
-                },
-                modifier = Modifier.clip(CircleShape)
-            )
+            Avatar(tweet.sender)
             Spacer(modifier = Modifier.width(8.dp))
             Column {
                 Text(
@@ -80,6 +75,21 @@ class ComposeActivity : AppCompatActivity() {
                     )
                 }
             }
+        }
+    }
+
+    @Composable
+    fun Avatar(sender: Sender?) {
+        sender?.avatar?.let {
+            val painter = rememberAsyncImagePainter(it)
+            Image(
+                painter = painter,
+                contentDescription = "null",
+                Modifier
+                    .size(40.dp)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop
+            )
         }
     }
 

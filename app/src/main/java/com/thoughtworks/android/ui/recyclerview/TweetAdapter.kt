@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import coil.size.PixelSize
 import coil.transform.CircleCropTransformation
 import com.thoughtworks.android.R
 import com.thoughtworks.android.data.model.Tweet
@@ -58,10 +57,8 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
                 placeholder(R.drawable.avatar)
                 transformations(CircleCropTransformation())
                 size(
-                    PixelSize(
-                        width = context.resources.getDimensionPixelSize(R.dimen.avatar_width),
-                        height = context.resources.getDimensionPixelSize(R.dimen.avatar_height)
-                    )
+                    width = context.resources.getDimensionPixelSize(R.dimen.avatar_width),
+                    height = context.resources.getDimensionPixelSize(R.dimen.avatar_height)
                 )
             }
         }
