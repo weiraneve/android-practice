@@ -22,7 +22,7 @@ class TweetsViewModel @Inject constructor(
     private val compositeDisposable = CompositeDisposable()
 
     var tweetList: MutableLiveData<List<Tweet>> = MutableLiveData<List<Tweet>>(mutableListOf())
-    var isNeedRefresh = false
+    private var isNeedRefresh = false
 
     init {
         val subscribe: Disposable = dataSource

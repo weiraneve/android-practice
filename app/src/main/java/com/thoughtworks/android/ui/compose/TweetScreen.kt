@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,19 +22,23 @@ import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.thoughtworks.android.data.model.Sender
 import com.thoughtworks.android.data.model.Tweet
+import com.thoughtworks.android.viewmodel.TweetsViewModel
 
 @Composable
 fun TweetScreen(
-    tweets: List<Tweet>,
+    viewModel: TweetsViewModel = viewModel(),
     lifeCycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 ) {
     DisposableEffect(lifeCycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
-                Lifecycle.Event.ON_CREATE -> {}
+                Lifecycle.Event.ON_CREATE -> {
+                    viewModel.refreshTweets {}
+                }
                 Lifecycle.Event.ON_START -> {}
                 Lifecycle.Event.ON_STOP -> {}
                 Lifecycle.Event.ON_DESTROY -> {}
@@ -47,11 +52,14 @@ fun TweetScreen(
         }
     }
 
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        tweets.forEach {
-            TweetItem(tweet = it)
+    viewModel.tweetList.observeAsState().value?.let { tweets ->
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            tweets.forEach {
+                TweetItem(tweet = it)
+            }
         }
     }
+
 }
 
 @Composable
