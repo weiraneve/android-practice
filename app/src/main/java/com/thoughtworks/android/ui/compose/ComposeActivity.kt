@@ -17,7 +17,7 @@ class ComposeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initData()
         setContent {
-            Content()
+            TweetScreen(tweets)
         }
     }
 
@@ -25,15 +25,10 @@ class ComposeActivity : AppCompatActivity() {
         tweets = Constants.TWEETS
     }
 
-    @Composable
-    private fun Content() {
-        TweetScreen(tweets)
-    }
-
     @Preview(showBackground = true)
     @Composable
     fun ContentPreview() {
-        Content()
+        TweetScreen(tweets)
     }
 
 }
