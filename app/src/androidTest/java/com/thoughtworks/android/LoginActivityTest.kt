@@ -28,7 +28,7 @@ class LoginActivityTest {
     )
 
     @Test
-    fun test_login_page() {
+    fun test_login_page_clickedAndDisplay() {
         onView(withId(R.id.login)).perform(click())
         onView(withId(R.id.logo)).check(matches(isDisplayed()))
         onView(withId(R.id.checkbox_remember_me)).perform(click()).check(matches(isChecked()))
