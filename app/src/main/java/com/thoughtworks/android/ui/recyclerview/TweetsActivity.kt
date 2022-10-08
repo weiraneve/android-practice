@@ -34,7 +34,8 @@ class TweetsActivity : AppCompatActivity() {
                 swipeRefreshLayout.isRefreshing = false
             }
             isNeedRefresh.observe(this@TweetsActivity) {
-                if (it) swipeRefreshLayout.isRefreshing = false
+                if (it) swipeRefreshLayout.isRefreshing = true
+                else if (!it) swipeRefreshLayout.isRefreshing = false
             }
             errorMsg.observe(this@TweetsActivity) { it?.let { showError(it) } }
         }

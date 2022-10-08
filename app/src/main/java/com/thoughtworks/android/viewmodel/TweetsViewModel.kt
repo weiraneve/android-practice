@@ -24,6 +24,8 @@ class TweetsViewModel @Inject constructor(private val dataSource: DataSource) : 
     private var _isNeedRefresh = MutableLiveData(false)
     val isNeedRefresh: LiveData<Boolean> = _isNeedRefresh
 
+    private var isNeedShuffled = false
+
     init {
         observeTweets()
     }
@@ -31,15 +33,20 @@ class TweetsViewModel @Inject constructor(private val dataSource: DataSource) : 
     private fun observeTweets() {
         viewModelScope.launch(Dispatchers.IO) {
             val tweets = dataSource.observeTweets()
-            if (_isNeedRefresh.value == true) _tweetList.postValue(tweets.shuffled())
+            if (isNeedShuffled) {
+                _tweetList.postValue(tweets.shuffled())
+                isNeedShuffled = false
+            }
             else _tweetList.postValue(tweets)
         }
     }
 
     fun refreshTweets() {
-        fetchTweets()
-        observeTweets()
         _isNeedRefresh.postValue(true)
+        fetchTweets()
+        isNeedShuffled = true
+        observeTweets()
+        _isNeedRefresh.postValue(false)
     }
 
     fun fetchTweets() {
