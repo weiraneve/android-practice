@@ -8,7 +8,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,7 +51,7 @@ fun TweetScreen(
         }
     }
 
-    viewModel.tweetList.observeAsState().value?.let { tweets ->
+    viewModel.tweetList.collectAsState().value.let { tweets ->
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             tweets.forEach {
                 TweetItem(tweet = it)

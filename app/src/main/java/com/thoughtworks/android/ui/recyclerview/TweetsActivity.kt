@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -29,15 +30,22 @@ class TweetsActivity : AppCompatActivity() {
     private fun initViewModel() {
         tweetsViewModel = ViewModelProvider(this)[TweetsViewModel::class.java]
         with(tweetsViewModel) {
-            tweetList.observe(this@TweetsActivity) {
-                tweetAdapter.setData(it)
-                swipeRefreshLayout.isRefreshing = false
+            lifecycleScope.launchWhenCreated {
+                tweetList.collect {
+                    tweetAdapter.setData(it)
+                    swipeRefreshLayout.isRefreshing = false
+                }
             }
-            isNeedRefresh.observe(this@TweetsActivity) {
-                if (it) swipeRefreshLayout.isRefreshing = true
-                else if (!it) swipeRefreshLayout.isRefreshing = false
+            lifecycleScope.launchWhenCreated {
+                isNeedRefresh.collect {
+                    swipeRefreshLayout.isRefreshing = it
+                }
             }
-            errorMsg.observe(this@TweetsActivity) { it?.let { showError(it) } }
+            lifecycleScope.launchWhenCreated {
+                errorMsg.collect {
+                    it?.let { showError(it) }
+                }
+            }
         }
 
         tweetsViewModel.fetchTweets()
@@ -54,10 +62,10 @@ class TweetsActivity : AppCompatActivity() {
         }
     }
 
-    private fun showError(errorMsg: String) {
+    private fun showError(t: Throwable) {
         Toast.makeText(
             this@TweetsActivity,
-            errorMsg,
+            t.message,
             Toast.LENGTH_SHORT
         ).show()
     }

@@ -1,13 +1,13 @@
 package com.thoughtworks.android.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.data.source.DataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,14 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class TweetsViewModel @Inject constructor(private val dataSource: DataSource) : ViewModel() {
 
-    private var _tweetList = MutableLiveData<List<Tweet>>(mutableListOf())
-    val tweetList: LiveData<List<Tweet>> = _tweetList
+    private var _tweetList = MutableStateFlow<List<Tweet>>(mutableListOf())
+    val tweetList = _tweetList.asStateFlow()
 
-    private var _errorMsg = MutableLiveData<String>()
-    val errorMsg: LiveData<String> = _errorMsg
+    private var _errorMsg = MutableStateFlow<Throwable?>(null)
+    val errorMsg = _errorMsg.asStateFlow()
 
-    private var _isNeedRefresh = MutableLiveData(false)
-    val isNeedRefresh: LiveData<Boolean> = _isNeedRefresh
+    private var _isNeedRefresh = MutableStateFlow(false)
+    val isNeedRefresh = _isNeedRefresh.asStateFlow()
 
     private var isNeedShuffled = false
 
@@ -34,27 +34,27 @@ class TweetsViewModel @Inject constructor(private val dataSource: DataSource) : 
         viewModelScope.launch(Dispatchers.IO) {
             val tweets = dataSource.observeTweets()
             if (isNeedShuffled) {
-                _tweetList.postValue(tweets.shuffled())
+                _tweetList.emit(tweets.shuffled())
                 isNeedShuffled = false
             }
-            else _tweetList.postValue(tweets)
+            else _tweetList.emit(tweets)
         }
     }
 
     fun refreshTweets() {
-        _isNeedRefresh.postValue(true)
+        _isNeedRefresh.value = true
         fetchTweets()
         isNeedShuffled = true
         observeTweets()
-        _isNeedRefresh.postValue(false)
+        _isNeedRefresh.value = false
     }
 
     fun fetchTweets() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 dataSource.fetchTweets()
             } catch (t: Throwable) {
-                _errorMsg.postValue(t.message)
+                _errorMsg.value = t
             }
         }
     }
