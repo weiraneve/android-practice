@@ -37,7 +37,7 @@ fun TweetScreen(
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_CREATE -> {
-                    viewModel.refreshTweets {}
+                    viewModel.refreshTweets()
                 }
                 Lifecycle.Event.ON_START -> {}
                 Lifecycle.Event.ON_STOP -> {}

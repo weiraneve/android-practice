@@ -28,14 +28,18 @@ class TweetsActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         tweetsViewModel = ViewModelProvider(this)[TweetsViewModel::class.java]
-        tweetsViewModel.tweetList.observe(this) { tweets ->
-            tweetAdapter.setData(tweets)
-            swipeRefreshLayout.isRefreshing = false
+        with(tweetsViewModel) {
+            tweetList.observe(this@TweetsActivity) {
+                tweetAdapter.setData(it)
+                swipeRefreshLayout.isRefreshing = false
+            }
+            isNeedRefresh.observe(this@TweetsActivity) {
+                if (it) swipeRefreshLayout.isRefreshing = false
+            }
+            errorMsg.observe(this@TweetsActivity) { it?.let { showError(it) } }
         }
 
-        tweetsViewModel.refreshTweets {
-            showError(it)
-        }
+        tweetsViewModel.fetchTweets()
     }
 
     private fun initUI() {
@@ -45,20 +49,16 @@ class TweetsActivity : AppCompatActivity() {
         recyclerView.adapter = tweetAdapter
 
         swipeRefreshLayout.setOnRefreshListener {
-            tweetsViewModel.refreshTweets {
-                showError(it)
-            }
-            tweetsViewModel.refresh()
+            tweetsViewModel.refreshTweets()
         }
     }
 
-    private fun showError(throwable: Throwable) {
+    private fun showError(errorMsg: String) {
         Toast.makeText(
             this@TweetsActivity,
-            throwable.message,
+            errorMsg,
             Toast.LENGTH_SHORT
         ).show()
-        swipeRefreshLayout.isRefreshing = false
     }
 
 }

@@ -6,7 +6,6 @@ import com.thoughtworks.android.data.source.local.LocalStorage
 import com.thoughtworks.android.data.source.local.LocalStorageImpl
 import com.thoughtworks.android.data.source.remote.RemoteDataSourceImpl
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.rxjava3.core.Flowable
 import javax.inject.Inject
 
 class Repository @Inject constructor(@ApplicationContext context: Context) : DataSource {
@@ -31,7 +30,7 @@ class Repository @Inject constructor(@ApplicationContext context: Context) : Dat
         localStorage.updateTweets(filteredTweets)
     }
 
-    override fun observeTweets(): Flowable<List<Tweet>> {
+    override fun observeTweets(): List<Tweet> {
         return localStorage.getTweets()
     }
 

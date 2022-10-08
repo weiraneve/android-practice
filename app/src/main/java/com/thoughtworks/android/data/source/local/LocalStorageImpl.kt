@@ -17,7 +17,6 @@ import com.thoughtworks.android.data.source.local.room.model.SenderEntity
 import com.thoughtworks.android.data.source.local.room.model.TweetEntity
 import com.thoughtworks.android.utils.FileUtil
 import com.thoughtworks.android.utils.SharedPreferenceUtil
-import io.reactivex.rxjava3.core.Flowable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.function.Consumer
@@ -100,7 +99,7 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
                     tweetId,
                     senderId
                 )
-                appDatabase.commentDao().insert(commentEntity).blockingGet()
+                appDatabase.commentDao().insert(commentEntity)
             })
         }
     }
@@ -109,7 +108,7 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
         tweet.images?.let { images ->
             images.forEach(Consumer { image: Image ->
                 val imageEntity = toRoomImage(image, tweetId)
-                appDatabase.imageDao().insert(imageEntity).blockingGet()
+                appDatabase.imageDao().insert(imageEntity)
             })
         }
     }
@@ -121,26 +120,24 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
         tweet.sender?.let {
             tweetEntity.senderId = insertRoomSender(it)
         }
-        return appDatabase.tweetDao().insert(tweetEntity).blockingGet()
+        return appDatabase.tweetDao().insert(tweetEntity)
     }
 
-    override fun getTweets(): Flowable<List<Tweet>> {
-        return appDatabase.tweetDao().getAll()
-            .map { tweetEntities: List<TweetEntity> ->
-                val senderEntities = appDatabase.senderDao().getAll().blockingFirst()
-                val imageEntities = appDatabase.imageDao().getAll().blockingFirst()
-                val commentEntities = appDatabase.commentDao().getAll().blockingFirst()
-                val tweets: MutableList<Tweet> = mutableListOf()
-                for (tweetEntity in tweetEntities) {
-                    val tweet = toTweet(tweetEntity)
-                    senderEntities.find { it.id == tweetEntity.senderId }?.let {
-                        tweet.sender = toSender(it)
-                    }
-                    filterImage(tweet, imageEntities, tweetEntity)
-                    filterComment(tweet, commentEntities, tweetEntity, senderEntities, tweets)
+    override fun getTweets(): List<Tweet> {
+        val tweets: MutableList<Tweet> = mutableListOf()
+        appDatabase.tweetDao().getAll()
+            .map { tweetEntity ->
+                val senderEntities = appDatabase.senderDao().getAll()
+                val imageEntities = appDatabase.imageDao().getAll()
+                val commentEntities = appDatabase.commentDao().getAll()
+                val tweet = toTweet(tweetEntity)
+                senderEntities.find { it.id == tweetEntity.senderId }?.let {
+                    tweet.sender = toSender(it)
                 }
-                tweets
+                filterImage(tweet, imageEntities, tweetEntity)
+                filterComment(tweet, commentEntities, tweetEntity, senderEntities, tweets)
             }
+        return tweets
     }
 
     private fun filterComment(
@@ -198,7 +195,7 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
 
     private fun insertRoomSender(sender: Sender): Long {
         val senderEntity = toRoomSender(sender)
-        return appDatabase.senderDao().insert(senderEntity).blockingGet()
+        return appDatabase.senderDao().insert(senderEntity)
     }
 
     private fun toRoomSender(sender: Sender): SenderEntity {

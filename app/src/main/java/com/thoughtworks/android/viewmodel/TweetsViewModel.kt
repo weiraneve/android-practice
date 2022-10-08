@@ -1,59 +1,55 @@
 package com.thoughtworks.android.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.data.source.DataSource
-import com.thoughtworks.android.utils.schedulers.SchedulerProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class TweetsViewModel @Inject constructor(
+class TweetsViewModel @Inject constructor(private val dataSource: DataSource) : ViewModel() {
 
-    private val dataSource: DataSource,
-    schedulerProvider: SchedulerProvider
-) : ViewModel() {
-    private val compositeDisposable = CompositeDisposable()
+    private var _tweetList = MutableLiveData<List<Tweet>>(mutableListOf())
+    val tweetList: LiveData<List<Tweet>> = _tweetList
 
-    var tweetList: MutableLiveData<List<Tweet>> = MutableLiveData<List<Tweet>>(mutableListOf())
-    private var isNeedRefresh = false
+    private var _errorMsg = MutableLiveData<String>()
+    val errorMsg: LiveData<String> = _errorMsg
+
+    private var _isNeedRefresh = MutableLiveData(false)
+    val isNeedRefresh: LiveData<Boolean> = _isNeedRefresh
 
     init {
-        val subscribe: Disposable = dataSource
-            .observeTweets()
-            .subscribeOn(schedulerProvider.io())
-            .observeOn(schedulerProvider.ui())
-            .subscribe { tweets ->
-                if (isNeedRefresh) tweetList.postValue(tweets.shuffled())
-                else tweetList.postValue(tweets)
-
-            }
-        compositeDisposable.add(subscribe)
+        observeTweets()
     }
 
-    fun refreshTweets(errorHandler: ((Throwable) -> Unit)? = null) {
-        viewModelScope.launch {
-            try {
-                dataSource.fetchTweets()
-            } catch (throwable: Throwable) {
-                errorHandler?.invoke(throwable)
-            }
+    private fun observeTweets() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val tweets = dataSource.observeTweets()
+            if (_isNeedRefresh.value == true) _tweetList.postValue(tweets.shuffled())
+            else _tweetList.postValue(tweets)
         }
     }
 
-    override fun onCleared() {
-        compositeDisposable.clear()
-        super.onCleared()
+    fun refreshTweets() {
+        fetchTweets()
+        observeTweets()
+        _isNeedRefresh.postValue(true)
     }
 
-    fun refresh() {
-        isNeedRefresh = true
+    fun fetchTweets() {
+        viewModelScope.launch {
+            try {
+                dataSource.fetchTweets()
+            } catch (t: Throwable) {
+                _errorMsg.postValue(t.message)
+            }
+        }
     }
 
 }
