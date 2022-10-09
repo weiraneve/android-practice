@@ -1,5 +1,7 @@
 package com.thoughtworks.android.ui.compose
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -13,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -36,7 +39,7 @@ fun TweetScreen(
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_CREATE -> {
-                    viewModel.refreshTweets()
+                    viewModel.observeTweets()
                 }
                 Lifecycle.Event.ON_START -> {}
                 Lifecycle.Event.ON_STOP -> {}
@@ -51,6 +54,7 @@ fun TweetScreen(
         }
     }
 
+    viewModel.errorMsg.collectAsState().value?.let { showError(LocalContext.current, it) }
     viewModel.tweetList.collectAsState().value.let { tweets ->
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             tweets.forEach {
@@ -177,4 +181,12 @@ fun BigAvatarDialog(
         }
     }
 
+}
+
+private fun showError(context: Context, t: Throwable) {
+    Toast.makeText(
+        context,
+        t.message,
+        Toast.LENGTH_SHORT
+    ).show()
 }
