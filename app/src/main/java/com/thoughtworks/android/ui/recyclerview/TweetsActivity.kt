@@ -48,7 +48,7 @@ class TweetsActivity : AppCompatActivity() {
             }
         }
 
-        tweetsViewModel.fetchTweets()
+        tweetsViewModel.observeTweets()
     }
 
     private fun initUI() {

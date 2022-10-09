@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.thoughtworks.android.R
-import com.thoughtworks.android.data.source.DataSource
+import com.thoughtworks.android.data.source.Repository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class SharedPreferenceActivity : AppCompatActivity() {
     
     @Inject
-    lateinit var dataSource: DataSource
+    lateinit var repository: Repository
 
     private val spInfo: TextView by lazy { findViewById(R.id.sp_info) }
     private val buttonSp: Button by lazy { findViewById(R.id.button_sp) }
@@ -27,7 +27,7 @@ class SharedPreferenceActivity : AppCompatActivity() {
 
     private fun initialize() {
         buttonSp.setOnClickListener {
-            dataSource.isHintShown = true
+            repository.isHintShown = true
             refreshStatus()
         }
         refreshStatus()
@@ -35,9 +35,9 @@ class SharedPreferenceActivity : AppCompatActivity() {
 
     private fun refreshStatus() {
         spInfo.setText(
-            if (dataSource.isHintShown) R.string.welcome_back else R.string.sp_tips
+            if (repository.isHintShown) R.string.welcome_back else R.string.sp_tips
         )
-        buttonSp.visibility = if (dataSource.isHintShown) View.GONE else View.VISIBLE
+        buttonSp.visibility = if (repository.isHintShown) View.GONE else View.VISIBLE
     }
 
 }

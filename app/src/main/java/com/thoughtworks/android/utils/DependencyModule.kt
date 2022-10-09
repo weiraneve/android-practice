@@ -1,7 +1,7 @@
 package com.thoughtworks.android.utils
 
-import com.thoughtworks.android.data.source.DataSource
 import com.thoughtworks.android.data.source.Repository
+import com.thoughtworks.android.data.source.RepositoryImpl
 import com.thoughtworks.android.utils.schedulers.AndroidSchedulerProvider
 import com.thoughtworks.android.utils.schedulers.SchedulerProvider
 import dagger.Binds
@@ -15,7 +15,7 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class DependencyModule {
 
     @Binds
-    abstract fun bindDataSource(dataSourceImpl: Repository): DataSource
+    abstract fun bindRepository(repositoryImpl: RepositoryImpl): Repository
 
     @Binds
     abstract fun bindSchedulerProvider(schedulerProviderImpl: AndroidSchedulerProvider): SchedulerProvider

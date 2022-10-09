@@ -75,14 +75,15 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
             try {
                 appDatabase.clearAllTables()
                 appDatabase.runInTransaction {
-                    tweets.forEach(Consumer { tweet: Tweet ->
-                        val tweetEntity = toRoomTweet(tweet)
-                        val tweetId = getIdByEntityAndInsertSender(tweet, tweetEntity)
-                        insertImages(tweet, tweetId)
-                        insertComment(tweet, tweetId)
+                    tweets.forEach(Consumer {
+                        val tweetEntity = toRoomTweet(it)
+                        val tweetId = getIdByEntityAndInsertSender(it, tweetEntity)
+                        insertImages(it, tweetId)
+                        insertComment(it, tweetId)
                     })
                 }
-            } catch (_: Throwable) {
+            } catch (t: Throwable) {
+                throw t
             }
         }
     }

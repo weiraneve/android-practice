@@ -2,12 +2,13 @@ package com.thoughtworks.android
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.thoughtworks.android.data.model.Tweet
-import com.thoughtworks.android.data.source.DataSource
+import com.thoughtworks.android.data.source.Repository
 import com.thoughtworks.android.data.source.local.LocalStorage
-import com.thoughtworks.android.data.source.remote.RemoteDataSource
 import com.thoughtworks.android.viewmodel.TweetsViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -21,9 +22,8 @@ import org.mockito.Mockito.`when`
 @ExperimentalCoroutinesApi
 class TweetsViewModelUnitTest {
 
-    private lateinit var dataSource: DataSource
+    private lateinit var repository: Repository
     private lateinit var localStorage: LocalStorage
-    private lateinit var remoteDataSource: RemoteDataSource
 
     @get:Rule
     val rule: TestRule = InstantTaskExecutorRule()
@@ -34,9 +34,8 @@ class TweetsViewModelUnitTest {
     @Before
     fun before() {
         Dispatchers.setMain(testDispatcher)
-        dataSource = Mockito.mock(DataSource::class.java)
+        repository = Mockito.mock(Repository::class.java)
         localStorage = Mockito.mock(LocalStorage::class.java)
-        remoteDataSource = Mockito.mock(RemoteDataSource::class.java)
     }
 
     @After
@@ -46,35 +45,59 @@ class TweetsViewModelUnitTest {
     }
 
     @Test
-    fun test_fetch_tweets_successful() = runTest {
+    fun test_observe_tweets_successful() = runTest {
         val tweets: MutableList<Tweet> = mutableListOf()
         tweets.add(Tweet())
         tweets.add(Tweet())
 
-        `when`(dataSource.observeTweets()).thenReturn(tweets)
-        `when`(remoteDataSource.fetchTweets()).thenReturn(tweets)
+        `when`(repository.fetchTweets()).thenReturn(tweets)
 
-        val tweetsViewModel = TweetsViewModel(dataSource)
-        tweetsViewModel.fetchTweets()
+        val tweetsViewModel = TweetsViewModel(repository)
+        tweetsViewModel.observeTweets()
 
-        Assert.assertEquals(2, tweetsViewModel.tweetList.value!!.size)
-        Assert.assertEquals(false, tweetsViewModel.isNeedRefresh.value)
-        Assert.assertNull(tweetsViewModel.errorMsg.value)
+        CoroutineScope(testDispatcher).launch {
+            tweetsViewModel.tweetList.collect {
+                Assert.assertEquals(2, it.size)
+            }
+        }
+
+        CoroutineScope(testDispatcher).launch {
+            tweetsViewModel.isNeedRefresh.collect {
+                Assert.assertFalse(it)
+            }
+        }
+
+        CoroutineScope(testDispatcher).launch {
+            tweetsViewModel.errorMsg.collect {
+                Assert.assertNull(it)
+            }
+        }
+
     }
 
     @Test
-    fun test_fetch_tweets_failed() = runTest {
+    fun test_observe_tweets_failed() = runTest {
         val tweets: MutableList<Tweet> = mutableListOf()
         tweets.add(Tweet())
         tweets.add(Tweet())
 
-        `when`(dataSource.fetchTweets()).thenThrow(RuntimeException("error"))
+        `when`(repository.fetchTweets()).thenThrow(RuntimeException("error"))
 
-        val tweetsViewModel = TweetsViewModel(dataSource)
-        tweetsViewModel.fetchTweets()
+        val tweetsViewModel = TweetsViewModel(repository)
+        tweetsViewModel.observeTweets()
 
-        Assert.assertNotNull(tweetsViewModel.errorMsg.value)
-        Assert.assertEquals("error", tweetsViewModel.errorMsg.value)
+        CoroutineScope(testDispatcher).launch {
+            tweetsViewModel.errorMsg.collect {
+                Assert.assertNotNull(it)
+            }
+        }
+
+        CoroutineScope(testDispatcher).launch {
+            tweetsViewModel.errorMsg.collect {
+                Assert.assertEquals("error", it)
+            }
+        }
+
     }
 
 }
