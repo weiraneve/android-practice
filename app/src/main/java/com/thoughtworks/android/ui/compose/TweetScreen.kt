@@ -26,6 +26,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
+import com.thoughtworks.android.common.MyResult
 import com.thoughtworks.android.data.model.Sender
 import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.viewmodel.TweetsViewModel
@@ -54,15 +55,19 @@ fun TweetScreen(
         }
     }
 
-    viewModel.errorMsg.collectAsState().value?.let { showError(LocalContext.current, it) }
-    viewModel.tweetList.collectAsState().value.let { tweets ->
-        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-            tweets.forEach {
-                TweetItem(tweet = it)
+    viewModel.tweets.collectAsState().value.let { res ->
+        if (res is MyResult.Success) {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                res.data.forEach {
+                    TweetItem(tweet = it)
+                }
             }
         }
-    }
 
+        if (res is MyResult.Error) {
+            res.exception.message?.let { showError(LocalContext.current, it) }
+        }
+    }
 }
 
 @Composable
@@ -183,10 +188,11 @@ fun BigAvatarDialog(
 
 }
 
-private fun showError(context: Context, t: Throwable) {
+private fun showError(context: Context, errorMsg: String) {
     Toast.makeText(
         context,
-        t.message,
+        errorMsg,
         Toast.LENGTH_SHORT
     ).show()
+
 }

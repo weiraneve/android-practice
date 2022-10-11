@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.thoughtworks.android.R
+import com.thoughtworks.android.common.MyResult
 import com.thoughtworks.android.viewmodel.TweetsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,25 +30,21 @@ class TweetsActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         tweetsViewModel = ViewModelProvider(this)[TweetsViewModel::class.java]
-        with(tweetsViewModel) {
-            lifecycleScope.launchWhenCreated {
-                tweetList.collect {
-                    tweetAdapter.setData(it)
-                    swipeRefreshLayout.isRefreshing = false
-                }
-            }
-            lifecycleScope.launchWhenCreated {
-                isNeedRefresh.collect {
-                    swipeRefreshLayout.isRefreshing = it
-                }
-            }
-            lifecycleScope.launchWhenCreated {
-                errorMsg.collect {
-                    it?.let { showError(it) }
+        lifecycleScope.launchWhenCreated {
+            tweetsViewModel.tweets.collect { res ->
+                when (res) {
+                    is MyResult.Loading -> swipeRefreshLayout.isRefreshing = true
+                    is MyResult.Success -> {
+                        tweetAdapter.setData(res.data)
+                        swipeRefreshLayout.isRefreshing = false
+                    }
+                    is MyResult.Error -> {
+                        res.exception.message?.let { showError(it) }
+                        swipeRefreshLayout.isRefreshing = false
+                    }
                 }
             }
         }
-
         tweetsViewModel.observeTweets()
     }
 
@@ -62,10 +59,10 @@ class TweetsActivity : AppCompatActivity() {
         }
     }
 
-    private fun showError(t: Throwable) {
+    private fun showError(errorMsg: String) {
         Toast.makeText(
             this@TweetsActivity,
-            t.message,
+            errorMsg,
             Toast.LENGTH_SHORT
         ).show()
     }
