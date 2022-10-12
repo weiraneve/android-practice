@@ -16,8 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TweetsViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private var _tweets = MutableStateFlow<MyResult<List<Tweet>>>(MyResult.Loading)
-    val tweets = _tweets.asStateFlow()
+    private var _uiState = MutableStateFlow<MyResult<List<Tweet>>>(MyResult.Loading)
+    val uiState = _uiState.asStateFlow()
 
     private var isNeedShuffled = false
 
@@ -25,13 +25,13 @@ class TweetsViewModel @Inject constructor(private val repository: Repository) : 
         viewModelScope.launch(Dispatchers.IO) {
             repository.fetchTweets().collect { res ->
                 when (res) {
-                    is MyResult.Loading -> _tweets.emit(MyResult.Loading)
+                    is MyResult.Loading -> _uiState.emit(MyResult.Loading)
                     is MyResult.Success -> {
-                        if (isNeedShuffled) _tweets.emit(MyResult.Success(res.data.shuffled()))
-                        else _tweets.emit(MyResult.Success(res.data))
+                        if (isNeedShuffled) _uiState.emit(MyResult.Success(res.data.shuffled()))
+                        else _uiState.emit(MyResult.Success(res.data))
                     }
                     is MyResult.Error -> {
-                        _tweets.emit(MyResult.Error(res.exception))
+                        _uiState.emit(MyResult.Error(res.exception))
                     }
                 }
             }

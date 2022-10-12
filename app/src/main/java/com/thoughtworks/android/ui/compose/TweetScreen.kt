@@ -55,7 +55,7 @@ fun TweetScreen(
         }
     }
 
-    viewModel.tweets.collectAsState().value.let { res ->
+    viewModel.uiState.collectAsState().value.let { res ->
         if (res is MyResult.Success) {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 res.data.forEach {

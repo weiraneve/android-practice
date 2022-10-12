@@ -31,7 +31,7 @@ class TweetsActivity : AppCompatActivity() {
     private fun initViewModel() {
         tweetsViewModel = ViewModelProvider(this)[TweetsViewModel::class.java]
         lifecycleScope.launchWhenCreated {
-            tweetsViewModel.tweets.collect { res ->
+            tweetsViewModel.uiState.collect { res ->
                 when (res) {
                     is MyResult.Loading -> swipeRefreshLayout.isRefreshing = true
                     is MyResult.Success -> {
