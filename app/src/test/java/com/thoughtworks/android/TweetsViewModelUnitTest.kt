@@ -1,106 +1,82 @@
-//package com.thoughtworks.android
-//
-//import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-//import com.thoughtworks.android.common.Result
-//import com.thoughtworks.android.data.model.Tweet
-//import com.thoughtworks.android.data.source.Repository
-//import com.thoughtworks.android.data.source.local.LocalStorage
-//import com.thoughtworks.android.viewmodel.TweetsViewModel
-//import kotlinx.coroutines.*
-//import kotlinx.coroutines.flow.flow
-//import kotlinx.coroutines.test.TestCoroutineDispatcher
-//import kotlinx.coroutines.test.resetMain
-//import kotlinx.coroutines.test.runTest
-//import kotlinx.coroutines.test.setMain
-//import org.junit.*
-//import org.junit.rules.TestRule
-//import org.mockito.Mockito
-//import org.mockito.Mockito.`when`
-//import java.net.UnknownHostException
-//
-//
-//@ExperimentalCoroutinesApi
-//class TweetsViewModelUnitTest {
-//
-//    private lateinit var repository: Repository
-//    private lateinit var localStorage: LocalStorage
-//
-//    @get:Rule
-//    val rule: TestRule = InstantTaskExecutorRule()
-//
-//    @ExperimentalCoroutinesApi
-//    private val testDispatcher = TestCoroutineDispatcher()
-//
-//    @Before
-//    fun before() {
-//        Dispatchers.setMain(testDispatcher)
-//        repository = Mockito.mock(Repository::class.java)
-//        localStorage = Mockito.mock(LocalStorage::class.java)
-//    }
-//
-//    @After
-//    fun tearDown() {
-//        Dispatchers.resetMain()
-//        testDispatcher.cleanupTestCoroutines()
-//    }
-//
-//    @Test
-//    fun test_observe_tweets_successful() = runTest {
-//        val tweets: MutableList<Tweet> = mutableListOf()
-//        tweets.add(Tweet())
-//        tweets.add(Tweet())
-//
-//        `when`(repository.fetchTweets()).thenReturn(
-//            flow { Result.Success(tweets) }
-//        )
-//
-//        val tweetsViewModel = TweetsViewModel(repository)
-//        tweetsViewModel.observeTweets()
-//
-//        CoroutineScope(testDispatcher).launch {
-//            tweetsViewModel.tweetList.collect {
-//                Assert.assertEquals(2, it.size)
-//            }
-//        }
-//
-//        CoroutineScope(testDispatcher).launch {
-//            tweetsViewModel.uiState.collect {
-//                Assert.assertFalse(it.isNeedRefresh)
-//            }
-//        }
-//
-//        CoroutineScope(testDispatcher).launch {
-//            tweetsViewModel.uiState.collect {
-//                Assert.assertNull(it.errorMsg)
-//            }
-//        }
-//
-//    }
-//
-//    @Test
-//    fun test_observe_tweets_failed_by_networkError() = runTest {
-//        val tweets: MutableList<Tweet> = mutableListOf()
-//        tweets.add(Tweet())
-//        tweets.add(Tweet())
-//
-////        `when`(repository.fetchTweets()).thenThrow(UnknownHostException())
-//        `when`(repository.fetchTweets()).thenThrow(RuntimeException())
-//
-//        val tweetsViewModel = TweetsViewModel(repository)
-//        tweetsViewModel.observeTweets()
-//
-//        CoroutineScope(testDispatcher).launch {
-//            tweetsViewModel.uiState.collect {
-//                Assert.assertNotNull(it.errorMsg)
-//            }
-//        }
-//
-//        CoroutineScope(testDispatcher).launch {
-//            tweetsViewModel.uiState.collect {
-//                Assert.assertEquals(TweetsViewModel.NETWORK_ERROR, it.errorMsg)
-//            }
-//        }
-//
-//    }
-//
-//}
+package com.thoughtworks.android
+
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.thoughtworks.android.common.MyRepoResult
+import com.thoughtworks.android.common.MyUIResult
+import com.thoughtworks.android.data.model.Tweet
+import com.thoughtworks.android.data.source.Repository
+import com.thoughtworks.android.viewmodel.TweetsViewModel
+import io.mockk.coEvery
+import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.*
+import org.junit.rules.TestRule
+import java.net.UnknownHostException
+
+
+@ExperimentalCoroutinesApi
+class TweetsViewModelUnitTest {
+
+    @get:Rule
+    val rule: TestRule = InstantTaskExecutorRule()
+
+    @ExperimentalCoroutinesApi
+    private val testDispatcher = TestCoroutineDispatcher()
+
+    private val repository = mockk<Repository>()
+    private val remoteDataSource = mockk<Repository>()
+        private val tweets: MutableList<Tweet> = mutableListOf()
+
+    @Before
+    fun before() {
+        Dispatchers.setMain(testDispatcher)
+        tweets.add(Tweet())
+        tweets.add(Tweet())
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+        testDispatcher.cleanupTestCoroutines()
+    }
+
+    @Test
+    fun test_observe_tweets_successful() = runTest {
+        // given
+        coEvery { repository.fetchTweets() } returns flowOf(MyRepoResult.Success(tweets))
+        coEvery { repository.saveTweets(tweets) } returns Unit
+        val tweetsViewModel = TweetsViewModel(repository)
+        // when
+        tweetsViewModel.observeTweets()
+        val result = tweetsViewModel.uiState.value
+        // then
+        Assert.assertNotNull(result)
+        Assert.assertEquals(2, (result as MyUIResult.Success).data.size)
+    }
+
+    @Test
+    fun test_observe_tweets_failed_by_networkError() = runTest {
+        // given
+        coEvery { remoteDataSource.fetchTweets() } throws UnknownHostException(ERROR)
+        coEvery { repository.fetchTweets() } returns flowOf(MyRepoResult.Error(UnknownHostException(ERROR)))
+        coEvery { repository.getTweets() } returns emptyList()
+        val tweetsViewModel = TweetsViewModel(repository)
+        // when
+        tweetsViewModel.observeTweets()
+        val item = tweetsViewModel.uiState.value
+        // then
+        Assert.assertNotNull((item as MyUIResult.Error).exception.message)
+        Assert.assertEquals(ERROR, item.exception.message)
+    }
+
+    companion object {
+        const val ERROR = "network error"
+    }
+
+}
