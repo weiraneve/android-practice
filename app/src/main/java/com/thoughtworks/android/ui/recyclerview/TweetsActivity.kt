@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.thoughtworks.android.R
-import com.thoughtworks.android.common.MyResult
+import com.thoughtworks.android.common.MyUIResult
 import com.thoughtworks.android.viewmodel.TweetsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,12 +33,12 @@ class TweetsActivity : AppCompatActivity() {
         lifecycleScope.launchWhenCreated {
             tweetsViewModel.uiState.collect { res ->
                 when (res) {
-                    is MyResult.Loading -> swipeRefreshLayout.isRefreshing = true
-                    is MyResult.Success -> {
+                    is MyUIResult.Loading -> swipeRefreshLayout.isRefreshing = true
+                    is MyUIResult.Success -> {
                         tweetAdapter.setData(res.data)
                         swipeRefreshLayout.isRefreshing = false
                     }
-                    is MyResult.Error -> {
+                    is MyUIResult.Error -> {
                         res.exception.message?.let { showError(it) }
                         swipeRefreshLayout.isRefreshing = false
                     }

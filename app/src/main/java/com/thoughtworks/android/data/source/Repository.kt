@@ -2,9 +2,11 @@ package com.thoughtworks.android.data.source
 
 import com.thoughtworks.android.data.model.Tweet
 import kotlinx.coroutines.flow.Flow
-import com.thoughtworks.android.common.MyResult
+import com.thoughtworks.android.common.MyRepoResult
 
 interface Repository {
     var isHintShown: Boolean
-    suspend fun fetchTweets(): Flow<MyResult<List<Tweet>>>
+    suspend fun fetchTweets(): Flow<MyRepoResult<List<Tweet>>>
+    fun getTweets(): List<Tweet>
+    suspend fun saveTweets(tweets: List<Tweet>)
 }

@@ -26,7 +26,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
-import com.thoughtworks.android.common.MyResult
+import com.thoughtworks.android.common.MyUIResult
 import com.thoughtworks.android.data.model.Sender
 import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.viewmodel.TweetsViewModel
@@ -56,16 +56,18 @@ fun TweetScreen(
     }
 
     viewModel.uiState.collectAsState().value.let { res ->
-        if (res is MyResult.Success) {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                res.data.forEach {
-                    TweetItem(tweet = it)
+        when (res) {
+            is MyUIResult.Loading -> {}
+            is MyUIResult.Success -> {
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    res.data.forEach {
+                        TweetItem(tweet = it)
+                    }
                 }
             }
-        }
-
-        if (res is MyResult.Error) {
-            res.exception.message?.let { showError(LocalContext.current, it) }
+            is MyUIResult.Error -> res.exception.message?.let {
+                showError(LocalContext.current, it)
+            }
         }
     }
 }
