@@ -56,6 +56,7 @@ fun TweetScreen(
     }
 
     viewModel.uiState.collectAsState().value.let { res ->
+        val context = LocalContext.current
         when (res) {
             is MyUIResult.Loading -> {}
             is MyUIResult.Success -> {
@@ -65,8 +66,8 @@ fun TweetScreen(
                     }
                 }
             }
-            is MyUIResult.Error -> res.exception.message?.let {
-                showError(LocalContext.current, it)
+            is MyUIResult.Error -> LaunchedEffect(true) {
+                res.exception.message?.let { showError(context, it) }
             }
         }
     }
