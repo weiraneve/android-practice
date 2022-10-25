@@ -124,20 +124,22 @@ class LocalStorageImpl(private val context: Context) : LocalStorage {
         return appDatabase.tweetDao().insert(tweetEntity)
     }
 
-    override fun getTweets(): List<Tweet> {
+    override suspend fun getTweets(): List<Tweet> {
         val tweets: MutableList<Tweet> = mutableListOf()
-        appDatabase.tweetDao().getAll()
-            .map { tweetEntity ->
-                val senderEntities = appDatabase.senderDao().getAll()
-                val imageEntities = appDatabase.imageDao().getAll()
-                val commentEntities = appDatabase.commentDao().getAll()
-                val tweet = toTweet(tweetEntity)
-                senderEntities.find { it.id == tweetEntity.senderId }?.let {
-                    tweet.sender = toSender(it)
+        withContext(Dispatchers.Default) {
+            appDatabase.tweetDao().getAll()
+                .map { tweetEntity ->
+                    val senderEntities = appDatabase.senderDao().getAll()
+                    val imageEntities = appDatabase.imageDao().getAll()
+                    val commentEntities = appDatabase.commentDao().getAll()
+                    val tweet = toTweet(tweetEntity)
+                    senderEntities.find { it.id == tweetEntity.senderId }?.let {
+                        tweet.sender = toSender(it)
+                    }
+                    filterImage(tweet, imageEntities, tweetEntity)
+                    filterComment(tweet, commentEntities, tweetEntity, senderEntities, tweets)
                 }
-                filterImage(tweet, imageEntities, tweetEntity)
-                filterComment(tweet, commentEntities, tweetEntity, senderEntities, tweets)
-            }
+        }
         return tweets
     }
 

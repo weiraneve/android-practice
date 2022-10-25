@@ -6,5 +6,5 @@ interface LocalStorage {
     var isHintShown: Boolean
     fun getTweetsFromRaw(): List<Tweet>
     suspend fun updateTweets(tweets: List<Tweet>)
-    fun getTweets(): List<Tweet>
+    suspend fun getTweets(): List<Tweet>
 }

@@ -39,7 +39,7 @@ class RepositoryImpl @Inject constructor(@ApplicationContext context: Context) :
         }
     }
 
-    override fun getTweets(): List<Tweet> {
+    override suspend fun getTweets(): List<Tweet> {
         return localStorage.getTweets()
     }
 
