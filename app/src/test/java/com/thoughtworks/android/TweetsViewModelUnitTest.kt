@@ -11,11 +11,16 @@ import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import org.junit.*
+import org.junit.After
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.rules.TestRule
 import java.net.UnknownHostException
 
@@ -27,23 +32,21 @@ class TweetsViewModelUnitTest {
     val rule: TestRule = InstantTaskExecutorRule()
 
     @ExperimentalCoroutinesApi
-    private val testDispatcher = TestCoroutineDispatcher()
+    private val testDispatcher = StandardTestDispatcher()
 
     private val repository = mockk<Repository>()
     private val remoteDataSource = mockk<Repository>()
-        private val tweets: MutableList<Tweet> = mutableListOf()
+    private val tweets: MutableList<Tweet> = mutableListOf()
 
     @Before
     fun before() {
         Dispatchers.setMain(testDispatcher)
-        tweets.add(Tweet())
-        tweets.add(Tweet())
+        tweets.addAll(listOf(Tweet(), Tweet()))
     }
 
     @After
     fun tearDown() {
         Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
     }
 
     @Test
@@ -54,6 +57,7 @@ class TweetsViewModelUnitTest {
         val tweetsViewModel = TweetsViewModel(repository)
         // when
         tweetsViewModel.observeTweets()
+        advanceUntilIdle()
         val result = tweetsViewModel.uiState.value
         // then
         Assert.assertNotNull(result)
@@ -69,6 +73,7 @@ class TweetsViewModelUnitTest {
         val tweetsViewModel = TweetsViewModel(repository)
         // when
         tweetsViewModel.observeTweets()
+        advanceUntilIdle()
         val item = tweetsViewModel.uiState.value
         // then
         Assert.assertNotNull((item as MyUIResult.Error).exception.message)
