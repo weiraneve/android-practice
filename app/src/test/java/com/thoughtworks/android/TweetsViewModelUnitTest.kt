@@ -11,8 +11,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -32,7 +31,7 @@ class TweetsViewModelUnitTest {
     val rule: TestRule = InstantTaskExecutorRule()
 
     @ExperimentalCoroutinesApi
-    private val testDispatcher = StandardTestDispatcher()
+    private val testDispatcher = UnconfinedTestDispatcher()
 
     private val repository = mockk<Repository>()
     private val remoteDataSource = mockk<Repository>()
@@ -57,7 +56,6 @@ class TweetsViewModelUnitTest {
         val tweetsViewModel = TweetsViewModel(repository)
         // when
         tweetsViewModel.observeTweets()
-        advanceUntilIdle()
         val result = tweetsViewModel.uiState.value
         // then
         Assert.assertNotNull(result)
@@ -73,7 +71,6 @@ class TweetsViewModelUnitTest {
         val tweetsViewModel = TweetsViewModel(repository)
         // when
         tweetsViewModel.observeTweets()
-        advanceUntilIdle()
         val item = tweetsViewModel.uiState.value
         // then
         Assert.assertNotNull((item as MyUIResult.Error).exception.message)
