@@ -1,3 +1,46 @@
 <resources>
     <string name="app_name">android</string>
+    <string name="button_1">button 1</string>
+    <string name="button_2">button 2</string>
+    <string name="button_3">button 3</string>
+    <string name="button_4">button 4</string>
+    <string name="button_5">button 5</string>
+    <string name="button_6">button 6</string>
+    <string name="button_7">button 7</string>
+    <string name="button_8">button 8</string>
+    <string name="button_9">button 9</string>
+    <string name="button_10">button 10</string>
+    <string name="android_practice">Android practice</string>
+    <string name="constraint_layout">constraint_layout</string>
+    <string name="hello">Hello!</string>
+    <string name="github">github</string>
+    <string name="sign_up">Signup</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="or_connect_with">or connect with</string>
+    <string name="sign_up_with_email">Sign Up with E-mail</string>
+    <string name="pick_contact">pick_contact</string>
+    <string name="ok">OK</string>
+    <string name="fragment">fragment</string>
+    <string name="java">Java</string>
+    <string name="android">Android</string>
+    <string name="content_android" translatable="false">Android is a mobile operating system based on a modified version of the Linux kernel and other open source software, designed primarily for touchscreen mobile devices such as smartphones and tablets.</string>
+    <string name="content_java" translatable="false">Java is a High Level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.</string>
+    <string name="recycler_view">recycler_view</string>
+    <string name="to_the_bottom">to the bottom</string>
+    <string name="thread">thread</string>
+    <string name="zero" translatable="false">0</string>
+    <string name="zero_rx" translatable="false">the num is 0</string>
+    <string name="handler">handler</string>
+    <string name="msg1" translatable="false">msg1</string>
+    <string name="msg2" translatable="false">msg2</string>
+    <string name="rxjava" translatable="false">rxjava</string>
+    <string name="sp">SharedPreference</string>
+    <string name="sp_button">got it</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="sp_tips">tips:\nclick \"got it\" to hide the tip</string>
+    <string name="compose" translatable="false">compose</string>
 </resources>
