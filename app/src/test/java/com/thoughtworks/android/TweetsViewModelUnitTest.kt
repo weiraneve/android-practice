@@ -1,10 +1,10 @@
 package com.thoughtworks.android
 
 import com.thoughtworks.android.common.MyRepoResult
-import com.thoughtworks.android.common.MyUIResult
+import com.thoughtworks.android.common.Result
 import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.data.source.Repository
-import com.thoughtworks.android.viewmodel.TweetsViewModel
+import com.thoughtworks.android.ui.compose.TweetsViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -55,14 +55,20 @@ class TweetsViewModelUnitTest {
         val result = tweetsViewModel.uiState.value
         // then
         Assert.assertNotNull(result)
-        Assert.assertEquals(2, (result as MyUIResult.Success).data.size)
+        Assert.assertEquals(2, (result as Result.Success).data?.size)
     }
 
     @Test
     fun test_observe_tweets_failed_by_networkError() = runTest {
         // given
         coEvery { remoteDataSource.fetchTweets() } throws UnknownHostException(ERROR)
-        coEvery { repository.fetchTweets() } returns flowOf(MyRepoResult.Error(UnknownHostException(ERROR)))
+        coEvery { repository.fetchTweets() } returns flowOf(
+            MyRepoResult.Error(
+                UnknownHostException(
+                    ERROR
+                )
+            )
+        )
         coEvery { repository.getTweets() } returns emptyList()
         val tweetsViewModel = TweetsViewModel(repository)
         // when
@@ -70,7 +76,7 @@ class TweetsViewModelUnitTest {
         advanceUntilIdle()
         val item = tweetsViewModel.uiState.value
         // then
-        Assert.assertNotNull((item as MyUIResult.Error).exception.message)
+        Assert.assertNotNull((item as Result.Error).exception.message)
         Assert.assertEquals(ERROR, item.exception.message)
     }
 
