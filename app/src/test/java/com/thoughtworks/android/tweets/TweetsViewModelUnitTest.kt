@@ -1,4 +1,4 @@
-package com.thoughtworks.android
+package com.thoughtworks.android.tweets
 
 import com.thoughtworks.android.common.MyRepoResult
 import com.thoughtworks.android.common.Result
