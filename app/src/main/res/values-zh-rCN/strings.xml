@@ -25,7 +25,7 @@
     <string name="pick_contact">选择联系人</string>
     <string name="ok">OK</string>
     <string name="fragment">片段</string>
-    <string name="java">Java</string>
+    <string name="java">Java</string>】
     <string name="android">Android</string>
     <string name="recycler_view">列表视图</string>
     <string name="to_the_bottom">到底了</string>
@@ -35,4 +35,5 @@
     <string name="sp_button">知道了</string>
     <string name="welcome_back">欢迎您回来</string>
     <string name="sp_tips">提示信息:\n点击\"知道了\"不再提示</string>
+    <string name="feed">网络请求</string>
 </resources>

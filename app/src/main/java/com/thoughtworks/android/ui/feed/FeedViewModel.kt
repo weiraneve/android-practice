@@ -33,7 +33,7 @@ class FeedViewModel @Inject constructor(private val feedRepo: FeedRepository) : 
                 _feedState.update {
                     val result = when (res) {
                         is Result.Loading -> LOADING
-                        is Result.Success -> res.data?.data?.get(0).toString()
+                        is Result.Success -> res.data?.toString()
                         is Result.Error -> {
                             when (res.exception) {
                                 is NetworkReachableException -> res.exception.message

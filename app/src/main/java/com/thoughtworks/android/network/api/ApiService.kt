@@ -1,8 +1,8 @@
 package com.thoughtworks.android.network.api
 
 import com.thoughtworks.android.common.Result
-import com.thoughtworks.ark.core.network.entity.ApiException
-import com.thoughtworks.android.network.entity.NetworkReachableException
+import com.thoughtworks.android.network.exception.ApiException
+import com.thoughtworks.android.network.exception.NetworkReachableException
 import kotlinx.coroutines.flow.flow
 import okhttp3.ResponseBody
 import retrofit2.Response

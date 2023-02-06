@@ -1,4 +1,4 @@
-package com.thoughtworks.android.data.source.feed
+package com.thoughtworks.android.data.source.feed.model
 
 import kotlinx.serialization.Serializable
 

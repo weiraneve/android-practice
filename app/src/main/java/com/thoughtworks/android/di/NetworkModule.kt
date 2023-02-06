@@ -1,14 +1,12 @@
 package com.thoughtworks.android.di
 
-import android.content.Context
-import com.thoughtworks.android.data.api.RemoteFeedApiDataSource
-import com.thoughtworks.android.data.api.RetrofitFeedApi
+import com.thoughtworks.android.data.source.feed.api.RetrofitFeedApi
 import com.thoughtworks.android.data.source.feed.FeedApiDataSource
+import com.thoughtworks.android.data.source.feed.RemoteFeedApiDataSource
 import com.thoughtworks.android.network.client.ApiEndPoints
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.serialization.json.Json
@@ -32,7 +30,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiService(@ApplicationContext context: Context, json: Json): ApiEndPoints =
+    fun provideApiService(json: Json): ApiEndPoints =
         ApiEndPoints(json)
 
     @Provides
