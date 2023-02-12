@@ -13,8 +13,6 @@ import com.thoughtworks.android.R
 
 class BottomNavFragment : Fragment() {
 
-    private val bottomNavSelectedItemIdKey = "BOTTOM_NAV_SELECTED_ITEM_ID_KEY"
-    private var bottomNavSelectedItemId = R.id.home // Must be your starting destination
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,10 +23,6 @@ class BottomNavFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        savedInstanceState?.let {
-            bottomNavSelectedItemId =
-                savedInstanceState.getInt(bottomNavSelectedItemIdKey, bottomNavSelectedItemId)
-        }
         setupBottomNavBar(view)
     }
 
@@ -39,8 +33,6 @@ class BottomNavFragment : Fragment() {
         val navGraphIds = listOf(R.navigation.home, R.navigation.list, R.navigation.form)
 
         addToolbarListener(toolbar)
-        bottomNavView.selectedItemId =
-            bottomNavSelectedItemId // Needed to maintain correct state on return
 
         val controller = bottomNavView.setupWithNavController(
             fragmentManager = childFragmentManager,
@@ -53,8 +45,6 @@ class BottomNavFragment : Fragment() {
 
         controller.observe(viewLifecycleOwner) { navController ->
             NavigationUI.setupWithNavController(toolbar, navController)
-            bottomNavSelectedItemId =
-                navController.graph.id // Needed to maintain correct state on return
         }
     }
 
