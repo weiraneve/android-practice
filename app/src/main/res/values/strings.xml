@@ -44,4 +44,13 @@
     <string name="sp_tips">tips:\nclick \"got it\" to hide the tip</string>
     <string name="compose" translatable="false">compose</string>
     <string name="feed">feed</string>
+    <string name="navigation">navigation</string>
+    <string name="cd_settings" translatable="false">Settings</string>
+    <string name="title_settings" translatable="false">Settings</string>
+    <string name="cd_home" translatable="false">Home</string>
+    <string name="title_home" translatable="false">Home</string>
+    <string name="cd_list" translatable="false">List</string>
+    <string name="title_list" translatable="false">List</string>
+    <string name="cd_register" translatable="false">Register</string>
+    <string name="title_register" translatable="false">Register</string>
 </resources>

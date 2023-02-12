@@ -25,6 +25,7 @@ import com.thoughtworks.android.ui.LoginActivity
 import com.thoughtworks.android.ui.SharedPreferenceActivity
 import com.thoughtworks.android.ui.compose.ComposeActivity
 import com.thoughtworks.android.ui.fragment.MyFragmentActivity
+import com.thoughtworks.android.ui.navigation.NavigationActivity
 import com.thoughtworks.android.ui.recyclerview.TweetsActivity
 import com.thoughtworks.android.ui.thread.HandlerActivity
 import com.thoughtworks.android.ui.thread.RxJavaActivity
@@ -108,6 +109,7 @@ class MainActivity : AppCompatActivity() {
         generateButtonAndUI(R.string.sp, SharedPreferenceActivity::class.java)
         generateButtonAndUI(R.string.compose, ComposeActivity::class.java)
         generateButtonAndUI(R.string.feed, FeedActivity::class.java)
+        generateButtonAndUI(R.string.navigation, NavigationActivity::class.java)
     }
 
     private fun <T : AppCompatActivity> generateButtonAndUI(layoutInt: Int, java: Class<T>) {
