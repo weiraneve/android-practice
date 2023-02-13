@@ -26,3 +26,5 @@ the order:
 20. compose
 21. compose-state
 22. flow
+23. feed
+24. navigation
