@@ -19,10 +19,7 @@
         <deepLink
             android:id="@+id/deepLink"
             android:autoVerify="true"
-            app:uri="www.example.com/user/{userName}" />
-        <argument
-            android:name="userName"
-            app:argType="string" />
+            app:uri="www.weiran.ltd" />
     </fragment>
 
     <fragment
