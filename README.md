@@ -28,3 +28,4 @@ the order:
 22. flow
 23. feed
 24. navigation
+25. js-bridge
