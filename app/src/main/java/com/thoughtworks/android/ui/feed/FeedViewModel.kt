@@ -28,7 +28,6 @@ class FeedViewModel @Inject constructor(private val feedRepo: FeedRepository) : 
 
     private fun fetchFeed() {
         viewModelScope.launch {
-            _feedState.update { it.copy(dataText = LOADING) }
             feedRepo.getFeedList().collect { res ->
                 _feedState.update {
                     val result = when (res) {
