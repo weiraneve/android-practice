@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/welcome">
+    app:startDestination="@+id/home">
 
-    <fragment
-        android:id="@+id/welcome"
-        android:name="com.thoughtworks.android.ui.navigation.WelcomeFragment"
-        android:label="Welcome"
-        tools:layout="@layout/fragment_welcome" />
-
-    <fragment
-        android:id="@+id/bottom_nav"
-        android:name="com.thoughtworks.android.ui.navigation.BottomNavFragment"
-        android:label="Bottom Nav"
-        tools:layout="@layout/fragment_bottom_nav">
-        <deepLink
-            android:id="@+id/deepLink"
-            android:autoVerify="true"
-            app:uri="www.weiran.ltd" />
-    </fragment>
+    <include app:graph="@navigation/home" />
+    <include app:graph="@navigation/list" />
+    <include app:graph="@navigation/form" />
 
     <fragment
         android:id="@+id/settings"

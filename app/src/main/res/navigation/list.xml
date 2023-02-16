@@ -1,40 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- Your nav graph id must match your menu item id -->
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
     app:startDestination="@+id/leaderboard">
 
-        <fragment
-                android:id="@+id/leaderboard"
-                android:name="com.thoughtworks.android.ui.navigation.listscreen.ListPage"
-                android:label="@string/title_list"
-                tools:layout="@layout/fragment_list">
-        </fragment>
+    <fragment
+        android:id="@+id/leaderboard"
+        android:name="com.thoughtworks.android.ui.navigation.listscreen.ListPage"
+        android:label="@string/title_list"
+        tools:layout="@layout/fragment_list" />
 
-<!--    <fragment-->
-<!--            android:id="@+id/leaderboard"-->
-<!--            android:name="com.thoughtworks.android.ui.navigation.listscreen.xxx0"-->
-<!--            android:label="@string/title_list"-->
-<!--            tools:layout="@layout/fragment_leaderboard">-->
-<!--        <action-->
-<!--            android:id="@+id/action_leaderboard_to_userProfile"-->
-<!--            app:destination="@id/userProfile"/>-->
-<!--    </fragment>-->
-<!--    <fragment-->
-<!--        android:id="@+id/userProfile"-->
-<!--        android:name="com.thoughtworks.android.ui.navigation.listscreen.xxx1"-->
-<!--        android:label="@string/title_detail"-->
-<!--        tools:layout="@layout/fragment_user_profile">-->
-<!--        <deepLink-->
-<!--            android:id="@+id/deepLink"-->
-<!--            app:uri="www.example.com/user/{userName}"-->
-<!--            android:autoVerify="true"/>-->
-<!--        <argument-->
-<!--            android:name="userName"-->
-<!--            app:argType="string"/>-->
-<!--    </fragment>-->
 </navigation>
