@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.webkit.CookieManager
 import android.webkit.CookieSyncManager
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.lzyzsd.jsbridge.BridgeWebView
 import com.github.lzyzsd.jsbridge.BridgeWebViewClient
 import com.thoughtworks.android.R
-import kotlin.system.exitProcess
 
 /**
  * js桥的一个实践
@@ -155,23 +153,10 @@ class JsBridgeActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK && bridgeWebView!!.canGoBack()) {
-            // 返回前一个页面
-            bridgeWebView!!.goBack()
-            return true
-        } else if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit()
-            return false
-        }
-        return super.onKeyDown(keyCode, event)
-    }
-
     /**
      * 退出应用
      */
-    private fun exit() {
+    override fun onBackPressed() {
         if (System.currentTimeMillis() - exitTime > 2000) {
             Toast.makeText(
                 applicationContext, AGAIN_BACK,
@@ -179,8 +164,9 @@ class JsBridgeActivity : AppCompatActivity(), View.OnClickListener {
             ).show()
             exitTime = System.currentTimeMillis()
         } else {
-            finish()
-            exitProcess(0)
+            super.onBackPressed()
+//            finish()
+//            exitProcess(0)
         }
     }
 
