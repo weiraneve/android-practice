@@ -14,6 +14,11 @@
         android:id="@+id/settings"
         android:name="com.thoughtworks.android.ui.navigation.SettingsFragment"
         android:label="Settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+        <deepLink
+            android:id="@+id/deepLink"
+            android:autoVerify="true"
+            app:uri="www.baidu.com" />
+    </fragment>
 
 </navigation>

@@ -33,7 +33,10 @@
         <activity android:name=".ui.SharedPreferenceActivity" />
         <activity android:name=".ui.compose.ComposeActivity" />
         <activity android:name=".ui.feed.FeedActivity" />
-        <activity android:name=".ui.navigation.NavigationActivity"/>
+        <activity android:name=".ui.navigation.NavigationActivity"
+            android:exported="true">
+            <nav-graph android:value="@navigation/nav_graph" />
+        </activity>
         <activity android:name=".ui.jsbridge.JsBridgeActivity" />
     </application>
 
