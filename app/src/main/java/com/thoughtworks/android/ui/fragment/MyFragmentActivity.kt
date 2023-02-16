@@ -15,7 +15,7 @@ class MyFragmentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.my_fragment_layout)
+        setContentView(R.layout.activity_my_fragment)
         initUI()
     }
 

@@ -37,7 +37,7 @@ object UiUtils {
 
     private fun addFragment(fragment: Fragment, transaction: FragmentTransaction, fragmentId: Int) {
         if (!fragment.isAdded) {
-            transaction.add(fragmentId, fragment)
+            transaction.replace(fragmentId, fragment)
         }
     }
 
