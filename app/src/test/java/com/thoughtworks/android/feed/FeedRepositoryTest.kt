@@ -1,6 +1,6 @@
 package com.thoughtworks.android.feed
 
-import com.thoughtworks.android.common.Result
+import com.thoughtworks.android.common.bean.Result
 import com.google.common.truth.Truth.assertThat
 import com.thoughtworks.android.data.source.feed.FeedApiDataSource
 import com.thoughtworks.android.data.source.feed.FeedRepository

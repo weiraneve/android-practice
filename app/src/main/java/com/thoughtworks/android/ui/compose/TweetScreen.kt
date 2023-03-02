@@ -26,7 +26,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
-import com.thoughtworks.android.common.Result
+import com.thoughtworks.android.common.bean.Result
 import com.thoughtworks.android.data.model.Sender
 import com.thoughtworks.android.data.model.Tweet
 

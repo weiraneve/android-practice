@@ -1,6 +1,6 @@
 package com.thoughtworks.android.data.source.feed
 
-import com.thoughtworks.android.common.Result
+import com.thoughtworks.android.common.bean.Result
 import com.thoughtworks.android.data.source.feed.api.RetrofitFeedApi
 import com.thoughtworks.android.data.source.feed.model.FeedListEntity
 import com.thoughtworks.android.di.IoDispatcher

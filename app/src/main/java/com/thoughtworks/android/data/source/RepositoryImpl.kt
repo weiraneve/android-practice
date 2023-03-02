@@ -1,7 +1,7 @@
 package com.thoughtworks.android.data.source
 
 import android.content.Context
-import com.thoughtworks.android.common.MyRepoResult
+import com.thoughtworks.android.common.bean.MyRepoResult
 import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.data.source.local.LocalStorage
 import com.thoughtworks.android.data.source.local.LocalStorageImpl

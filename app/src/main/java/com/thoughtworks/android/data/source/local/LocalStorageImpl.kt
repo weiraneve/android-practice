@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.thoughtworks.android.R
-import com.thoughtworks.android.common.Constants
+import com.thoughtworks.android.common.constant.Constants
 import com.thoughtworks.android.data.model.Comment
 import com.thoughtworks.android.data.model.Image
 import com.thoughtworks.android.data.model.Sender

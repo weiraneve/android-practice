@@ -1,4 +1,4 @@
-package com.thoughtworks.android.common
+package com.thoughtworks.android.common.constant
 
 import com.thoughtworks.android.data.model.Sender
 import com.thoughtworks.android.data.model.Tweet

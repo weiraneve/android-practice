@@ -1,4 +1,4 @@
-package com.thoughtworks.android.common
+package com.thoughtworks.android.common.bean
 
 sealed class MyRepoResult<out T> {
     data class Success<out T>(val data: T) : MyRepoResult<T>()

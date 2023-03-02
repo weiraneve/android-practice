@@ -2,7 +2,7 @@ package com.thoughtworks.android.data.source
 
 import com.thoughtworks.android.data.model.Tweet
 import kotlinx.coroutines.flow.Flow
-import com.thoughtworks.android.common.MyRepoResult
+import com.thoughtworks.android.common.bean.MyRepoResult
 
 interface Repository {
     var isHintShown: Boolean

@@ -1,6 +1,6 @@
 package com.thoughtworks.android.network.api
 
-import com.thoughtworks.android.common.Result
+import com.thoughtworks.android.common.bean.Result
 import com.thoughtworks.android.network.exception.ApiException
 import com.thoughtworks.android.network.exception.NetworkReachableException
 import kotlinx.coroutines.flow.flow

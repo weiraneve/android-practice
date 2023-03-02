@@ -1,7 +1,7 @@
 package com.thoughtworks.android.tweets
 
-import com.thoughtworks.android.common.MyRepoResult
-import com.thoughtworks.android.common.Result
+import com.thoughtworks.android.common.bean.MyRepoResult
+import com.thoughtworks.android.common.bean.Result
 import com.thoughtworks.android.data.model.Tweet
 import com.thoughtworks.android.data.source.Repository
 import com.thoughtworks.android.ui.compose.TweetsViewModel

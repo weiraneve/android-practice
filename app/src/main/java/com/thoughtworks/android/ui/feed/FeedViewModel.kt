@@ -2,8 +2,8 @@ package com.thoughtworks.android.ui.feed
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thoughtworks.android.common.Result
-import com.thoughtworks.android.common.NetworkReachableException
+import com.thoughtworks.android.common.bean.Result
+import com.thoughtworks.android.common.exception.NetworkReachableException
 import com.thoughtworks.android.data.source.feed.FeedRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

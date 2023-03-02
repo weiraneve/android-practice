@@ -1,4 +1,4 @@
-package com.thoughtworks.android.common
+package com.thoughtworks.android.common.exception
 
 import java.io.IOException
 

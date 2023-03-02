@@ -1,4 +1,4 @@
-package com.thoughtworks.android.common
+package com.thoughtworks.android.common.bean
 
 sealed class Result<out T> {
     object Loading : Result<Nothing>()
