@@ -29,3 +29,4 @@ the order:
 23. feed
 24. navigation
 25. js-bridge
+26. message-bus
