@@ -2,23 +2,11 @@
 
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@+id/home">
 
     <include app:graph="@navigation/home" />
     <include app:graph="@navigation/list" />
     <include app:graph="@navigation/form" />
-
-    <fragment
-        android:id="@+id/settings"
-        android:name="com.thoughtworks.android.ui.navigation.SettingsFragment"
-        android:label="Settings"
-        tools:layout="@layout/fragment_settings">
-        <deepLink
-            android:id="@+id/deepLink"
-            android:autoVerify="true"
-            app:uri="www.baidu.com" />
-    </fragment>
 
 </navigation>
