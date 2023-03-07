@@ -79,7 +79,7 @@ dependencies {
     def room_version = "2.4.2"
     def hilt_version = "2.43.2"
     def compose_version = '1.1.0'
-    def navigation_version = '2.3.1'
+    def navigation_version = '2.5.3'
     def lifecycle_version = '2.5.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
