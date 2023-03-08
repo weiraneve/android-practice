@@ -3,8 +3,10 @@ package com.thoughtworks.android.ui.navigation
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navOptions
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,6 +14,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.thoughtworks.android.PracticeApp
 import com.thoughtworks.android.R
 
 class NavigationActivity : AppCompatActivity() {
@@ -20,6 +23,7 @@ class NavigationActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        PracticeApp.addActivity(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
 
@@ -59,4 +63,30 @@ class NavigationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        val tabList = listOf(R.id.leaderboard, R.id.register)
+        if ((navController.backQueue.count { it.destination !is NavGraph } > 1
+                    && tabList.contains(navController.currentDestination?.id))
+            || (navController.backQueue.count { it.destination !is NavGraph } == 1
+                    && navController.currentDestination?.id == R.id.titleScreen)) {
+            handleExit()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    private fun handleExit() {
+        if (System.currentTimeMillis() - exitTime > 2000) {
+            Toast.makeText(
+                applicationContext, AGAIN_BACK,
+                Toast.LENGTH_SHORT
+            ).show()
+            exitTime = System.currentTimeMillis()
+        } else PracticeApp.exit()
+    }
+
+    companion object {
+        var exitTime: Long = 0
+        const val AGAIN_BACK = "再按一次退出程序"
+    }
 }

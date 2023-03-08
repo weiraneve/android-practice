@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private val buttonContainer: LinearLayout by lazy { findViewById(R.id.button_container) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        PracticeApp.addActivity(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initUI()
