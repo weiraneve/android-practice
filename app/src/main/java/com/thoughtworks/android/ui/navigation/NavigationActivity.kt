@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navOptions
 import androidx.navigation.ui.AppBarConfiguration
@@ -41,7 +39,6 @@ class NavigationActivity : AppCompatActivity() {
             setOf(R.id.titleScreen, R.id.leaderboard, R.id.register)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        setOnBackPressedCallback()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -65,20 +62,12 @@ class NavigationActivity : AppCompatActivity() {
         }
     }
 
-    private fun setOnBackPressedCallback() {
-        onBackPressedDispatcher.addCallback(onBackPressedCallback)
-//        navController.addOnDestinationChangedListener { navigationController, _, _ ->
-//            onBackPressedCallback.isEnabled =
-//                navigationController.backQueue.count { it.destination !is NavGraph } > 1
-//        }
-    }
-
-    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            val tabList = listOf(R.id.titleScreen, R.id.leaderboard, R.id.form)
-            if (tabList.contains(navController.currentDestination?.id)) {
-                handleExit()
-            } else navController.popBackStack()
+    override fun onBackPressed() {
+        val tabList = listOf(R.id.titleScreen, R.id.leaderboard, R.id.register)
+        if (tabList.contains(navController.currentDestination?.id)) {
+            handleExit()
+        } else {
+            super.onBackPressed()
         }
     }
 

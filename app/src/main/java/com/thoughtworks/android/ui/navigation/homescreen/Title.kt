@@ -8,9 +8,8 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.thoughtworks.android.R
-import com.thoughtworks.android.ui.navigation.BaseNavFragment
 
-class Title : Fragment(), BaseNavFragment {
+class Title : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -21,6 +20,4 @@ class Title : Fragment(), BaseNavFragment {
         }
         return view
     }
-
-    override fun onBackPressed(): Boolean = false
 }
