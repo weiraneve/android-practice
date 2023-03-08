@@ -38,4 +38,6 @@
     <string name="feed">网络请求</string>
     <string name="navigation">导航</string>
     <string name="jsbridge">JS桥</string>
+    <string name="fragment_navigation">fragment版本导航</string>
+    <string name="compose_navigation">compose版本导航</string>
 </resources>

@@ -27,6 +27,7 @@ import com.thoughtworks.android.ui.compose.ComposeActivity
 import com.thoughtworks.android.ui.fragment.MyFragmentActivity
 import com.thoughtworks.android.ui.jsbridge.JsBridgeActivity
 import com.thoughtworks.android.ui.navigation.NavigationActivity
+import com.thoughtworks.android.ui.navigation.fragmentnav.FragmentNavActivity
 import com.thoughtworks.android.ui.recyclerview.TweetsActivity
 import com.thoughtworks.android.ui.thread.HandlerActivity
 import com.thoughtworks.android.ui.thread.RxJavaActivity

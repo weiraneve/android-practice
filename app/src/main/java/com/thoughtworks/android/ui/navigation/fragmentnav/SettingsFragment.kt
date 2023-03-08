@@ -1,4 +1,4 @@
-package com.thoughtworks.android.ui.navigation
+package com.thoughtworks.android.ui.navigation.fragmentnav
 
 import android.os.Bundle
 import android.view.LayoutInflater

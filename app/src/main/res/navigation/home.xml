@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/titleScreen"
-        android:name="com.thoughtworks.android.ui.navigation.homescreen.Title"
+        android:name="com.thoughtworks.android.ui.navigation.fragmentnav.homescreen.Title"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_title">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/aboutScreen"
-        android:name="com.thoughtworks.android.ui.navigation.homescreen.About"
+        android:name="com.thoughtworks.android.ui.navigation.fragmentnav.homescreen.About"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
 

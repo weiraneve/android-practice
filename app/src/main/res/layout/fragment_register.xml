@@ -6,7 +6,7 @@
     android:id="@+id/title_constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.thoughtworks.android.ui.navigation.formscreen.Register"
+    tools:context="com.thoughtworks.android.ui.navigation.fragmentnav.formscreen.Register"
     tools:layout_editor_absoluteY="81dp">
 
     <TextView

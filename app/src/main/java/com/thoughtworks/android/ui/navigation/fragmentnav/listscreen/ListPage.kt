@@ -1,4 +1,4 @@
-package com.thoughtworks.android.ui.navigation.listscreen
+package com.thoughtworks.android.ui.navigation.fragmentnav.listscreen
 
 import android.os.Bundle
 import android.view.LayoutInflater

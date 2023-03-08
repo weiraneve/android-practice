@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/register"
-        android:name="com.thoughtworks.android.ui.navigation.formscreen.Register"
+        android:name="com.thoughtworks.android.ui.navigation.fragmentnav.formscreen.Register"
         android:label="Register"
         tools:layout="@layout/fragment_register" />
 

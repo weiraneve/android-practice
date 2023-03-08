@@ -58,4 +58,6 @@
     <string name="welcome" translatable="false">Welcome</string>
     <string name="test_placeholder" translatable="false">test</string>
     <string name="jsbridge">jsbridge</string>
+    <string name="fragment_navigation">fragment_navigation</string>
+    <string name="compose_navigation">compose_navigation</string>
 </resources>

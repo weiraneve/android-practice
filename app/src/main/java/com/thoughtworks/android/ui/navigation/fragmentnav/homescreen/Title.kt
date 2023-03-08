@@ -1,4 +1,4 @@
-package com.thoughtworks.android.ui.navigation.homescreen
+package com.thoughtworks.android.ui.navigation.fragmentnav.homescreen
 
 import android.os.Bundle
 import android.view.LayoutInflater

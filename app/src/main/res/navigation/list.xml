@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/leaderboard"
-        android:name="com.thoughtworks.android.ui.navigation.listscreen.ListPage"
+        android:name="com.thoughtworks.android.ui.navigation.fragmentnav.listscreen.ListPage"
         android:label="@string/title_list"
         tools:layout="@layout/fragment_list" />
 
