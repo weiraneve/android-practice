@@ -70,7 +70,7 @@ class JsBridgeActivity : AppCompatActivity(), View.OnClickListener {
         bridgeWebView!!.run {
             settings.run {
                 allowFileAccess = true
-                setAppCacheEnabled(true)
+//                setAppCacheEnabled(true)
                 databaseEnabled = true
                 // 开启 localStorage
                 domStorageEnabled = true

@@ -39,6 +39,7 @@
             android:exported="true">
             <nav-graph android:value="@navigation/nav_graph" />
         </activity>
+        <activity android:name=".ui.navigation.composenav.ComposeNavActivity" />
         <activity android:name=".ui.jsbridge.JsBridgeActivity" />
     </application>
 

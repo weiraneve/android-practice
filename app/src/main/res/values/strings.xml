@@ -60,4 +60,7 @@
     <string name="jsbridge">jsbridge</string>
     <string name="fragment_navigation">fragment_navigation</string>
     <string name="compose_navigation">compose_navigation</string>
+    <string name="for_page" translatable="false">For you</string>
+    <string name="saved" translatable="false">Saved</string>
+    <string name="interests" translatable="false">Interests</string>
 </resources>

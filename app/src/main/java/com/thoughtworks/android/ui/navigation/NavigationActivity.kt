@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.thoughtworks.android.PracticeApp
 import com.thoughtworks.android.R
+import com.thoughtworks.android.ui.navigation.composenav.ComposeNavActivity
 import com.thoughtworks.android.ui.navigation.fragmentnav.FragmentNavActivity
 
 class NavigationActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class NavigationActivity : AppCompatActivity() {
     private fun startFragmentNavigationUi() {
         setContentView(R.layout.activity_navigation)
         generateButtonAndUI(R.string.fragment_navigation, FragmentNavActivity::class.java)
+        generateButtonAndUI(R.string.compose_navigation, ComposeNavActivity::class.java)
     }
 
     private fun <T : AppCompatActivity> generateButtonAndUI(layoutInt: Int, java: Class<T>) {
