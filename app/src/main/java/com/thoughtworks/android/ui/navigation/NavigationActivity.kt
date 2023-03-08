@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navOptions
 import androidx.navigation.ui.AppBarConfiguration
@@ -39,6 +41,7 @@ class NavigationActivity : AppCompatActivity() {
             setOf(R.id.titleScreen, R.id.leaderboard, R.id.register)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
+        setOnBackPressedCallback()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -62,21 +65,22 @@ class NavigationActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        if (onBackPressedHandled()) {
-            return
-        } else {
-            handleExit()
-        }
+    private fun setOnBackPressedCallback() {
+        onBackPressedDispatcher.addCallback(onBackPressedCallback)
+//        navController.addOnDestinationChangedListener { navigationController, _, _ ->
+//            onBackPressedCallback.isEnabled =
+//                navigationController.backQueue.count { it.destination !is NavGraph } > 1
+//        }
     }
 
-    private fun getCurrentBaseNavFragment() =
-        supportFragmentManager.findFragmentById(R.id.main_nav_container)
-            ?.childFragmentManager
-            ?.findFragmentById(R.id.main_nav_container) as BaseNavFragment
-
-    private fun onBackPressedHandled(): Boolean =
-        getCurrentBaseNavFragment().onBackPressed()
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val tabList = listOf(R.id.titleScreen, R.id.leaderboard, R.id.form)
+            if (tabList.contains(navController.currentDestination?.id)) {
+                handleExit()
+            } else navController.popBackStack()
+        }
+    }
 
     private fun handleExit() {
         if (System.currentTimeMillis() - exitTime > 2000) {
