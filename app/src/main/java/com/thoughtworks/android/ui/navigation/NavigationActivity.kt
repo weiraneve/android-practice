@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navOptions
 import androidx.navigation.ui.AppBarConfiguration
@@ -64,16 +63,20 @@ class NavigationActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val tabList = listOf(R.id.leaderboard, R.id.register)
-        if ((navController.backQueue.count { it.destination !is NavGraph } > 1
-                    && tabList.contains(navController.currentDestination?.id))
-            || (navController.backQueue.count { it.destination !is NavGraph } == 1
-                    && navController.currentDestination?.id == R.id.titleScreen)) {
-            handleExit()
+        if (onBackPressedHandled()) {
+            return
         } else {
-            super.onBackPressed()
+            handleExit()
         }
     }
+
+    private fun getCurrentBaseNavFragment() =
+        supportFragmentManager.findFragmentById(R.id.main_nav_container)
+            ?.childFragmentManager
+            ?.findFragmentById(R.id.main_nav_container) as BaseNavFragment
+
+    private fun onBackPressedHandled(): Boolean =
+        getCurrentBaseNavFragment().onBackPressed()
 
     private fun handleExit() {
         if (System.currentTimeMillis() - exitTime > 2000) {

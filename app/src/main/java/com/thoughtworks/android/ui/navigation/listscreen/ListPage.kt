@@ -14,8 +14,9 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import com.thoughtworks.android.ui.navigation.BaseNavFragment
 
-class ListPage : Fragment() {
+class ListPage : Fragment(), BaseNavFragment {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,4 +37,6 @@ class ListPage : Fragment() {
             }
         }
     }
+
+    override fun onBackPressed(): Boolean = false
 }
