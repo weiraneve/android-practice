@@ -25,12 +25,10 @@ class PracticeApp : Application() {
         fun exit() = instance().exit()
     }
 
-    // add Activity
     private fun addActivity(activity: Activity) {
         activities.add(activity)
     }
 
-    // 关闭每一个list内的activity
     private fun exit() {
         try {
             activities.forEach { it.finish() }
@@ -41,7 +39,6 @@ class PracticeApp : Application() {
         }
     }
 
-    // 杀进程
     override fun onLowMemory() {
         super.onLowMemory()
         System.gc()
