@@ -1,4 +1,4 @@
-package com.thoughtworks.android.ui.contact
+package com.thoughtworks.android.ui.someactivity
 
 import android.Manifest
 import android.annotation.SuppressLint

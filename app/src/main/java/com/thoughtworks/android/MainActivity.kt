@@ -1,12 +1,12 @@
 package com.thoughtworks.android
 
 import android.os.Bundle
-import com.thoughtworks.android.common.BaseActivity
-import com.thoughtworks.android.ui.ConstraintActivity
-import com.thoughtworks.android.ui.LoginActivity
-import com.thoughtworks.android.ui.SharedPreferenceActivity
+import com.thoughtworks.android.common.activity.BaseActivity
+import com.thoughtworks.android.ui.someactivity.ConstraintActivity
+import com.thoughtworks.android.ui.someactivity.LoginActivity
+import com.thoughtworks.android.ui.someactivity.SharedPreferenceActivity
 import com.thoughtworks.android.ui.compose.ComposeActivity
-import com.thoughtworks.android.ui.contact.ContactActivity
+import com.thoughtworks.android.ui.someactivity.ContactActivity
 import com.thoughtworks.android.ui.feed.FeedActivity
 import com.thoughtworks.android.ui.fragment.MyFragmentActivity
 import com.thoughtworks.android.ui.jsbridge.JsBridgeActivity

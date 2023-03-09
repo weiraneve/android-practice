@@ -1,4 +1,4 @@
-package com.thoughtworks.android.common
+package com.thoughtworks.android.common.activity
 
 import android.content.Intent
 import android.view.View

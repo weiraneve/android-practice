@@ -3,7 +3,7 @@ package com.thoughtworks.android.ui.navigation
 import android.os.Bundle
 import com.thoughtworks.android.PracticeApp
 import com.thoughtworks.android.R
-import com.thoughtworks.android.common.BaseActivity
+import com.thoughtworks.android.common.activity.BaseActivity
 import com.thoughtworks.android.ui.navigation.composenav.ComposeNavActivity
 import com.thoughtworks.android.ui.navigation.fragmentnav.FragmentNavActivity
 

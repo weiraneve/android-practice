@@ -1,4 +1,4 @@
-package com.thoughtworks.android.ui
+package com.thoughtworks.android.ui.someactivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
