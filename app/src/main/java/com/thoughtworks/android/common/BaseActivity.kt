@@ -17,13 +17,12 @@ open class BaseActivity : AppCompatActivity() {
         LinearLayout.LayoutParams.WRAP_CONTENT
     )
 
-    fun setContentView(): LinearLayout {
+    fun setContentView() {
         val scrollView = ScrollView(this)
         linearLayout = LinearLayout(this)
         linearLayout.orientation = LinearLayout.VERTICAL
         scrollView.addView(linearLayout)
         addContentView(scrollView, layoutParams)
-        return linearLayout
     }
 
     fun <T : AppCompatActivity> generateButtonAndUI(entryInt: Int, java: Class<T>) {
