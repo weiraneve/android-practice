@@ -39,6 +39,13 @@
             android:name=".ui.navigation.fragmentnav.FragmentNavActivity"
             android:exported="true">
             <nav-graph android:value="@navigation/nav_graph" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http"
+                    android:host="www.baidu.com" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.navigation.composenav.ComposeNavActivity" />
         <activity android:name=".ui.jsbridge.JsBridgeActivity" />
