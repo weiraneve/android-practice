@@ -24,4 +24,13 @@
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
 
+    <fragment
+        android:id="@+id/deeplinkScreen"
+        android:name="com.thoughtworks.android.ui.navigation.fragmentnav.homescreen.Deeplink"
+        android:label="@string/deeplink"
+        tools:layout="@layout/fragment_deeplink">
+        <deepLink
+            app:uri="android-app://thoughtworks.com/deeplink"/>
+    </fragment>
+
 </navigation>

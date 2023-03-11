@@ -54,6 +54,7 @@
     <string name="cd_register" translatable="false">Register</string>
     <string name="title_register" translatable="false">Register</string>
     <string name="about" translatable="false">About</string>
+    <string name="deeplink" translatable="false">Deeplink</string>
     <string name="about_description" translatable="false">This sample showcases navigation using a Bottom Navigation\n    View. The state and back stack of the three different screens are persisted.</string>
     <string name="welcome" translatable="false">Welcome</string>
     <string name="test_placeholder" translatable="false">test</string>
