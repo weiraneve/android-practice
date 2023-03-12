@@ -9,8 +9,6 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun HomePage() {
-    val firstRoute = "first_route"
-    val webRoute = "web_route"
     val navController = rememberNavController()
     Button(onClick = { navController.navigate(webRoute) }) { Text(text = "Enter WebView") }
     NavHost(
@@ -22,8 +20,11 @@ fun HomePage() {
         }
 
         composable(route = webRoute) {
-            val url = "https://www.zhihu.com/question/588383118"
-            WebScreen(url)
+            WebScreen(demoUrl)
         }
     }
 }
+
+const val firstRoute = "first_route"
+const val webRoute = "web_route"
+const val demoUrl = "https://www.zhihu.com/question/378005304/answer/2927052720"
