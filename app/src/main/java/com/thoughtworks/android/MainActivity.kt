@@ -15,6 +15,7 @@ import com.thoughtworks.android.ui.recyclerview.TweetsActivity
 import com.thoughtworks.android.ui.thread.HandlerActivity
 import com.thoughtworks.android.ui.thread.RxJavaActivity
 import com.thoughtworks.android.ui.thread.ThreadActivity
+import com.thoughtworks.android.ui.web.WebActivity
 
 class MainActivity : BaseActivity() {
 
@@ -39,6 +40,7 @@ class MainActivity : BaseActivity() {
         generateButtonAndUI(R.string.feed, FeedActivity::class.java)
         generateButtonAndUI(R.string.navigation, NavigationActivity::class.java)
         generateButtonAndUI(R.string.jsbridge, JsBridgeActivity::class.java)
+        generateButtonAndUI(R.string.web, WebActivity::class.java)
     }
 
 
