@@ -22,7 +22,8 @@ fun HomePage() {
         }
 
         composable(route = webRoute) {
-            WebScreen()
+            val url = "https://www.zhihu.com/question/588383118"
+            WebScreen(url)
         }
     }
 }
