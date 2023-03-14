@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -84,7 +83,7 @@ fun WebScreen(url: String) {
 }
 
 @Composable
-private fun ColumnScope.ProgressIndicator(progress: Float) {
+private fun ProgressIndicator(progress: Float) {
     AnimatedVisibility(visible = (progress > 0f && progress < 1f)) {
         LinearProgressIndicator(
             progress = progress,
