@@ -9,6 +9,7 @@ import com.thoughtworks.android.ui.compose.ComposeActivity
 import com.thoughtworks.android.ui.someactivity.ContactActivity
 import com.thoughtworks.android.ui.feed.FeedActivity
 import com.thoughtworks.android.ui.fragment.MyFragmentActivity
+import com.thoughtworks.android.ui.graphql.GraphqlActivity
 import com.thoughtworks.android.ui.jsbridge.JsBridgeActivity
 import com.thoughtworks.android.ui.navigation.NavigationActivity
 import com.thoughtworks.android.ui.recyclerview.TweetsActivity
@@ -41,7 +42,7 @@ class MainActivity : BaseActivity() {
         generateButtonAndUI(R.string.navigation, NavigationActivity::class.java)
         generateButtonAndUI(R.string.jsbridge, JsBridgeActivity::class.java)
         generateButtonAndUI(R.string.web, WebActivity::class.java)
+        generateButtonAndUI(R.string.graphql, GraphqlActivity::class.java)
     }
-
 
 }

@@ -65,4 +65,5 @@
     <string name="saved" translatable="false">Saved</string>
     <string name="interests" translatable="false">Interests</string>
     <string name="web" translatable="false">web</string>
+    <string name="graphql" translatable="false">graphql</string>
 </resources>

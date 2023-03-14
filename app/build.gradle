@@ -8,8 +8,8 @@ plugins {
 }
 
 apollo {
-    service("service") {
-        packageName.set("com.thoughtworks.android")
+    service("graphql") {
+        packageName.set("com.thoughtworks.android.ui.graphql.ui")
     }
 }
 
