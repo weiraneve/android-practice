@@ -1,4 +1,4 @@
-package com.thoughtworks.android.ui.navigation.composenav.navigation.composenav
+package com.thoughtworks.android.ui.navigation.composenav
 
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -28,7 +28,7 @@ import com.thoughtworks.android.ui.navigation.composenav.navigation.savedScreen
     ExperimentalAnimationApi::class
 )
 @Composable
-fun Home() {
+fun ComposeNavHome() {
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
     val navController = rememberAnimatedNavController()
     val currentDestination: NavDestination? =
