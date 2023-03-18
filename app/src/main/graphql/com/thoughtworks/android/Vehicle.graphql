@@ -1,0 +1,17 @@
+subscription Vehicle($id: ID!) {
+    getVehicleUpdate(id: $id)
+    {
+      id,
+      type,
+      brandName
+    }
+}
+
+query VehicleEZ($id: ID!) {
+  vehicle(id: $id)
+  {
+    id,
+    type,
+    modelCode
+	}
+}

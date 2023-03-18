@@ -1,15 +1,23 @@
 package com.thoughtworks.android.ui.graphql.ui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.apollographql.apollo3.api.ApolloResponse
 import com.thoughtworks.android.network.apollo.apolloClient
 import kotlinx.coroutines.launch
 
@@ -17,20 +25,46 @@ import kotlinx.coroutines.launch
 fun GraphqlHome() {
 
     val scope = rememberCoroutineScope()
-    val context = LocalContext.current
-    var email by remember { mutableStateOf("") }
-    var content by remember { mutableStateOf("") }
-    LaunchedEffect(email) {
+    var id by remember { mutableStateOf(1) }
+    var subscriptionContent by remember { mutableStateOf("") }
+    var queryContent by remember { mutableStateOf("") }
+
+    val vehicleFlow =
+        remember { apolloClient().subscription(VehicleSubscription(id.toString())).toFlow() }
+    val vehicleResponse: ApolloResponse<VehicleSubscription.Data>? by vehicleFlow.collectAsState(
+        initial = null
+    )
+    LaunchedEffect(id) {
         scope.launch {
-            val response = try {
-                apolloClient(context).mutation(LoginMutation(email)).execute()
-            } catch (e: Exception) {
-                null
+            if (vehicleResponse == null) {
+                subscriptionContent = "response is null"
+                return@launch
             }
-            content = response?.data?.login?.token.toString()
+            subscriptionContent = when (vehicleResponse!!.data?.getVehicleUpdate?.type) {
+                null -> "Subscription error"
+                else -> "Trip booked! 🚀"
+            }
         }
     }
-    Button(onClick = { email = "123456789@qq.com" }) {
-        Text(text = content)
+
+    LaunchedEffect(id) {
+        scope.launch {
+            val response = apolloClient().query(VehicleEZQuery(id.toString())).execute()
+            queryContent = if (response.hasErrors()) {
+                "query error"
+            } else {
+                response.data?.vehicle?.type.toString()
+            }
+        }
+    }
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        Button(onClick = { id = 2 }) {
+            Text(text = subscriptionContent)
+        }
+        Spacer(modifier = Modifier.height(50.dp))
+        Button(onClick = { id = 2 }) {
+            Text(text = queryContent)
+        }
     }
 }
