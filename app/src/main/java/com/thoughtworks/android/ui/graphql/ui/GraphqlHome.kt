@@ -1,6 +1,5 @@
 package com.thoughtworks.android.ui.graphql.ui
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.apollographql.apollo3.api.ApolloResponse
+import com.apollographql.apollo3.exception.ApolloException
 import com.thoughtworks.android.network.apollo.apolloClient
 import kotlinx.coroutines.launch
 
@@ -37,23 +37,24 @@ fun GraphqlHome() {
     LaunchedEffect(id) {
         scope.launch {
             if (vehicleResponse == null) {
-                subscriptionContent = "response is null"
+                subscriptionContent = NULL
                 return@launch
             }
             subscriptionContent = when (vehicleResponse!!.data?.getVehicleUpdate?.type) {
-                null -> "Subscription error"
-                else -> "Trip booked! 🚀"
+                null -> ERROR
+                else -> TRIP_BOOKED
             }
         }
     }
 
     LaunchedEffect(id) {
         scope.launch {
-            val response = apolloClient().query(VehicleEZQuery(id.toString())).execute()
-            queryContent = if (response.hasErrors()) {
-                "query error"
-            } else {
+            queryContent = try {
+                val response = apolloClient().query(VehicleEZQuery(id.toString())).execute()
                 response.data?.vehicle?.type.toString()
+            } catch (e: ApolloException) {
+                e.printStackTrace()
+                ERROR
             }
         }
     }
@@ -68,3 +69,7 @@ fun GraphqlHome() {
         }
     }
 }
+
+private const val ERROR = "error"
+private const val NULL = "null"
+private const val TRIP_BOOKED = "Trip booked! 🚀"
