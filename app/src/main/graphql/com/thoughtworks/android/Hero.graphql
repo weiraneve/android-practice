@@ -1,0 +1,23 @@
+query HeroGet {
+  getHeroesNotIsPick
+  {
+    id,
+    name,
+    line,
+    isPick
+	}
+}
+
+mutation HeroClear {
+  clearAllHero
+}
+
+subscription HeroUpdate ($id: ID!) {
+  getHeroUpdate(id: $id)
+   {
+    id,
+    name,
+    line,
+    isPick
+  }
+}

@@ -25,33 +25,16 @@ import kotlinx.coroutines.launch
 fun GraphqlHome() {
 
     val scope = rememberCoroutineScope()
-    var id by remember { mutableStateOf(1) }
-    var subscriptionContent by remember { mutableStateOf("") }
+    var subId by remember { mutableStateOf(1) }
     var queryContent by remember { mutableStateOf("") }
+    var mutationContent by remember { mutableStateOf("") }
+    var subscriptionContent by remember { mutableStateOf("") }
 
-    val vehicleFlow =
-        remember { apolloClient().subscription(VehicleSubscription(id.toString())).toFlow() }
-    val vehicleResponse: ApolloResponse<VehicleSubscription.Data>? by vehicleFlow.collectAsState(
-        initial = null
-    )
-    LaunchedEffect(id) {
-        scope.launch {
-            if (vehicleResponse == null) {
-                subscriptionContent = NULL
-                return@launch
-            }
-            subscriptionContent = when (vehicleResponse!!.data?.getVehicleUpdate?.type) {
-                null -> ERROR
-                else -> TRIP_BOOKED
-            }
-        }
-    }
-
-    LaunchedEffect(id) {
+    LaunchedEffect(Unit) {
         scope.launch {
             queryContent = try {
-                val response = apolloClient().query(VehicleEZQuery(id.toString())).execute()
-                response.data?.vehicle?.type.toString()
+                val response = apolloClient().query(HeroGetQuery()).execute()
+                response.data?.getHeroesNotIsPick?.name.toString()
             } catch (e: ApolloException) {
                 e.printStackTrace()
                 ERROR
@@ -59,14 +42,49 @@ fun GraphqlHome() {
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        Button(onClick = { id = 2 }) {
-            Text(text = subscriptionContent)
+    LaunchedEffect(Unit) {
+        scope.launch {
+            mutationContent = try {
+                val response = apolloClient().mutation(HeroClearMutation()).execute()
+                response.data?.clearAllHero.toString()
+            } catch (e: ApolloException) {
+                e.printStackTrace()
+                ERROR
+            }
         }
-        Spacer(modifier = Modifier.height(50.dp))
-        Button(onClick = { id = 2 }) {
+    }
+
+    val vehicleFlow =
+        remember { apolloClient().subscription(HeroUpdateSubscription(subId.toString())).toFlow() }
+    val vehicleResponse: ApolloResponse<HeroUpdateSubscription.Data>? by vehicleFlow.collectAsState(
+        initial = null
+    )
+    LaunchedEffect(subId) {
+        scope.launch {
+            if (vehicleResponse == null) {
+                subscriptionContent = NULL
+                return@launch
+            }
+            subscriptionContent = when (vehicleResponse!!.data?.getHeroUpdate?.name) {
+                null -> ERROR
+                else -> TRIP_BOOKED
+            }
+        }
+    }
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        Button(onClick = {}) {
             Text(text = queryContent)
         }
+        Spacer(modifier = Modifier.height(50.dp))
+        Button(onClick = {}) {
+            Text(text = mutationContent)
+        }
+        Spacer(modifier = Modifier.height(50.dp))
+        Button(onClick = { subId = 2 }) {
+            Text(text = subscriptionContent)
+        }
+
     }
 }
 
