@@ -14,7 +14,8 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(@ApplicationContext context: Context) : Repository {
 
     private val localStorage: LocalStorage
-    private val remoteDataSource = RemoteDataSourceImpl()
+//    private val remoteDataSource = RemoteDataSourceImpl()
+    private val localStorageImpl = LocalStorageImpl(context)
 
     init {
         localStorage = LocalStorageImpl(context)
@@ -30,13 +31,22 @@ class RepositoryImpl @Inject constructor(@ApplicationContext context: Context) :
         var tweets: List<Tweet>
         return flow {
             try {
-                tweets = remoteDataSource.fetchTweets()
+                tweets = localStorageImpl.getTweets()
                 emit(MyRepoResult.Success(tweets))
             } catch (e: Exception) {
                 emit(MyRepoResult.Error(e))
             }
-
         }
+
+        // todo network bug
+//        return flow {
+//            try {
+//                tweets = remoteDataSource.fetchTweets()
+//                emit(MyRepoResult.Success(tweets))
+//            } catch (e: Exception) {
+//                emit(MyRepoResult.Error(e))
+//            }
+//        }
     }
 
     override suspend fun getTweets(): List<Tweet> {
