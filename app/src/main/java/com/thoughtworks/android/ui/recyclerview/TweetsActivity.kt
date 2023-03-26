@@ -24,8 +24,19 @@ class TweetsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tweets)
-        initViewModel()
         initUI()
+        initViewModel()
+    }
+
+    private fun initUI() {
+        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        tweetAdapter = TweetAdapter(this)
+        recyclerView.adapter = tweetAdapter
+
+        swipeRefreshLayout.setOnRefreshListener {
+            tweetsViewModel.refreshTweets()
+        }
     }
 
     private fun initViewModel() {
@@ -46,17 +57,6 @@ class TweetsActivity : AppCompatActivity() {
             }
         }
         tweetsViewModel.observeTweets()
-    }
-
-    private fun initUI() {
-        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        tweetAdapter = TweetAdapter(this)
-        recyclerView.adapter = tweetAdapter
-
-        swipeRefreshLayout.setOnRefreshListener {
-            tweetsViewModel.refreshTweets()
-        }
     }
 
     private fun showError(errorMsg: String) {

@@ -31,7 +31,7 @@ class RepositoryImpl @Inject constructor(@ApplicationContext context: Context) :
         var tweets: List<Tweet>
         return flow {
             try {
-                tweets = localStorageImpl.getTweets()
+                tweets = localStorageImpl.getTweetsFromRaw()
                 emit(MyRepoResult.Success(tweets))
             } catch (e: Exception) {
                 emit(MyRepoResult.Error(e))
