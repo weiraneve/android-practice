@@ -12,7 +12,7 @@ type Hero {
 }
 
 type Query {
-  getHeroesNotIsPick: Hero
+  getHeroesNotIsPick: [Hero]
 }
 
 type Mutation {
