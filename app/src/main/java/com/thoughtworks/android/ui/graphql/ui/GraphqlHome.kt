@@ -17,8 +17,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.apollographql.apollo3.api.ApolloResponse
+import com.apollographql.apollo3.api.Optional
 import com.apollographql.apollo3.exception.ApolloException
 import com.thoughtworks.android.network.apollo.apolloClient
+import com.thoughtworks.android.ui.graphql.ui.type.PostParam
 import kotlinx.coroutines.launch
 
 @Composable
@@ -29,12 +31,13 @@ fun GraphqlHome() {
     var queryContent by remember { mutableStateOf("") }
     var mutationContent by remember { mutableStateOf("") }
     var subscriptionContent by remember { mutableStateOf("") }
+    var queryPickContent by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
         scope.launch {
             queryContent = try {
                 val response = apolloClient().query(HeroGetQuery()).execute()
-                response.data?.getHeroesNotIsPick?.name.toString()
+                response.data?.getHeroesNotIsPick?.get(0)?.name.toString()
             } catch (e: ApolloException) {
                 e.printStackTrace()
                 ERROR
@@ -54,20 +57,34 @@ fun GraphqlHome() {
         }
     }
 
-    val vehicleFlow =
+    val responseFlow =
         remember { apolloClient().subscription(HeroUpdateSubscription(subId.toString())).toFlow() }
-    val vehicleResponse: ApolloResponse<HeroUpdateSubscription.Data>? by vehicleFlow.collectAsState(
+    val response: ApolloResponse<HeroUpdateSubscription.Data>? by responseFlow.collectAsState(
         initial = null
     )
     LaunchedEffect(subId) {
         scope.launch {
-            if (vehicleResponse == null) {
+            if (response == null) {
                 subscriptionContent = NULL
                 return@launch
             }
-            subscriptionContent = when (vehicleResponse!!.data?.getHeroUpdate?.name) {
+            subscriptionContent = when (response!!.data?.getHeroUpdate?.name) {
                 null -> ERROR
                 else -> TRIP_BOOKED
+            }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        scope.launch {
+            queryPickContent = try {
+                val queryPickResponse =
+                    apolloClient().query(PickHeroesQuery(PostParam(encryptCode = Optional.present("asd"))))
+                        .execute()
+                queryPickResponse.data?.pickHeroes.toString()
+            } catch (e: ApolloException) {
+                e.printStackTrace()
+                ERROR
             }
         }
     }
@@ -84,7 +101,10 @@ fun GraphqlHome() {
         Button(onClick = { subId = 2 }) {
             Text(text = subscriptionContent)
         }
-
+        Spacer(modifier = Modifier.height(50.dp))
+        Button(onClick = {}) {
+            Text(text = queryPickContent)
+        }
     }
 }
 

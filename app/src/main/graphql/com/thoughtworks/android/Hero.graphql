@@ -8,6 +8,20 @@ query HeroGet {
 	}
 }
 
+query PickHeroes($param: PostParam!) {
+  pickHeroes(param: $param) {
+    teamId
+    data
+    time
+    logs {
+      teamId
+      pickGroup
+      time
+    }
+  }
+}
+
+
 mutation HeroClear {
   clearAllHero
 }
