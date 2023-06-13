@@ -66,4 +66,5 @@
     <string name="interests" translatable="false">Interests</string>
     <string name="web" translatable="false">web</string>
     <string name="graphql" translatable="false">graphql</string>
+    <string name="open_other_app">open other app</string>
 </resources>
