@@ -16,8 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class OpenOtherActivity : AppCompatActivity() {
 
     private val viewModel: OpenOtherViewModel by viewModels()
-    private val requestCode = 1234 // 自定义的请求代码
-
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +27,7 @@ class OpenOtherActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.QUERY_ALL_PACKAGES),
-                requestCode
+                REQUEST_CODE
             )
         }
     }
@@ -40,13 +38,17 @@ class OpenOtherActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == this.requestCode) {
+        if (requestCode == REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 viewModel.openOtherApp()
             } else {
                 // Permission denied.
             }
         }
+    }
+
+    companion object {
+        private const val REQUEST_CODE = 0 // 自定义的请求代码
     }
 }
 
