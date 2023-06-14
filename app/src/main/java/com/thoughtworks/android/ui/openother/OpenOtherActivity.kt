@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.thoughtworks.android.ui.openother.ui.OpenOtherHome
@@ -16,7 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class OpenOtherActivity : AppCompatActivity() {
 
     private val viewModel: OpenOtherViewModel by viewModels()
-    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -24,11 +22,13 @@ class OpenOtherActivity : AppCompatActivity() {
         }
 
         viewModel.permissionRequestEvent.observe(this) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.QUERY_ALL_PACKAGES),
-                REQUEST_CODE
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.QUERY_ALL_PACKAGES),
+                    REQUEST_CODE
+                )
+            }
         }
     }
 
