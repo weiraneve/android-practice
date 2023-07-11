@@ -15,7 +15,7 @@ import com.thoughtworks.android.data.model.Tweet
 
 class TweetAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val tweets = ArrayList<Tweet>()
+    private val _tweets = ArrayList<Tweet>()
 
     companion object {
         private const val VIEW_TYPE_TWEET = 0
@@ -25,8 +25,8 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(tweets: List<Tweet>) {
-        this.tweets.clear()
-        this.tweets.addAll(tweets)
+        this._tweets.clear()
+        this._tweets.addAll(tweets)
         notifyDataSetChanged()
     }
 
@@ -36,6 +36,7 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
             VIEW_TYPE_BOTTOM -> BottomViewHolder(
                 inflater.inflate(R.layout.tweet_bottom, parent, false)
             )
+
             else -> TweetViewHolder(inflater.inflate(R.layout.tweet_item_layout, parent, false))
         }
     }
@@ -43,7 +44,7 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == VIEW_TYPE_TWEET) {
             val tweetViewHolder = holder as TweetViewHolder
-            val tweet: Tweet = tweets[position]
+            val tweet: Tweet = _tweets[position]
             tweetViewHolder.name.text = ""
             tweetViewHolder.content.text = ""
             if (tweet.sender == null) {
@@ -65,12 +66,12 @@ class TweetAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     override fun getItemCount(): Int {
-        return tweets.size + 1
+        return _tweets.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (tweets.size == 0) return VIEW_TYPE_NETWORK_ERROR
-        return if (position < tweets.size) VIEW_TYPE_TWEET else VIEW_TYPE_BOTTOM
+        if (_tweets.size == 0) return VIEW_TYPE_NETWORK_ERROR
+        return if (position < _tweets.size) VIEW_TYPE_TWEET else VIEW_TYPE_BOTTOM
     }
 
     class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
