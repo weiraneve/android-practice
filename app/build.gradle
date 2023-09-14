@@ -126,6 +126,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "com.google.accompanist:accompanist-webview:$accompanist_version"
     implementation("com.apollographql.apollo3:apollo-runtime:3.7.4")
+    implementation "com.bytedance.tools.codelocator:codelocator-core:2.0.3"
 
     kapt "androidx.room:room-compiler:$room_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
