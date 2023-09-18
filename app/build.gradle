@@ -5,6 +5,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'org.jetbrains.kotlin.plugin.serialization'
     id 'com.apollographql.apollo3'
+    id 'me.ele.lancet'
 }
 
 apollo {
@@ -89,6 +90,7 @@ dependencies {
     def navigation_version = '2.5.3'
     def lifecycle_version = '2.5.0'
     def accompanist_version = '0.28.0'
+    def codelocator_version = "2.0.3"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.0'
@@ -120,13 +122,14 @@ dependencies {
     implementation "com.google.accompanist:accompanist-navigation-animation:0.28.0"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0"
     implementation 'androidx.compose.material3:material3:1.0.1'
-    implementation'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "com.google.accompanist:accompanist-webview:$accompanist_version"
     implementation("com.apollographql.apollo3:apollo-runtime:3.7.4")
-    implementation "com.bytedance.tools.codelocator:codelocator-core:2.0.3"
+    implementation "com.bytedance.tools.codelocator:codelocator-core:$codelocator_version"
+    debugImplementation "com.bytedance.tools.codelocator:codelocator-lancet-all:$codelocator_version"
 
     kapt "androidx.room:room-compiler:$room_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
@@ -142,4 +145,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'androidx.test:rules:1.4.0'
+    compileOnly 'me.ele:lancet-base:1.0.6'
 }

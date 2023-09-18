@@ -1,7 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext.kotlin_version = "1.6.10"
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.bytedance.tools.lancet:lancet-plugin-asm6:1.0.2'
+    }
+}
+
 plugins {
-    id 'com.android.application' version '7.2.2' apply false
-    id 'com.android.library' version '7.2.2' apply false
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
     id 'dagger.hilt.android.plugin' version '2.43.2' apply false
     id 'org.jetbrains.kotlin.multiplatform' version '1.6.10' apply false
