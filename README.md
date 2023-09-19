@@ -31,3 +31,4 @@ main content introduction:
 26. message-bus 消息总线使用
 27. webview 用compose组件完成的webview和对应的进度条和web bottom bar
 28. graphql 简单apollo-client 使用graphql
+29. codelocator插件和集成lancet依赖 [字节跳动开源的安卓开发插件--安卓开发者的利器](https://github.com/bytedance/CodeLocator)
