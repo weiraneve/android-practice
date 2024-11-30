@@ -5,7 +5,6 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'org.jetbrains.kotlin.plugin.serialization'
     id 'com.apollographql.apollo3'
-    id 'me.ele.lancet'
 }
 
 apollo {
@@ -22,8 +21,8 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.thoughtworks.android"
-        minSdk 26
+        namespace "com.thoughtworks.android"
+        minSdk 31
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -129,7 +128,6 @@ dependencies {
     implementation "com.google.accompanist:accompanist-webview:$accompanist_version"
     implementation("com.apollographql.apollo3:apollo-runtime:3.7.4")
     implementation "com.bytedance.tools.codelocator:codelocator-core:$codelocator_version"
-    debugImplementation "com.bytedance.tools.codelocator:codelocator-lancet-all:$codelocator_version"
 
     kapt "androidx.room:room-compiler:$room_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
@@ -145,5 +143,4 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'androidx.test:rules:1.4.0'
-    compileOnly 'me.ele:lancet-base:1.0.6'
 }
