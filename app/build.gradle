@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.plugin.compose'
     id 'org.jetbrains.kotlin.plugin.serialization'
     id 'com.apollographql.apollo3'
 }
@@ -63,10 +64,6 @@ android {
         compose true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.1.0'
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -84,8 +81,8 @@ android {
 
 dependencies {
     def room_version = "2.4.2"
-    def hilt_version = "2.43.2"
-    def compose_version = '1.1.0'
+    def hilt_version = "2.48"
+    def compose_version = '1.4.0'
     def navigation_version = '2.5.3'
     def lifecycle_version = '2.5.0'
     def accompanist_version = '0.28.0'
@@ -97,7 +94,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation("io.coil-kt:coil:1.1.0")
+    implementation("io.coil-kt:coil:1.4.0")
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.2'
     implementation "androidx.room:room-ktx:$room_version"
