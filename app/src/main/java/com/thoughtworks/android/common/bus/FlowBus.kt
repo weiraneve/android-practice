@@ -2,23 +2,10 @@ package com.thoughtworks.android.common.bus
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
-import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.whenStateAtLeast
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import androidx.lifecycle.*
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class FlowBus : ViewModel() {
 
@@ -134,10 +121,6 @@ private object ApplicationScopeViewModelProvider : ViewModelStoreOwner {
 
     private val eventViewModelStore: ViewModelStore = ViewModelStore()
 
-    override fun getViewModelStore(): ViewModelStore {
-        return eventViewModelStore
-    }
-
     private val mApplicationProvider: ViewModelProvider by lazy {
         ViewModelProvider(
             ApplicationScopeViewModelProvider,
@@ -148,13 +131,11 @@ private object ApplicationScopeViewModelProvider : ViewModelStoreOwner {
     fun <T : ViewModel> getApplicationScopeViewModel(modelClass: Class<T>): T {
         return mApplicationProvider[modelClass]
     }
+
+    override val viewModelStore: ViewModelStore
+        get() = TODO("Not yet implemented")
 }
 
 object FlowBusInitializer {
     lateinit var application: Application
-
-    // 在Application中初始化
-    fun init(application: Application) {
-        FlowBusInitializer.application = application
-    }
 }
